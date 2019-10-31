@@ -6,7 +6,7 @@ sudo service jetty restart
 
 nosetests --ckan \
           --nologcapture \
-          --with-pylons=subdir/test.ini \
+          --with-pylons=test.travis.ini \
           --with-coverage \
           --cover-package=ckanext.visualize \
           --cover-inclusive \
