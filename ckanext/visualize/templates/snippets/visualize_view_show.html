@@ -1,78 +1,62 @@
 {# Adds 'Visualize View' #}
 
-{% resource 'visualize/css/main.css' %}
+{% resource 'visualize/js/Chart.bundle.js' %}
+{% resource 'visualize/js/Sortable.js' %}
+{% resource 'visualize/js/data.js' %}
+{% resource 'visualize/js/bar.js' %}
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Toronto CKAN Data Viewer</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous" />
-</head>
-
-<body>
-
-    <section role="main" class="container visualize-wrapper">
-        <div class="row">
-            <div class="col-md-12">
-                <nav class="main-nav navbar">
-                    <div class="col-md-2 figure-wrapper">
-                        <figure class="figure symbol-item">
-                            <img src="/base/images/Bar-symbol.png" class="figure-img img-responsive"
-                                alt="An icon representing visualization type" />
-                        </figure>
-                    </div>
-                    <section class="col-md-10 actions-group">
-                        <ul id="all-columns" class="list-group group-items-select list-group-horizontal">
-                            <li class="list-group-item column" data-column="days">
-                                <span class="badge-pill color-secondary column-pill">{{ _('Day of
-                                        week') }}</span>
-                            </li>
-                            <li class="list-group-item column" data-column="temp">
-                                <span class="badge-pill color-primary column-pill">{{ _('Temperature') }}</span>
-                            </li>
-                        </ul>
-                        <ul class="list-group group-items-drop list-group-horizontal">
-                            <li id="x-axis" class="list-group-item">
-                                <span class="info-text"><small>{{ _('X axis') }}</small></span>
-                            </li>
-                            <li id="y-axis" class="list-group-item">
-                                <span class="info-text"><small>{{ _('Y axis') }}</small></span>
-                            </li>
-                            <li id="colour-attr" class="list-group-item">
-                                <span class="info-text"><small>{{ _('Colour') }}</small></span>
-                            </li>
-
-                        </ul>
-                    </section>
-                </nav>
-            </div>
+<section role="main" class="container visualize-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="main-nav navbar">
+        <div class="col-md-2 figure-wrapper">
+          <figure class="figure symbol-item">
+            <img
+              src="/base/images/Bar-symbol.png"
+              class="figure-img img-responsive"
+              alt="An icon representing visualization type"
+            />
+          </figure>
         </div>
-    </section>
-    <section class="container chart-container">
-        <canvas id="barChart"></canvas>
-    </section>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
-
-    <!-- <script src="js/Chart.bundle.min.js"></script>
-  <script src="js/Sortable.min.js"></script>
-  <script src="js/data.js"></script>
-  <script src="js/bar.js"></script> -->
-</body>
-
-</html>
+        <section class="col-md-10 actions-group">
+          <ul
+            id="all-columns"
+            class="list-group group-items-select list-group-horizontal"
+          >
+            <li class="list-group-item column" data-column="days">
+              <span class="badge-pill color-secondary column-pill">{{
+                _('Day of
+                                        week')
+              }}</span>
+            </li>
+            <li class="list-group-item column" data-column="temp">
+              <span class="badge-pill color-primary column-pill">{{
+                _('Temperature')
+              }}</span>
+            </li>
+          </ul>
+          <ul class="list-group group-items-drop list-group-horizontal">
+            <li id="x-axis" class="list-group-item">
+              <span class="info-text"
+                ><small>{{ _('X axis') }}</small></span
+              >
+            </li>
+            <li id="y-axis" class="list-group-item">
+              <span class="info-text"
+                ><small>{{ _('Y axis') }}</small></span
+              >
+            </li>
+            <li id="colour-attr" class="list-group-item">
+              <span class="info-text"
+                ><small>{{ _('Colour') }}</small></span
+              >
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+  </div>
+</section>
+<section class="container chart-container">
+  <canvas id="barChart"></canvas>
+</section>
