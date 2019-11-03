@@ -1,6 +1,10 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
+not_empty = plugins.toolkit.get_validator('not_empty')
+ignore_missing = plugins.toolkit.get_validator('ignore_missing')
+ignore_empty = plugins.toolkit.get_validator('ignore_empty')
+
 
 class VisualizePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -16,13 +20,20 @@ class VisualizePlugin(plugins.SingletonPlugin):
     # IResourceView
 
     def info(self):
-        schema = {}
+        schema = {
+            'chart_type': [not_empty],
+            'x_fields': [not_empty],
+            'y_fields': [not_empty]
+        }
 
         return {
-            'name': 'Visualize',
+            'name': 'visualize',
+            'title': toolkit._('Visualize'),
             'icon': 'bar-chart-o',
             'filterable': True,
             'iframed': False,
+            'preview_enabled': False,
+            'full_page_edit': True,
             'schema': schema
         }
 
