@@ -1,0 +1,148 @@
+/* Visualize Chart Colors */
+
+.color-primary {
+  color: #fff;
+  background-color: #332288;
+}
+.color-secondary {
+  color: #fff;
+  background-color: #882255;
+}
+.color-success {
+  color: #fff;
+  background-color: #117733;
+}
+.color-info {
+  color: #000;
+  background-color: #ddcc77;
+}
+.color-warning {
+  color: #fff;
+  background-color: #aa4499;
+}
+
+.color-danger {
+  color: #fff;
+  background-color: #cc6677;
+}
+
+/* Visualize CSS */
+section.visualize-wrapper {
+  width: 100%;
+  background: white;
+  padding: 0;
+}
+section.chart-container {
+  min-height: 100%;
+  display: flex;
+  align-content: center;
+}
+
+.main-nav {
+  margin-top: 2rem;
+  padding: 4rem 2rem 2rem 2rem;
+  background: #fff;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.05);
+}
+
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.list-group-horizontal {
+  flex-direction: row;
+}
+
+.list-group-horizontal .list-group-item {
+  margin-right: -1px;
+  margin-bottom: 0;
+}
+
+#x-axis.list-group-item:first-child,
+#y-axis.list-group-item:first-child,
+#colour-attr.list-group-item:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.group-items-select {
+  flex-wrap: wrap;
+  background: #eee;
+  border-radius: 0;
+  padding: 0.5rem;
+}
+.group-items-select li {
+  background: transparent;
+  border: none;
+}
+
+.group-items-drop {
+  margin: 0 0 1.5rem 0;
+}
+
+.group-items-drop li {
+  width: 100%;
+  margin: 0;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border: 1px dashed #332288;
+}
+
+.group-items-drop .list-group-item.column {
+  width: 100%;
+}
+
+.badge-pill {
+  display: inline-block;
+  min-width: 10px;
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 100rem;
+}
+
+.column-pill {
+  cursor: grab;
+}
+
+/* Responsive Design */
+
+@media (max-width: 576px) {
+  .list-group-horizontal {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-group-horizontal {
+    flex-direction: column;
+  }
+
+  .group-items-select {
+    flex-direction: row;
+  }
+  #all-columns.list-group-item {
+    margin: 1rem 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .figure-wrapper {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 1200px) {
+}
