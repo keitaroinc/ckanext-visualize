@@ -9,6 +9,7 @@ ignore_empty = plugins.toolkit.get_validator('ignore_empty')
 class VisualizePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IResourceView, inherit=True)
+    plugins.implements(plugins.IRoutes, inherit=True)
 
     # IConfigurer
 
@@ -20,20 +21,14 @@ class VisualizePlugin(plugins.SingletonPlugin):
     # IResourceView
 
     def info(self):
-        schema = {
-            'chart_type': [not_empty],
-            'x_fields': [not_empty],
-            'y_fields': [not_empty]
-        }
+        schema = {}
 
         return {
             'name': 'visualize',
-            'title': toolkit._('Visualize'),
+            'title': toolkit._('Visualize data'),
             'icon': 'bar-chart-o',
             'filterable': True,
             'iframed': False,
-            'preview_enabled': False,
-            'full_page_edit': True,
             'schema': schema
         }
 
@@ -52,5 +47,14 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def view_template(self, context, data_dict):
         return 'visualize_view.html'
 
-    def form_template(self, context, data_dict):
-        return 'visualize_form.html'
+    # IRoutes
+    def before_map(self, map):
+        ctrl =\
+            'ckanext.visualize.controllers.visualize:VisualizeDataController'
+        map.connect(
+            '/visualize_data',
+            controller=ctrl,
+            action='visualize_data'
+        )
+
+        return map
