@@ -3,4 +3,5 @@ omit =
     */site-packages/*
     */python?.?/*
     ckan/*
+    tests/*
 show_missing = True
