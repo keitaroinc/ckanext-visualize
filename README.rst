@@ -5,8 +5,9 @@
 .. image:: https://travis-ci.org/keitaroinc/ckanext-visualize.svg?branch=master
     :target: https://travis-ci.org/keitaroinc/ckanext-visualize
 
-.. image:: https://coveralls.io/repos/github/keitaroinc/ckanext-visualize/badge.svg
-    :target: https://coveralls.io/github/keitaroinc/ckanext-visualize
+.. image:: https://coveralls.io/repos/github/keitaroinc/ckanext-visualize/badge.svg?branch=master
+    :target: https://coveralls.io/github/keitaroinc/ckanext-visualize?branch=master
+
 
 =============
 ckanext-visualize
