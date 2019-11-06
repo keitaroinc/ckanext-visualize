@@ -5,58 +5,47 @@
 {% resource 'visualize/js/data.js' %}
 {% resource 'visualize/js/bar.js' %}
 
-<section role="main" class="container visualize-wrapper">
-  <div class="row">
-    <div class="col-md-12">
-      <nav class="main-nav navbar">
-        <div class="col-md-2 figure-wrapper">
-          <figure class="figure symbol-item">
-            <img
-              src="/base/images/Bar-symbol.png"
-              class="figure-img img-responsive"
-              alt="An icon representing visualization type"
-            />
-          </figure>
+<section class="container visualize-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="main-nav navbar">
+                <div class="col-md-2 figure-wrapper">
+                    <figure>
+                        <img src="/base/images/Bar-symbol.png" class="img-responsive"
+                            alt="An icon representing visualization type" />
+                    </figure>
+                </div>
+                <section class="col-md-10">
+                    <ul id="all-columns" class="list-group group-items-select list-group-horizontal">
+                        <li class="list-group-item column" data-column="days">
+                            <span class="badge-pill color-secondary column-pill">
+                                {{ _('Day of week') }}</span>
+                        </li>
+                        <li class="list-group-item column" data-column="temp">
+                            <span class="badge-pill color-primary column-pill">
+                                {{_('Temperature') }}</span>
+                        </li>
+                    </ul>
+                    <ul class="list-group group-items-drop list-group-horizontal">
+                        <li id="x-axis" class="list-group-item">
+                            <span class="info-text"><small>{{ _('X axis') }}</small></span>
+                        </li>
+                        <li id="y-axis" class="list-group-item">
+                            <span class="info-text"><small>{{ _('Y axis') }}</small></span>
+                        </li>
+                        <li id="colour-attr" class="list-group-item">
+                            <span class="info-text"><small>{{ _('Colour') }}</small></span>
+                        </li>
+                    </ul>
+                </section>
+            </nav>
         </div>
-        <section class="col-md-10 actions-group">
-          <ul
-            id="all-columns"
-            class="list-group group-items-select list-group-horizontal"
-          >
-            <li class="list-group-item column" data-column="days">
-              <span class="badge-pill color-secondary column-pill">{{
-                _('Day of
-                                        week')
-              }}</span>
-            </li>
-            <li class="list-group-item column" data-column="temp">
-              <span class="badge-pill color-primary column-pill">{{
-                _('Temperature')
-              }}</span>
-            </li>
-          </ul>
-          <ul class="list-group group-items-drop list-group-horizontal">
-            <li id="x-axis" class="list-group-item">
-              <span class="info-text"
-                ><small>{{ _('X axis') }}</small></span
-              >
-            </li>
-            <li id="y-axis" class="list-group-item">
-              <span class="info-text"
-                ><small>{{ _('Y axis') }}</small></span
-              >
-            </li>
-            <li id="colour-attr" class="list-group-item">
-              <span class="info-text"
-                ><small>{{ _('Colour') }}</small></span
-              >
-            </li>
-          </ul>
-        </section>
-      </nav>
     </div>
-  </div>
-</section>
-<section class="container chart-container">
-  <canvas id="barChart"></canvas>
+
+    <div class="col-md-12">
+        <section class="chart-container">
+            <canvas id="barChart"></canvas>
+        </section>
+    </div>
+
 </section>

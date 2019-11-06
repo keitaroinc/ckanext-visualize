@@ -27,26 +27,14 @@
 }
 
 /* Visualize CSS */
-section.visualize-wrapper {
+.visualize-wrapper {
   width: 100%;
-  background: white;
+  background: #fff;
   padding: 0;
 }
-section.chart-container {
-  min-height: 100%;
-  display: flex;
-  align-content: center;
-}
-
 .main-nav {
-  margin-top: 2rem;
-  padding: 4rem 2rem 2rem 2rem;
-  background: #fff;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.05);
+  margin-top: 3rem;
 }
-
 .list-group {
   display: flex;
   flex-direction: column;
@@ -83,6 +71,7 @@ section.chart-container {
 
 .group-items-drop {
   margin: 0 0 1.5rem 0;
+  padding: 1rem 0;
 }
 
 .group-items-drop li {
@@ -149,6 +138,6 @@ section.chart-container {
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */
-button[name="preview"] {
+button[name='preview'] {
   display: none;
 }
