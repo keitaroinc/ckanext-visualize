@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% import 'macros/form.html' as form %}
+
+{% set action_url = h.url_for('ckanadmin_visualize_data') %}
+
+{% block primary_content_inner %}
+    <form method="post" action="{{ action_url }}" class="form-horizontal col-sm-12">
+        <div>Form elements go here</div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary" name="save">{{ _('Update') }}</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block secondary_content %}
+  <div class="module module-narrow module-shallow">
+    <h2 class="module-heading">
+      <i class="fa fa-info-circle"></i>
+      {{ _('Visualize data options') }}
+    </h2>
+    <div class="module-content">
+      {% block admin_form_help %}
+        <span>Help tips for options go here</span>
+      {% endblock %}
+    </div>
+  </div>
+{% endblock %}
