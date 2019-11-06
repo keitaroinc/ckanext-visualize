@@ -17,14 +17,11 @@
                 </div>
                 <section class="col-md-10">
                     <ul id="all-columns" class="list-group group-items-select list-group-horizontal">
-                        <li class="list-group-item column" data-column="days">
-                            <span class="badge-pill color-secondary column-pill">
-                                {{ _('Day of week') }}</span>
-                        </li>
-                        <li class="list-group-item column" data-column="temp">
-                            <span class="badge-pill color-primary column-pill">
-                                {{_('Temperature') }}</span>
-                        </li>
+                        {% for field in fields %}
+                            <li class="list-group-item column" data-column="{{ field.value }}">
+                                <span class="badge-pill color-secondary column-pill">{{ field.value }}</span>
+                            </li>
+                        {% endfor %}
                     </ul>
                     <ul class="list-group group-items-drop list-group-horizontal">
                         <li id="x-axis" class="list-group-item">
