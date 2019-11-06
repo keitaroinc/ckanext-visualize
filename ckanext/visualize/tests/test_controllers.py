@@ -32,14 +32,14 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         route = url_for(controller=controller, action=action)
         response = app.get(route)
 
-        assert '<section role="main" class="container visualize-wrapper">' in \
+        assert '<section class="container visualize-wrapper">' in \
             response.body
 
     def test_visualize_data_raw_action_call(self):
         mock_pylons()
         ctrl = VisualizeDataController()
 
-        assert '<section role="main" class="container visualize-wrapper">' in \
+        assert '<section class="container visualize-wrapper">' in \
             ctrl.visualize_data()
 
 
