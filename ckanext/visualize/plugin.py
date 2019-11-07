@@ -55,12 +55,22 @@ class VisualizePlugin(plugins.SingletonPlugin):
 
     # IRoutes
     def before_map(self, map):
-        ctrl =\
+        visualize_data_ctrl =\
             'ckanext.visualize.controllers.visualize:VisualizeDataController'
+        admin_ctrl = \
+            'ckanext.visualize.controllers.admin:AdminController'
+
         map.connect(
             '/visualize_data',
-            controller=ctrl,
+            controller=visualize_data_ctrl,
             action='visualize_data'
+        )
+
+        map.connect(
+            'ckanadmin_visualize_data',
+            '/ckan-admin/visualize_data',
+            controller=admin_ctrl,
+            action='visualize_data', ckan_icon='bar-chart-o'
         )
 
         return map
