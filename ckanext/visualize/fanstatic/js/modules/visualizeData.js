@@ -10,7 +10,7 @@ ckan.module('visualize-data', function($) {
       var queryParams = {
         filters: [],
         sort: [],
-        size: 100
+        size: 100000
       };
 
       $.each(filters, function(field, values) {
@@ -129,9 +129,13 @@ ckan.module('visualize-data', function($) {
           var to = $(evt.to).attr('id');
           if (columns[column]) {
             if (to === 'x-axis') {
-              barChartData.labels.push(...columns[column]);
+              $.each(columns[column], function(i, item) {
+                barChartData.labels.push(item);
+              });
             } else if (to === 'y-axis') {
-              barChartData.datasets[0].data.push(...columns[column]);
+              $.each(columns[column], function(i, item) {
+                barChartData.datasets[0].data.push(item);
+              });
             }
             barChart.update();
           }
