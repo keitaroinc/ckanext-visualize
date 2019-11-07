@@ -16,15 +16,19 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         if not p.plugin_loaded('visualize'):
             p.load('visualize')
 
+        if not p.plugin_loaded('datastore'):
+            p.load('datastore')
+
     @classmethod
     def teardown_class(self):
         super(TestVisualizeDataController, self).teardown_class()
 
         p.unload('visualize')
+        p.unload('datastore')
 
         helpers.reset_db()
 
-    def test_visualize_data_endpoint(self):
+    def test_visualize_data_endpoint_no_resource_provided(self):
         app = self._get_test_app()
         controller =\
             'ckanext.visualize.controllers.visualize:VisualizeDataController'
@@ -32,15 +36,51 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         route = url_for(controller=controller, action=action)
         response = app.get(route)
 
-        assert '<section class="container visualize-wrapper">' in \
+        assert 'Please provide the query parameter `resource_id`.' in \
             response.body
 
-    def test_visualize_data_raw_action_call(self):
-        mock_pylons()
-        ctrl = VisualizeDataController()
+    def test_visualize_data_endpoint_resource_not_found(self):
+        app = self._get_test_app()
+        controller =\
+            'ckanext.visualize.controllers.visualize:VisualizeDataController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        response = app.get(route + '?resource_id=test')
+
+        assert 'The provided resource with id `test` was not found.' in \
+            response.body
+
+    def test_visualize_data_endpoint(self):
+        app = self._get_test_app()
+        controller =\
+            'ckanext.visualize.controllers.visualize:VisualizeDataController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        dataset = factories.Dataset()
+        resource = factories.Resource(
+            schema='',
+            validation_options='',
+            package_id=dataset.get('id'),
+            datastore_active=True,
+        )
+        resource_id = resource.get('id')
+        data = {
+            'fields': [
+                {'id': 'Age', 'type': 'numeric'},
+                {'id': 'Name', 'type': 'text'},
+            ],
+            'records': [
+                {'Age': 35, 'Name': 'John'},
+                {'Age': 28, 'Name': 'Sara'},
+            ],
+            'force': True,
+            'resource_id': resource_id,
+        }
+        helpers.call_action('datastore_create', **data)
+        response = app.get(route + '?resource_id={0}'.format(resource_id))
 
         assert '<section class="container visualize-wrapper">' in \
-            ctrl.visualize_data()
+            response.body
 
 
 class TestAdminController(helpers.FunctionalTestBase):

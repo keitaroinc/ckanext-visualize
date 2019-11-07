@@ -1,6 +1,8 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
+from ckanext.visualize import helpers
+
 not_empty = plugins.toolkit.get_validator('not_empty')
 ignore_missing = plugins.toolkit.get_validator('ignore_missing')
 ignore_empty = plugins.toolkit.get_validator('ignore_empty')
@@ -38,10 +40,14 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def setup_template_variables(self, context, data_dict):
         resource = data_dict['resource']
         resource_view = data_dict['resource_view']
+        fields = helpers.get_fields_without_id(resource.get('id'))
+        remap_keys = list(fields)
+        remap_keys.insert(0, {'value': ''})
 
         return {
             'resource': resource,
-            'resource_view': resource_view
+            'resource_view': resource_view,
+            'fields': fields,
         }
 
     def view_template(self, context, data_dict):

@@ -1,5 +1,5 @@
 import ckan.plugins as p
-from ckan.tests import helpers
+from ckan.tests import helpers, factories
 from ckan.plugins import toolkit
 
 from ckanext.visualize.plugin import VisualizePlugin
@@ -14,6 +14,9 @@ class TestVisualizeView(helpers.FunctionalTestBase):
         if not p.plugin_loaded('visualize'):
             p.load('visualize')
 
+        if not p.plugin_loaded('datastore'):
+            p.load('datastore')
+
         self.plugin = VisualizePlugin()
 
     @classmethod
@@ -21,6 +24,7 @@ class TestVisualizeView(helpers.FunctionalTestBase):
         super(TestVisualizeView, self).teardown_class()
 
         p.unload('visualize')
+        p.unload('datastore')
 
         helpers.reset_db()
 
@@ -45,16 +49,37 @@ class TestVisualizeView(helpers.FunctionalTestBase):
         assert self.plugin.can_view(data_dict) is False
 
     def test_setup_template_variables(self):
+        dataset = factories.Dataset()
+        resource = factories.Resource(
+            schema='',
+            validation_options='',
+            package_id=dataset.get('id'),
+            datastore_active=True,
+        )
+        data = {
+            'fields': [
+                {'id': 'Age', 'type': 'numeric'},
+                {'id': 'Name', 'type': 'text'},
+            ],
+            'records': [
+                {'Age': 35, 'Name': 'John'},
+                {'Age': 28, 'Name': 'Sara'},
+            ],
+            'force': True,
+            'resource_id': resource.get('id'),
+        }
+        helpers.call_action('datastore_create', **data)
         data_dict = {
-            'resource': {},
-            'resource_view': {}
+            'resource': {'id': resource.get('id')},
+            'resource_view': {},
         }
 
         result = self.plugin.setup_template_variables({}, data_dict)
 
         assert result == {
-            'resource': {},
-            'resource_view': {}
+            'resource': {'id': resource.get('id')},
+            'resource_view': {},
+            'fields': [{'value': u'Age'}, {'value': u'Name'}],
         }
 
     def test_view_template(self):
