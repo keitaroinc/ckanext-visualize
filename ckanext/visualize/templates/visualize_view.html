@@ -1,3 +1,7 @@
 {% block visualize_view_show %}
-    {% snippet 'snippets/visualize_view_show.html', fields=fields %}
+    {% snippet 'snippets/visualize_view_show.html',
+                fields=fields,
+                resource_id=resource.id,
+                resource_view=resource_view
+    %}
 {% endblock %}
