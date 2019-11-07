@@ -3,9 +3,6 @@ python:
   - '2.7'
 env:
   - PGVERSION=9.5
-services:
-  - postgresql
-  - redis-server
 dist: trusty
 sudo: required
 cache: pip
