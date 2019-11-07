@@ -40,7 +40,7 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def setup_template_variables(self, context, data_dict):
         resource = data_dict['resource']
         resource_view = data_dict['resource_view']
-        fields = helpers.get_fields_without_id(resource)
+        fields = helpers.get_fields_without_id(resource.get('id'))
         remap_keys = list(fields)
         remap_keys.insert(0, {'value': ''})
 
