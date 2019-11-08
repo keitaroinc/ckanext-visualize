@@ -50,6 +50,39 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         assert 'The provided resource with id `test` was not found.' in \
             response.body
 
+    def test_visualize_data_endpoint_not_authorized(self):
+        app = self._get_test_app()
+        controller =\
+            'ckanext.visualize.controllers.visualize:VisualizeDataController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        org = factories.Organization()
+        dataset = factories.Dataset(private=True, owner_org=org.get('id'))
+        resource = factories.Resource(
+            schema='',
+            validation_options='',
+            package_id=dataset.get('id'),
+            datastore_active=True,
+        )
+        resource_id = resource.get('id')
+        data = {
+            'fields': [
+                {'id': 'Age', 'type': 'numeric'},
+                {'id': 'Name', 'type': 'text'},
+            ],
+            'records': [
+                {'Age': 35, 'Name': 'John'},
+                {'Age': 28, 'Name': 'Sara'},
+            ],
+            'force': True,
+            'resource_id': resource_id,
+        }
+        helpers.call_action('datastore_create', **data)
+        response = app.get(route + '?resource_id={0}'.format(resource_id))
+
+        assert 'You don\'t have access to the resource with id `{0}`.'.format(
+            resource_id) == response.body
+
     def test_visualize_data_endpoint(self):
         app = self._get_test_app()
         controller =\
@@ -79,7 +112,7 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         helpers.call_action('datastore_create', **data)
         response = app.get(route + '?resource_id={0}'.format(resource_id))
 
-        assert '<section class="container visualize-wrapper">' in \
+        assert '<section class="chart-container">' in \
             response.body
 
 
