@@ -11,7 +11,7 @@ def get_fields_without_id(resource_id):
     :rtype: list """
 
     fields = _get_fields(resource_id)
-    return [{'value': v['id']} for v in fields if v['id'] != '_id']
+    return [{'value': v['id'], 'type': v['type']} for v in fields if v['id'] != '_id']
 
 
 def _get_fields(resource_id):
