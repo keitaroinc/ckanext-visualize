@@ -22,8 +22,27 @@
                 <section class="col-md-10">
                     <ul id="all-columns" class="list-group group-items-select list-group-horizontal">
                         {% for field in fields %}
+                            {% if field.type == 'text' %}
+                                {% set column_color = '#332288' %}
+                            {% elif field.type == 'numeric' %}
+                                {% set column_color = '#117733' %}
+                            {% elif field.type == 'date' %}
+                                {% set column_color = '#44AA99' %}
+                            {% elif field.type == 'time' %}
+                                {% set column_color = '#88CCEE' %}
+                            {% elif field.type == 'timestamp' %}
+                                {% set column_color = '#DDCC77' %}
+                            {% elif field.type == 'bool' %}
+                                {% set column_color = '#CC6677' %}
+                            {% elif field.type == 'int' %}
+                                {% set column_color = '#AA4499' %}
+                            {% elif field.type == 'float' %}
+                                {% set column_color = '#882255' %}
+                            {% else %}
+                                {% set column_color = '#332288' %}
+                            {% endif %}
                             <li class="list-group-item column" data-column="{{ field.value }}">
-                                <span class="badge-pill color-secondary column-pill">{{ field.value }}</span>
+                                <span class="badge-pill column-pill" style="background-color: {{ column_color }};">{{ field.value }}</span>
                             </li>
                         {% endfor %}
                     </ul>

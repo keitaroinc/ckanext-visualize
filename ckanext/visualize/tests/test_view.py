@@ -79,7 +79,7 @@ class TestVisualizeView(helpers.FunctionalTestBase):
         assert result == {
             'resource': {'id': resource.get('id')},
             'resource_view': {},
-            'fields': [{'value': u'Age'}, {'value': u'Name'}],
+            'fields': [{'value': u'Age', 'type': 'numeric'}, {'value': u'Name', 'type': 'text'}],
         }
 
     def test_view_template(self):
