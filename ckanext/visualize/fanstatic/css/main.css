@@ -104,6 +104,41 @@
   cursor: grab;
 }
 
+#color-pallet {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.color-group .control-label {
+  margin-bottom: 1rem;
+}
+
+.item-color {
+  margin: 1rem 1rem 1rem 0;
+  background: none;
+  border: none;
+  width: 8.7rem;
+}
+
+input[type='color']::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+input[type='color']::-webkit-color-swatch {
+  border: none;
+}
+.form-group.item-color {
+  margin: 0;
+}
+.form-group.item-color .control-label {
+  display: none;
+}
+
+.form-group.item-color input[type='color'] {
+  border: none;
+  box-shadow: none;
+  padding-left: 0;
+}
+
 /* Responsive Design */
 
 @media (max-width: 576px) {

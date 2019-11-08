@@ -5,24 +5,43 @@
 {% set action_url = h.url_for('ckanadmin_visualize_data') %}
 
 {% block primary_content_inner %}
-    <form method="post" action="{{ action_url }}" class="form-horizontal col-sm-12">
-        <div>Form elements go here</div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary" name="save">{{ _('Update') }}</button>
-        </div>
-    </form>
+<form method="post" action="{{ action_url }}" class="form-horizontal">
+  <div class="color-group">
+    <label class="control-label" for="color-pallet">Click and Pick Your Chart Colors</label>
+    <div id="color-pallet">
+      {{ form.input('color_1',type='color', label=_('Color #1'), value='#332288', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #2'), value='#117733', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #3'), value='#44aa99', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #4'), value='#88ccee', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #5'), value='#ddcc77', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #6'), value='#cc6677', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #7'), value='#aa4499', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #8'), value='#882255', classes=['item-color']) }}
+      {{ form.input('color_1',type='color', label=_('Color #9'), value='#dd4444', classes=['item-color']) }}
+    </div>
+  </div>
+</form>
+<hr>
+<div class="form-actions">
+  <button type="submit" class="btn btn-danger pull-left" name="reset">{{ _('Reset') }}</button>
+  <div class="pull-right">
+    <button type="submit" class="btn btn-default" name="add color"><i
+        class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
+    <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
+  </div>
+</div>
 {% endblock %}
 
 {% block secondary_content %}
-  <div class="module module-narrow module-shallow">
-    <h2 class="module-heading">
-      <i class="fa fa-info-circle"></i>
-      {{ _('Visualize data options') }}
-    </h2>
-    <div class="module-content">
-      {% block admin_form_help %}
-        <span>Help tips for options go here</span>
-      {% endblock %}
-    </div>
+<div class="module module-narrow module-shallow">
+  <h2 class="module-heading">
+    <i class="fa fa-info-circle"></i>
+    {{ _('Visualize data options') }}
+  </h2>
+  <div class="module-content">
+    {% block admin_form_help %}
+    <span>Help tips for options go here</span>
+    {% endblock %}
   </div>
+</div>
 {% endblock %}
