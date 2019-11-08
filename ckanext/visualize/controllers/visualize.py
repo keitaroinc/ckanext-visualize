@@ -1,6 +1,7 @@
 from ckan.lib.base import BaseController, render
 from ckan.common import request
 from ckan import logic
+from ckan.plugins import toolkit
 
 from ckanext.visualize import helpers
 
@@ -20,15 +21,22 @@ class VisualizeDataController(BaseController):
 
         query_params = dict(request.params)
         resource_id = query_params.get('resource_id')
-        extra_vars = {}
+        extra_vars = {
+            'resource': {
+                'id': resource_id
+            },
+            'resource_view': {},
+        }
 
         if (resource_id):
             try:
                 fields = helpers.get_fields_without_id(resource_id)
+                extra_vars['fields'] = fields
             except logic.NotFound:
-                return 'The provided resource with id `{0}` was not found.'.format(resource_id)
-            extra_vars['fields'] = fields
+                return toolkit._('The provided resource with id `{0}` was not found.'.format(resource_id))
+            except logic.NotAuthorized:
+                return toolkit._('You don\'t have access to the resource with id `{0}`.'.format(resource_id))
         else:
-            return 'Please provide the query parameter `resource_id`.'
+            return toolkit._('Please provide the query parameter `resource_id`.')
 
         return render('visualize/data_viewer.html', extra_vars=extra_vars)
