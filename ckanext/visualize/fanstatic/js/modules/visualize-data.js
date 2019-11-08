@@ -61,16 +61,7 @@ ckan.module('visualize-data', function($) {
           {
             label: 'Some dataset label',
             data: [],
-            backgroundColor: [
-              '#332288',
-              '#117733',
-              '#44AA99',
-              '#88CCEE',
-              '#DDCC77',
-              '#CC6677',
-              '#AA4499',
-              '#882255'
-            ]
+            backgroundColor: '#332288'
           }
         ]
       };
