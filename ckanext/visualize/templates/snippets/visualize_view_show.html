@@ -1,11 +1,15 @@
 {# Adds 'Visualize View' #}
 
-{% resource 'visualize/js/Chart.bundle.js' %}
-{% resource 'visualize/js/Sortable.js' %}
-{% resource 'visualize/js/data.js' %}
-{% resource 'visualize/js/bar.js' %}
+{% resource 'visualize/js/vendor/chart.bundle.js' %}
+{% resource 'visualize/js/vendor/sortable.js' %}
+{% resource 'visualize/js/vendor/backend.ckan.js' %}
+{% resource 'visualize/js/modules/visualize-data.js' %}
 
-<section class="container visualize-wrapper">
+<section
+    class="container visualize-wrapper"
+    data-module="visualize-data"
+    data-module-resource-id = "{{ resource_id }}"
+    data-module-resource-view = "{{ h.dump_json(resource_view) }}">
     <div class="row">
         <div class="col-md-12">
             <nav class="main-nav navbar">
