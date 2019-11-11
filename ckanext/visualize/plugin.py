@@ -20,6 +20,12 @@ class VisualizePlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic', 'visualize')
 
+    def update_config_schema(self, schema):
+        not_empty = toolkit.get_validator('not_empty')
+        schema.update({'visualize_colors': [not_empty, unicode]})
+
+        return schema
+
     # IResourceView
 
     def info(self):
