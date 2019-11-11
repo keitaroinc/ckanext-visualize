@@ -117,7 +117,7 @@
   margin: 1rem 1rem 1rem 0;
   background: none;
   border: none;
-  width: 8.7rem;
+  width: 12.7rem;
 }
 
 input[type='color']::-webkit-color-swatch-wrapper {
@@ -138,8 +138,17 @@ input[type='color']::-webkit-color-swatch {
   box-shadow: none;
   padding-left: 0;
 }
-.color-actions{
+.color-actions {
   margin-top: 2rem;
+}
+.btn.btn-default.color-remove {
+  position: absolute;
+  padding: 0;
+  border: none;
+  color: white;
+  background: rgba(0, 0, 0, 0.02);
+  bottom: 0.7rem;
+  right: 1.3rem;
 }
 
 /* Responsive Design */

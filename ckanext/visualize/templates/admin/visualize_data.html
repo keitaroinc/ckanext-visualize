@@ -9,15 +9,89 @@
   <div class="color-group">
     <label class="control-label" for="color-pallet">Chart Colors</label>
     <div id="color-pallet">
-      {{ form.input('color_1',type='color', label=_('Color #1'), value='#332288', classes=['item-color']) }}
-      {{ form.input('color_2',type='color', label=_('Color #2'), value='#117733', classes=['item-color']) }}
-      {{ form.input('color_3',type='color', label=_('Color #3'), value='#44aa99', classes=['item-color']) }}
-      {{ form.input('color_4',type='color', label=_('Color #4'), value='#88ccee', classes=['item-color']) }}
-      {{ form.input('color_5',type='color', label=_('Color #5'), value='#ddcc77', classes=['item-color']) }}
-      {{ form.input('color_6',type='color', label=_('Color #6'), value='#cc6677', classes=['item-color']) }}
-      {{ form.input('color_7',type='color', label=_('Color #7'), value='#aa4499', classes=['item-color']) }}
-      {{ form.input('color_8',type='color', label=_('Color #8'), value='#882255', classes=['item-color']) }}
-      {{ form.input('color_9',type='color', label=_('Color #9'), value='#dd4444', classes=['item-color']) }}
+      <div class="input-group">
+        {{ form.input('color_1',type='color', label=_('Color #1'), value='#332288', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_2',type='color', label=_('Color #2'), value='#117733', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_3',type='color', label=_('Color #3'), value='#44aa99', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_4',type='color', label=_('Color #4'), value='#88ccee', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_5',type='color', label=_('Color #5'), value='#ddcc77', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_6',type='color', label=_('Color #6'), value='#cc6677', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_7',type='color', label=_('Color #7'), value='#aa4499', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+
+      <div class="input-group">
+        {{ form.input('color_8',type='color', label=_('Color #8'), value='#882255', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        {{ form.input('color_9',type='color', label=_('Color #9'), value='#dd4444', classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="submit">
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+      </div>
+
+
     </div>
   </div>
 </form>
