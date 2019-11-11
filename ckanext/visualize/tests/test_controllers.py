@@ -143,4 +143,4 @@ class TestAdminController(helpers.FunctionalTestBase):
         route = url_for(controller=controller, action=action)
         response = app.get(url=route, extra_environ=env)
 
-        assert 'Visualize data' in response.body
+        assert 'Visualize' in response.body
