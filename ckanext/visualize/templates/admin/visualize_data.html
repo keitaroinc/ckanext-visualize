@@ -7,7 +7,7 @@
 {% block primary_content_inner %}
 <form method="post" action="{{ action_url }}" class="form-horizontal">
   <div class="color-group">
-    <label class="control-label" for="color-pallet">Click and Pick Your Chart Colors</label>
+    <label class="control-label" for="color-pallet">Chart Colors</label>
     <div id="color-pallet">
       {{ form.input('color_1',type='color', label=_('Color #1'), value='#332288', classes=['item-color']) }}
       {{ form.input('color_2',type='color', label=_('Color #2'), value='#117733', classes=['item-color']) }}
@@ -21,14 +21,17 @@
     </div>
   </div>
 </form>
+
+<div class="form-actions color-actions">
+  <button type="submit" class="btn btn-default pull-left" name="add color"><i
+      class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
+  <button type="submit" class="btn btn-default pull-right" name="default"><i
+      class="fa fa-sliders"></i>{{ _(' Set Default') }}</button>
+</div>
 <hr>
 <div class="form-actions">
   <button type="submit" class="btn btn-danger pull-left" name="reset">{{ _('Reset') }}</button>
-  <div class="pull-right">
-    <button type="submit" class="btn btn-default" name="add color"><i
-        class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
-    <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
-  </div>
+  <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
 </div>
 {% endblock %}
 

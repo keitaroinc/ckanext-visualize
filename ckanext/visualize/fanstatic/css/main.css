@@ -138,6 +138,9 @@ input[type='color']::-webkit-color-swatch {
   box-shadow: none;
   padding-left: 0;
 }
+.color-actions{
+  margin-top: 2rem;
+}
 
 /* Responsive Design */
 
