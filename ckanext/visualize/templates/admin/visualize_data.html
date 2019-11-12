@@ -1,3 +1,7 @@
+{% resource 'visualize/js/modules/visualize-colors-settings-add.js' %}
+{% resource 'visualize/js/modules/visualize-colors-settings-remove.js' %}
+{% resource 'visualize/js/modules/visualize-colors-settings-reset.js' %}
+
 {% extends 'admin/base.html' %}
 
 {% import 'macros/form.html' as form %}
@@ -8,103 +12,32 @@
 <form method="post" action="{{ action_url }}" class="form-horizontal">
   <div class="color-group">
     <label class="control-label" for="color-pallet">Chart Colors</label>
-    <div id="color-pallet">
-      <div class="input-group">
-        {{ form.input('color_1',type='color', label=_('Color #1'), value='#332288', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
+    <div id="color-pallet" data-module="visualize-colors-settings-remove">
+      {% for color in data.visualize_colors %}
+        <div class="input-group">
+          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
+          <div class="input-group-btn">
+            <button class="btn btn-default color-remove" type="button">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_2',type='color', label=_('Color #2'), value='#117733', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_3',type='color', label=_('Color #3'), value='#44aa99', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_4',type='color', label=_('Color #4'), value='#88ccee', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_5',type='color', label=_('Color #5'), value='#ddcc77', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_6',type='color', label=_('Color #6'), value='#cc6677', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_7',type='color', label=_('Color #7'), value='#aa4499', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-
-      <div class="input-group">
-        {{ form.input('color_8',type='color', label=_('Color #8'), value='#882255', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="input-group">
-        {{ form.input('color_9',type='color', label=_('Color #9'), value='#dd4444', classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="submit">
-            <i class="fa fa-times"></i>
-          </button>
-        </div>
-      </div>
+      {% endfor %}
     </div>
+  </div>
+  <div class="form-actions color-actions">
+    <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-add"><i
+        class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
+    <button type="button" class="btn btn-default pull-right" data-module="visualize-colors-settings-reset"><i
+        class="fa fa-sliders"></i>{{ _(' Set Default') }}</button>
+  </div>
+  <hr>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-danger pull-left" name="reset">{{ _('Reset') }}</button>
+    <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
   </div>
 </form>
 
-<div class="form-actions color-actions">
-  <button type="submit" class="btn btn-default pull-left" name="add color"><i
-      class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
-  <button type="submit" class="btn btn-default pull-right" name="default"><i
-      class="fa fa-sliders"></i>{{ _(' Set Default') }}</button>
-</div>
-<hr>
-<div class="form-actions">
-  <button type="submit" class="btn btn-danger pull-left" name="reset">{{ _('Reset') }}</button>
-  <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
-</div>
 {% endblock %}
 
 {% block secondary_content %}
