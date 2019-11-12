@@ -49,7 +49,7 @@
 }
 
 .list-group-item.column {
-  padding: 5px;
+  padding: .75rem;
 }
 .list-group-horizontal {
   flex-direction: row;
@@ -60,7 +60,7 @@
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 0px 0px 4px 4px;
-  padding: 0.5rem 0;
+  padding: 2rem;
 }
 .group-items-select li {
   background: transparent;
@@ -126,7 +126,6 @@
 
 .column-pill {
   cursor: grab;
-  margin: 5px 3px;
 }
 
 .figure-wrapper {
