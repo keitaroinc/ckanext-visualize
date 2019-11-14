@@ -183,6 +183,7 @@ input[type='color']::-webkit-color-swatch {
   background: rgba(0, 0, 0, 0.02);
   bottom: 0.7rem;
   right: 1.3rem;
+  z-index: 999;
 }
 
 /* Responsive Design */
