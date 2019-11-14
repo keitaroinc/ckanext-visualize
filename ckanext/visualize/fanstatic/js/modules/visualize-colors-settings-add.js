@@ -3,6 +3,7 @@
 ckan.module('visualize-colors-settings-add', function($) {
   return {
     initialize: function() {
+      var colorPallet = $('#color-pallet');
       var inputGroup = [
         '<div class="input-group">',
         '<div class="form-group item-color">',
@@ -27,6 +28,7 @@ ckan.module('visualize-colors-settings-add', function($) {
             String(colorsContainer.children().length + 1)
           )
         );
+        window.ckan.module.initializeElement(colorPallet[0]);
       });
     }
   };
