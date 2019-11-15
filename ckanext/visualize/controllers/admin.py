@@ -27,30 +27,22 @@ class AdminController(AdminController):
     def visualize_data(self):
         data = request.POST
         if request.method == 'POST' and 'save' in data:
-            try:
-                data_dict = dict(data)
-                del data_dict['save']
-                colors = []
+            data_dict = dict(data)
+            del data_dict['save']
+            colors = []
 
-                for i, v in enumerate(data_dict):
-                    color = {}
-                    keyName = 'color_{0}'.format(i + 1)
-                    color[keyName] = data_dict.get(keyName)
-                    colors.append(color)
+            for i, v in enumerate(data_dict):
+                color = {}
+                keyName = 'color_{0}'.format(i + 1)
+                color[keyName] = data_dict.get(keyName)
+                colors.append(color)
 
-                data_dict = {
-                    'visualize_colors': json.dumps(colors)
-                }
-                data = toolkit.get_action(
-                    'config_option_update')({}, data_dict)
-                h.flash_success(toolkit._('Successfully updated.'))
-            except logic.ValidationError, e:
-                errors = e.error_dict
-                error_summary = e.error_summary
-                vars = {'data': data, 'errors': errors,
-                        'error_summary': error_summary}
-                return render('admin/visualize_data.html', extra_vars=vars)
-
+            data_dict = {
+                'visualize_colors': json.dumps(colors)
+            }
+            data = toolkit.get_action(
+                'config_option_update')({}, data_dict)
+            h.flash_success(toolkit._('Successfully updated.'))
             h.redirect_to(controller=self.ctrl, action='visualize_data')
 
         # Initially set the colors from the default color palette.
