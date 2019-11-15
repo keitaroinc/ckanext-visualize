@@ -112,7 +112,7 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         helpers.call_action('datastore_create', **data)
         response = app.get(route + '?resource_id={0}'.format(resource_id))
 
-        assert '<section class="chart-container">' in \
+        assert '<div class="chart-container">' in \
             response.body
 
 
