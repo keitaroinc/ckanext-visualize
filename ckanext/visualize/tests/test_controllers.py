@@ -144,3 +144,33 @@ class TestAdminController(helpers.FunctionalTestBase):
         response = app.get(url=route, extra_environ=env)
 
         assert 'Visualize' in response.body
+
+    @helpers.change_config('visualize_colors', '{"color_1":"#fff"}')
+    def test_visualize_data_endpoint_predefined_color(self):
+        app = self._get_test_app()
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        controller =\
+            'ckanext.visualize.controllers.admin:AdminController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        response = app.get(url=route, extra_environ=env)
+
+        assert 'Visualize' in response.body
+
+    def test_visualize_data_endpoint_post(self):
+        app = self._get_test_app()
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        controller =\
+            'ckanext.visualize.controllers.admin:AdminController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        params = {
+            'save': True,
+            'color_1': '#332288',
+            'color_2': '#117733',
+        }
+        response = app.post(url=route, extra_environ=env, params=params)
+
+        assert '302 Found' in response.body
