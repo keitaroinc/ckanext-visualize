@@ -84,3 +84,6 @@ class TestVisualizeView(helpers.FunctionalTestBase):
 
     def test_view_template(self):
         assert self.plugin.view_template({}, {}) == 'visualize_view.html'
+
+    def test_update_config_schema(self):
+        assert 'visualize_colors' in self.plugin.update_config_schema({})

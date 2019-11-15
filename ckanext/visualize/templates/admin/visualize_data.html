@@ -1,3 +1,7 @@
+{% resource 'visualize/js/modules/visualize-colors-settings-add.js' %}
+{% resource 'visualize/js/modules/visualize-colors-settings-remove.js' %}
+{% resource 'visualize/js/modules/visualize-colors-settings-reset.js' %}
+
 {% extends 'admin/base.html' %}
 
 {% import 'macros/form.html' as form %}
@@ -5,24 +9,47 @@
 {% set action_url = h.url_for('ckanadmin_visualize_data') %}
 
 {% block primary_content_inner %}
-    <form method="post" action="{{ action_url }}" class="form-horizontal col-sm-12">
-        <div>Form elements go here</div>
-        <div class="form-actions">
-            <button type="submit" class="btn btn-primary" name="save">{{ _('Update') }}</button>
+<form method="post" action="{{ action_url }}" class="form-horizontal">
+  <div class="color-group">
+    <label class="control-label" for="color-pallet">Chart Colors</label>
+    <div id="color-pallet" data-module="visualize-colors-settings-remove">
+      {% for color in data.visualize_colors %}
+        <div class="input-group">
+          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
+          <div class="input-group-btn">
+            <button class="btn btn-default color-remove" type="button">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
         </div>
-    </form>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="form-actions color-actions">
+    <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-add"><i
+        class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
+    <button type="button" class="btn btn-default pull-right" data-module="visualize-colors-settings-reset"><i
+        class="fa fa-sliders"></i>{{ _(' Set Default') }}</button>
+  </div>
+  <hr>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-danger pull-left" name="reset">{{ _('Reset') }}</button>
+    <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
+  </div>
+</form>
+
 {% endblock %}
 
 {% block secondary_content %}
-  <div class="module module-narrow module-shallow">
-    <h2 class="module-heading">
-      <i class="fa fa-info-circle"></i>
-      {{ _('Visualize options') }}
-    </h2>
-    <div class="module-content">
-      {% block admin_form_help %}
-        <span>Help tips for options go here</span>
-      {% endblock %}
-    </div>
+<div class="module module-narrow module-shallow">
+  <h2 class="module-heading">
+    <i class="fa fa-info-circle"></i>
+    {{ _('Visualize options') }}
+  </h2>
+  <div class="module-content">
+    {% block admin_form_help %}
+    <span>Help tips for options go here</span>
+    {% endblock %}
   </div>
+</div>
 {% endblock %}
