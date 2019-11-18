@@ -4,6 +4,10 @@ uploaded to DataStore. */
 
 ckan.module('visualize-data', function($) {
   var colorPalette = [];
+  var chartContainer = $('.chart-container');
+  var noChartContainer = $('.no-chart-container');
+  var xAxisList = $('.x-axis-list');
+  var yAxisList = $('.y-axis-list');
   return {
     initialize: function() {
       var resourceView = this.options.resourceView;
@@ -152,10 +156,14 @@ ckan.module('visualize-data', function($) {
             $.each(columns[column], function(i, item) {
               data.labels.push(item);
             });
+            chartContainer.removeClass('hidden');
+            noChartContainer.addClass('hidden');
           } else if (to === 'y-axis') {
             $.each(columns[column], function(i, item) {
               data.datasets[0].data.push(item);
             });
+            chartContainer.removeClass('hidden');
+            noChartContainer.addClass('hidden');
           } else if (to === 'colour-attr') {
             var colors = [];
 
@@ -195,8 +203,16 @@ ckan.module('visualize-data', function($) {
         if (columns[column]) {
           if (from === 'x-axis') {
             data.labels = [];
+            if (yAxisList.find('li').length === 0) {
+              chartContainer.addClass('hidden');
+              noChartContainer.removeClass('hidden');
+            }
           } else if (from === 'y-axis') {
             data.datasets[0].data = [];
+            if (xAxisList.find('li').length === 0) {
+              chartContainer.addClass('hidden');
+              noChartContainer.removeClass('hidden');
+            }
           } else if (from === 'colour-attr') {
             data.datasets[0].backgroundColor = colorPalette[0];
           }

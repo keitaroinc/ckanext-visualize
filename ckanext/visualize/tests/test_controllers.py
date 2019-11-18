@@ -112,7 +112,7 @@ class TestVisualizeDataController(helpers.FunctionalTestBase):
         helpers.call_action('datastore_create', **data)
         response = app.get(route + '?resource_id={0}'.format(resource_id))
 
-        assert '<div class="chart-container">' in \
+        assert '<div class="chart-container hidden">' in \
             response.body
 
 
@@ -133,7 +133,7 @@ class TestAdminController(helpers.FunctionalTestBase):
 
         helpers.reset_db()
 
-    def test_visualize_data_endpoint(self):
+    def test_visualize_data_endpoint_admin(self):
         app = self._get_test_app()
         user = factories.Sysadmin()
         env = {'REMOTE_USER': user.get('name').encode('ascii')}

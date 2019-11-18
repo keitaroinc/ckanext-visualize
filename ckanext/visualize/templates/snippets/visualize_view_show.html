@@ -6,7 +6,7 @@
 {% resource 'visualize/js/modules/visualize-data.js' %}
 
 <div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
-  data-module-resource-view="{{ h.dump_json(resource_view) }}">
+  data-module-resource-view="{{ h.dump_json(resource_view) }}" data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
   <div class="panel panel-default panel-visualize">
     <div class="panel-heading">
       <div class="row">
@@ -47,7 +47,7 @@
 
                 <li class="list-group-item column" data-column="{{ field.value }}">
                   <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
-                      class="fa fa-file-text fa-fw" aria-hidden="true"></i>{{ field.value }}</span>
+                      class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw" aria-hidden="true"></i>{{ field.value }}</span>
                 </li>
                 {% endfor %}
               </ul>
@@ -111,19 +111,18 @@
       </div>
     </div>
     <div class="panel-body">
-      <div class="chart-container">
+      <div class="chart-container hidden">
         <canvas id="barChart"></canvas>
       </div>
 
       <div class="no-chart-container">
-          <div class="panel-heading text-center">
-            Start your Dynamic Experience with drag and drop functionality and intelligent chart selection
-          </div>
-          <figure class="panel-body no-chart-illustration">
-            <img src="/base/images/No-chart-illustration.png" class="img-responsive" alt="Illustration image" />
-          </figure>
+        <div class="panel-heading text-center">
+          Start your Dynamic Experience with drag and drop functionality and intelligent chart selection
         </div>
-
+        <figure class="panel-body no-chart-illustration">
+          <img src="/base/images/No-chart-illustration.png" class="img-responsive" alt="Illustration image" />
+        </figure>
+      </div>
     </div>
   </div>
 </div>

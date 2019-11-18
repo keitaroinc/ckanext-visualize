@@ -5,6 +5,17 @@ from ckan.common import config
 
 from ckanext.visualize.default_color_palette import DEFAULT_COLORS
 
+ICONS_DATA_TYPES = {
+    'text': 'fa-file-text',
+    'numeric': 'fa-calculator',
+    'bool': 'fa-toggle-on',
+    'date': 'fa-calendar',
+    'time': 'fa-clock-o',
+    'timestamp': 'fa-hourglass-half',
+    'int': 'fa-file-excel-o',
+    'float': 'fa-percent'
+}
+
 
 def get_fields_without_id(resource_id):
     """ Retrieves the DataStore fields without id for a resource.
@@ -52,3 +63,18 @@ def _get_fields(resource_id):
     }
     result = toolkit.get_action('datastore_search')({}, data)
     return result['fields']
+
+
+def get_icon_for_data_type(data_type):
+    """ Gets the name of the icon that coresponds to the data type.
+
+    :param data_type: The type of the data.
+    :type data_type: string
+
+    :returns: Type of data
+    :rtype: string """
+
+    if data_type in ICONS_DATA_TYPES:
+        return ICONS_DATA_TYPES.get(data_type)
+
+    return ''
