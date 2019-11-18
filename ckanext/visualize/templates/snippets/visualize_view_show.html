@@ -5,75 +5,98 @@
 {% resource 'visualize/js/vendor/backend.ckan.js' %}
 {% resource 'visualize/js/modules/visualize-data.js' %}
 
-<div class="container visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
+<div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
     data-module-resource-view="{{ h.dump_json(resource_view) }}">
-    <div class="row visualize-component">
-        <div class="col-md-2 symbol-wrapper">
-            <figure class="symbol-item">
-                <img src="/base/images/Bar-symbol.png" class="img-responsive"
-                    alt="An icon representing visualization type" />
-            </figure>
-        </div>
-        <div class="col-md-10">
-            <div class="panel panel-default panel-select">
-                <div class="panel-body group-items-select">
-                    <ul id="all-columns" class="list-group list-group-horizontal">
-                        {% for field in fields %}
-                        {% if field.type == 'text' %}
-                        {% set column_color = '#332288' %}
-                        {% elif field.type == 'numeric' %}
-                        {% set column_color = '#117733' %}
-                        {% elif field.type == 'date' %}
-                        {% set column_color = '#44AA99' %}
-                        {% elif field.type == 'time' %}
-                        {% set column_color = '#88CCEE' %}
-                        {% elif field.type == 'timestamp' %}
-                        {% set column_color = '#DDCC77' %}
-                        {% elif field.type == 'bool' %}
-                        {% set column_color = '#CC6677' %}
-                        {% elif field.type == 'int' %}
-                        {% set column_color = '#AA4499' %}
-                        {% elif field.type == 'float' %}
-                        {% set column_color = '#882255' %}
-                        {% else %}
-                        {% set column_color = '#332288' %}
-                        {% endif %}
-
-                        <li class="list-group-item column" data-column="{{ field.value }}">
-                            <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
-                                    class="fa fa-file-text fa-fw" aria-hidden="true"></i>{{ field.value }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
+    <div class="panel panel-default panel-visualize">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-2 pr-0">
+                    <div class="panel panel-default">
+                        <figure class="panel-body">
+                            <img src="/base/images/Bar-symbol.png" class="img-responsive"
+                                alt="An icon representing visualization type" />
+                        </figure>
+                    </div>
                 </div>
-                <div class="panel-heading desc-footer">
-                    <h5 class="text-muted desc-muted">Data Types - <i class="fa fa-file-text fa-fw"
-                            aria-hidden="true"></i>String,
-                        <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>Numeric, <i
-                            class="fa fa-file-text fa-fw" aria-hidden="true"></i>Date, <i class="fa fa-file-text fa-fw"
-                            aria-hidden="true"></i>Boolean</h5>
+                <div class="col-md-10">
+                    <div class="panel panel-default">
+                        <div class="panel-body group-items-select">
+                            <ul id="all-columns" class="list-group list-group-horizontal">
+                                {% for field in fields %}
+                                {% if field.type == 'text' %}
+                                {% set column_color = '#332288' %}
+                                {% elif field.type == 'numeric' %}
+                                {% set column_color = '#117733' %}
+                                {% elif field.type == 'date' %}
+                                {% set column_color = '#44AA99' %}
+                                {% elif field.type == 'time' %}
+                                {% set column_color = '#88CCEE' %}
+                                {% elif field.type == 'timestamp' %}
+                                {% set column_color = '#DDCC77' %}
+                                {% elif field.type == 'bool' %}
+                                {% set column_color = '#CC6677' %}
+                                {% elif field.type == 'int' %}
+                                {% set column_color = '#AA4499' %}
+                                {% elif field.type == 'float' %}
+                                {% set column_color = '#882255' %}
+                                {% else %}
+                                {% set column_color = '#332288' %}
+                                {% endif %}
+
+                                <li class="list-group-item column" data-column="{{ field.value }}">
+                                    <span class="badge-pill column-pill"
+                                        style="background-color: {{ column_color }};"><i class="fa fa-file-text fa-fw"
+                                            aria-hidden="true"></i>{{ field.value }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <ul class="list-inline">
+                                <li>
+                                    <h5 class="text-muted desc-muted">Data Types</h5>
+                                </li>
+                                <li>
+                                    <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>
+                                    <span>String</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>
+                                    <span>Numeric</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>
+                                    <span>Date</span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-file-text fa-fw" aria-hidden="true"></i>
+                                    <span>Boolean</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default panel-drop">
+                        <div class="panel-body group-items-drop">
+                            <ul class="list-group list-group-horizontal drop-list-group">
+                                <li id="x-axis" class="list-group-item axis-list x-axis-list">
+                                    <span class="axis-title"><small>{{ _('X-axis') }}</small></span>
+                                </li>
+                                <li id="y-axis" class="list-group-item axis-list y-axis-list">
+                                    <span class="axis-title"><small>{{ _('Y-axis') }}</small></span>
+                                </li>
+                                <li id="colour-attr" class="list-group-item axis-list colour-attr-list">
+                                    <span class="axis-title"><small>{{ _('Colour') }}</small></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="panel panel-default panel-drop">
-                <div class="panel-body group-items-drop">
-
-                    <ul class="list-group list-group-horizontal drop-list-group">
-                        <li id="x-axis" class="list-group-item axis-list x-axis-list">
-                            <span class="axis-title"><small>{{ _('X-axis') }}</small></span>
-                        </li>
-                        <li id="y-axis" class="list-group-item axis-list y-axis-list">
-                            <span class="axis-title"><small>{{ _('Y-axis') }}</small></span>
-                        </li>
-                        <li id="colour-attr" class="list-group-item axis-list colour-attr-list">
-                            <span class="axis-title"><small>{{ _('Colour') }}</small></span>
-                        </li>
-                    </ul>
-                </div>
+        </div>
+        <div class="panel-body">
+            <div class="chart-container">
+                <canvas id="barChart"></canvas>
             </div>
         </div>
     </div>
-</div>
-<div class="chart-container">
-    <canvas id="barChart"></canvas>
 </div>
