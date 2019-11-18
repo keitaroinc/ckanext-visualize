@@ -7,6 +7,11 @@ ckan.module('visualize-colors-settings-remove', function($) {
       $(colorRemoveButton).on(
         'click',
         function(e) {
+          var colorPalette = $('#color-pallet');
+          if (colorPalette.children().length === 1) {
+            alert('At least one color is required for the palette.');
+            return;
+          }
           $(e.currentTarget)
             .closest('.input-group')
             .remove();

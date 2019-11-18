@@ -12,6 +12,7 @@ class VisualizePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IResourceView, inherit=True)
     plugins.implements(plugins.IRoutes, inherit=True)
+    plugins.implements(plugins.ITemplateHelpers)
 
     # IConfigurer
 
@@ -80,3 +81,10 @@ class VisualizePlugin(plugins.SingletonPlugin):
         )
 
         return map
+
+    # ITemplateHelpers
+
+    def get_helpers(self):
+        return {
+            'get_color_palette': helpers.get_color_palette
+        }

@@ -1,4 +1,9 @@
+import json
+
 from ckan.plugins import toolkit
+from ckan.common import config
+
+from ckanext.visualize.default_color_palette import DEFAULT_COLORS
 
 
 def get_fields_without_id(resource_id):
@@ -12,6 +17,24 @@ def get_fields_without_id(resource_id):
 
     fields = _get_fields(resource_id)
     return [{'value': v['id'], 'type': v['type']} for v in fields if v['id'] != '_id']
+
+
+def get_color_palette():
+    """ Gets the existing color palette from the configuration.
+
+    :returns: List of colors
+    :rtype: list """
+
+    visualize_colors = config.get('visualize_colors')
+
+    if visualize_colors:
+        visualize_colors = json.loads(visualize_colors)
+        color_palette = []
+        for i, color in enumerate(visualize_colors):
+            color_palette.append(color.get('color_{0}'.format(i + 1)))
+        return color_palette
+    else:
+        return DEFAULT_COLORS
 
 
 def _get_fields(resource_id):
