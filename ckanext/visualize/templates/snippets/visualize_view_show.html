@@ -9,7 +9,8 @@
     class="container visualize-wrapper"
     data-module="visualize-data"
     data-module-resource-id = "{{ resource_id }}"
-    data-module-resource-view = "{{ h.dump_json(resource_view) }}">
+    data-module-resource-view = "{{ h.dump_json(resource_view) }}"
+    data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
     <div class="row">
             <nav class="main-nav navbar">
                 <div class="col-md-2 figure-wrapper">
@@ -59,7 +60,7 @@
                     </ul>
                 </section>
             </nav>
-       
+
     </div>
         <section class="chart-container">
             <canvas id="barChart"></canvas>

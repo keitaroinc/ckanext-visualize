@@ -3,6 +3,7 @@ on a chart based on the resource that has been provided. The resource must be
 uploaded to DataStore. */
 
 ckan.module('visualize-data', function($) {
+  var colorPalette = [];
   return {
     initialize: function() {
       var resourceView = this.options.resourceView;
@@ -10,6 +11,7 @@ ckan.module('visualize-data', function($) {
         id: this.options.resourceId,
         endpoint: this.sandbox.client.endpoint + '/api'
       };
+      colorPalette = this.options.colorPalette;
       var filters = resourceView.filters || [];
       var queryParams = {
         filters: [],
@@ -61,7 +63,7 @@ ckan.module('visualize-data', function($) {
           {
             label: 'Some dataset label',
             data: [],
-            backgroundColor: '#332288'
+            backgroundColor: colorPalette[0]
           }
         ]
       };
@@ -133,6 +135,9 @@ ckan.module('visualize-data', function($) {
           put: ['columns']
         },
         animation: 150,
+        onAdd: function onAdd(evt) {
+          onColumnAdd(evt);
+        },
         onRemove: function onRemove(evt) {
           onColumnRemove(evt);
         }
@@ -151,6 +156,33 @@ ckan.module('visualize-data', function($) {
             $.each(columns[column], function(i, item) {
               data.datasets[0].data.push(item);
             });
+          } else if (to === 'colour-attr') {
+            var colors = [];
+
+            // Extract the unique values from the selected column
+            var unique = columns[column].filter(
+              (v, i, a) => a.indexOf(v) === i
+            );
+
+            var columnColorsMapping = {};
+            var colorsIndex = 0;
+
+            // For each value assign a color
+            unique.forEach(function(value, i) {
+              var currentColor = colorPalette[i];
+
+              if (!currentColor) {
+                currentColor = colorPalette[colorsIndex];
+                colorsIndex++;
+              }
+
+              columnColorsMapping[value] = currentColor;
+            });
+
+            columns[column].forEach(function(value) {
+              colors.push(columnColorsMapping[value]);
+            });
+            data.datasets[0].backgroundColor = colors;
           }
           chart.update();
         }
@@ -165,6 +197,8 @@ ckan.module('visualize-data', function($) {
             data.labels = [];
           } else if (from === 'y-axis') {
             data.datasets[0].data = [];
+          } else if (from === 'colour-attr') {
+            data.datasets[0].backgroundColor = colorPalette[0];
           }
           item.remove();
           chart.update();
