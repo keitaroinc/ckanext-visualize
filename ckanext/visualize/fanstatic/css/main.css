@@ -1,32 +1,38 @@
 /* Visualize CSS */
 .visualize-wrapper {
-  width: 100%;
-  margin: 2rem 0 0 0;
+  margin-top: 1rem;
 }
 
-.visualize-component {
-  border-radius: 4px 4px 0 0;
-  border: 1px solid #757575;
-  background: #f5f5f5;
+.panel-visualize .panel-heading {
+  background-color: #f0f0f0;
 }
 
-.panel-select {
-  margin: 2rem 0 0 0;
-  background: none;
-  border: none;
+.panel-visualize .panel-heading,
+.panel-visualize .panel-body {
+  padding: 2rem;
+}
+
+.panel-visualize .panel-footer {
   box-shadow: none;
+  background-color: #fafafa;
 }
+
 .panel-drop {
-  margin-top: 3rem;
-  border: none;
+  margin-bottom: 0;
 }
+
 .desc-footer {
   background-color: #fafafa;
   padding: 1px 0;
   border: none;
 }
+
 .desc-muted {
   font-weight: 400;
+}
+
+.chart-container {
+  padding: 1rem;
 }
 
 .list-group {
@@ -35,6 +41,7 @@
   padding-left: 0;
   margin-bottom: 0;
 }
+
 .axis-list {
   display: flex;
   width: 100%;
@@ -47,28 +54,17 @@
   text-align: center;
   margin: 0;
 }
+
 .list-group-horizontal {
   flex-direction: row;
   flex-wrap: wrap;
 }
+
 .drop-list-group {
   flex-wrap: nowrap;
 }
 
-.group-items-select {
-  background: #ffffff;
-  border-radius: 0 0 4px 4px;
-  border: 1px solid #757575;
-}
-
-.group-items-select li {
-  background: transparent;
-  border: none;
-}
-
 .group-items-drop {
-  border: 2px dotted #757575;
-  border-radius: 4px;
   padding: 1rem 2rem 2rem 2rem;
   background: #ffffff;
 }
@@ -83,7 +79,7 @@
 .colour-attr-list {
   border-radius: 4px;
   margin-right: 1.3rem;
-  border: 2px dotted #757575;
+  border: 1px dashed #aaa;
   background: no-repeat;
   display: flex;
   flex-wrap: wrap;
@@ -94,11 +90,12 @@
 .colour-attr-list:last-child {
   margin-right: 0;
 }
+
 .axis-title {
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
   position: absolute;
-  top: -2rem;
+  top: -1.25rem;
   background: #ffffff;
   padding: 0 1rem;
 }
@@ -120,12 +117,15 @@
 .column-pill {
   cursor: grab;
 }
+
 .fa-fw {
   padding-right: 10px;
 }
+
 .symbol-wrapper {
   margin: 2rem 0 0 0;
 }
+
 .symbol-item {
   display: flex;
   justify-content: center;
@@ -134,12 +134,6 @@
   background: #ffffff;
   border-radius: 4px;
   border: 1px solid #757575;
-}
-.chart-container {
-  border-radius: 0 0 4px 4px;
-  padding: 4rem 2rem 4rem 2rem;
-  border: 1px solid #757575;
-  margin-top: -1px;
 }
 
 /* Admin Panel Visualize */
@@ -163,12 +157,15 @@
 input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;
 }
+
 input[type='color']::-webkit-color-swatch {
   border: none;
 }
+
 .form-group.item-color {
   margin: 0;
 }
+
 .form-group.item-color .control-label {
   display: none;
 }
@@ -178,9 +175,11 @@ input[type='color']::-webkit-color-swatch {
   box-shadow: none;
   padding-left: 0;
 }
+
 .color-actions {
   margin-top: 2rem;
 }
+
 .btn.btn-default.color-remove {
   position: absolute;
   padding: 0;
@@ -194,28 +193,35 @@ input[type='color']::-webkit-color-swatch {
 
 /* Responsive Design */
 
-@media (max-width: 576px) {
-}
+@media (max-width: 576px) {}
 
 @media (max-width: 768px) {
   .group-items-drop li {
     margin-top: 3rem;
   }
 }
+
+@media (min-width: 992px) {
+  .pr-0 {
+    padding-right: 0;
+  }
+}
+
 @media (max-width: 992px) {
   .figure-wrapper {
     margin-bottom: 2rem;
   }
+
   .drop-list-group {
     flex-wrap: wrap;
   }
+
   .group-items-drop li {
     margin-right: 0;
   }
 }
 
-@media (max-width: 1200px) {
-}
+@media (max-width: 1200px) {}
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */
