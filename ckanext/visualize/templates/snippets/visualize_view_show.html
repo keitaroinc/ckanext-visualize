@@ -43,6 +43,8 @@
                 {% set column_color = '#332288' %}
                 {% endif %}
 
+      
+
                 <li class="list-group-item column" data-column="{{ field.value }}">
                   <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
                       class="fa fa-file-text fa-fw" aria-hidden="true"></i>{{ field.value }}</span>
@@ -112,6 +114,16 @@
       <div class="chart-container">
         <canvas id="barChart"></canvas>
       </div>
+     
+      <div class="no-chart-container">
+          <div class="panel-heading text-center">
+            Start your Dynamic Experience with drag and drop functionality and intelligent chart selection
+          </div>
+          <figure class="panel-body no-chart-illustration">
+            <img src="/base/images/No-chart-illustration.png" class="img-responsive" alt="Illustration image" />
+          </figure>
+        </div>
+
     </div>
   </div>
 </div>
