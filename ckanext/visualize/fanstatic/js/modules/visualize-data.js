@@ -4,6 +4,11 @@ uploaded to DataStore. */
 
 ckan.module('visualize-data', function($) {
   var colorPalette = [];
+  var CHART_TYPES = {
+    BAR: 'bar',
+    LINE: 'line',
+    POINT: 'point'
+  };
   return {
     initialize: function() {
       var resourceView = this.options.resourceView;
@@ -203,6 +208,26 @@ ckan.module('visualize-data', function($) {
           item.remove();
           chart.update();
         }
+      }
+    },
+    getChartType: function(xAxisType, yAxisType) {
+      if (
+        xAxisType === 'numeric' ||
+        xAxisType === 'text' ||
+        xAxisType === 'date' ||
+        xAxisType === 'numeric' ||
+        xAxisType === 'text' ||
+        yAxisType === 'text' ||
+        yAxisType === 'numeric' ||
+        yAxisType === 'date' ||
+        (xAxisType === 'numeric' && yAxisType === 'text') ||
+        (xAxisType === 'text' && yAxisType === 'numeric')
+      ) {
+        return CHART_TYPES.BAR;
+      } else if (xAxisType === 'date' || yAxisType === 'numeric') {
+        return CHART_TYPES.LINE;
+      } else if (xAxisType === 'numeric' || yAxisType === 'numeric') {
+        return CHART_TYPES.POINT;
       }
     }
   };
