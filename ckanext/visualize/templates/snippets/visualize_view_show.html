@@ -5,64 +5,120 @@
 {% resource 'visualize/js/vendor/backend.ckan.js' %}
 {% resource 'visualize/js/modules/visualize-data.js' %}
 
-<section
-    class="container visualize-wrapper"
-    data-module="visualize-data"
-    data-module-resource-id = "{{ resource_id }}"
-    data-module-resource-view = "{{ h.dump_json(resource_view) }}"
-    data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
-    <div class="row">
-            <nav class="main-nav navbar">
-                <div class="col-md-2 figure-wrapper">
-                    <figure>
-                        <img src="/base/images/Bar-symbol.png" class="img-responsive"
-                            alt="An icon representing visualization type" />
-                    </figure>
-                </div>
-                <section class="col-md-10">
-                    <h5 class="section-heading">Data Types<em>For Intelligent Chart Selection, drag and drop data types to dimensions ( i.e X, Y, Colour )</em></h5>
-                    <ul id="all-columns" class="list-group group-items-select list-group-horizontal">
-                        {% for field in fields %}
-                            {% if field.type == 'text' %}
-                                {% set column_color = '#332288' %}
-                            {% elif field.type == 'numeric' %}
-                                {% set column_color = '#117733' %}
-                            {% elif field.type == 'date' %}
-                                {% set column_color = '#44AA99' %}
-                            {% elif field.type == 'time' %}
-                                {% set column_color = '#88CCEE' %}
-                            {% elif field.type == 'timestamp' %}
-                                {% set column_color = '#DDCC77' %}
-                            {% elif field.type == 'bool' %}
-                                {% set column_color = '#CC6677' %}
-                            {% elif field.type == 'int' %}
-                                {% set column_color = '#AA4499' %}
-                            {% elif field.type == 'float' %}
-                                {% set column_color = '#882255' %}
-                            {% else %}
-                                {% set column_color = '#332288' %}
-                            {% endif %}
-                            <li class="list-group-item column" data-column="{{ field.value }}">
-                                <span class="badge-pill column-pill" style="background-color: {{ column_color }};">{{ field.value }}</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <ul class="list-group group-items-drop list-group-horizontal">
-                        <li id="x-axis" class="list-group-item">
-                            <span class="info-text"><small>{{ _('X axis') }}</small></span>
-                        </li>
-                        <li id="y-axis" class="list-group-item">
-                            <span class="info-text"><small>{{ _('Y axis') }}</small></span>
-                        </li>
-                        <li id="colour-attr" class="list-group-item">
-                            <span class="info-text"><small>{{ _('Colour') }}</small></span>
-                        </li>
-                    </ul>
-                </section>
-            </nav>
+<div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
+  data-module-resource-view="{{ h.dump_json(resource_view) }}"
+  data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
+  <div class="panel panel-default panel-visualize">
+    <div class="panel-heading">
+      <div class="row">
+        <div class="col-md-2 pr-0">
+          <div class="panel panel-default">
+            <figure class="panel-body">
+              <img src="/base/images/Bar-symbol.png" class="img-responsive"
+                alt="An icon representing visualization type" />
+            </figure>
+          </div>
+        </div>
+        <div class="col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-body group-items-select">
+              <div id="all-columns" class="list-group list-group-horizontal">
+                {% for field in fields %}
+                {% if field.type == 'text' %}
+                {% set column_color = '#332288' %}
+                {% elif field.type == 'numeric' %}
+                {% set column_color = '#117733' %}
+                {% elif field.type == 'date' %}
+                {% set column_color = '#44AA99' %}
+                {% elif field.type == 'time' %}
+                {% set column_color = '#88CCEE' %}
+                {% elif field.type == 'timestamp' %}
+                {% set column_color = '#DDCC77' %}
+                {% elif field.type == 'bool' %}
+                {% set column_color = '#CC6677' %}
+                {% elif field.type == 'int' %}
+                {% set column_color = '#AA4499' %}
+                {% elif field.type == 'float' %}
+                {% set column_color = '#882255' %}
+                {% else %}
+                {% set column_color = '#332288' %}
+                {% endif %}
 
+                <div class="list-group-item column" data-column="{{ field.value }}">
+                  <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
+                      class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw"
+                      aria-hidden="true"></i>{{ field.value }}</span>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="panel-footer">
+              <ul class="list-inline">
+                <li>
+                  <h5 class="text-muted desc-muted">Data Types</h5>
+                </li>
+                <li>
+                  <i class="fa fa-file-text-o fa-fw" aria-hidden="true"></i>
+                  <span>Text</span>
+                </li>
+                <li>
+                  <i class="fa fa-calculator fa-fw" aria-hidden="true"></i>
+                  <span>Numeric</span>
+                </li>
+                <li>
+                  <i class="fa fa-calendar fa-fw" aria-hidden="true"></i>
+                  <span>Date</span>
+                </li>
+                <li>
+                  <i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>
+                  <span>Time</span>
+                </li>
+                <li>
+                  <i class="fa fa-hourglass-half fa-fw" aria-hidden="true"></i>
+                  <span>Timestamp</span>
+                </li>
+                <li>
+                  <i class="fa fa-file-excel-o fa-fw" aria-hidden="true"></i>
+                  <span>Integer</span>
+                </li>
+                <li>
+                  <i class="fa fa-percent fa-fw" aria-hidden="true"></i>
+                  <span>Float</span>
+                </li>
+                <li>
+                  <i class="fa fa-toggle-on fa-fw" aria-hidden="true"></i>
+                  <span>Boolean</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel panel-default panel-drop">
+            <div class="panel-body group-items-drop">
+              <div class="drop-list-group">
+                <div id="x-axis" class="axis-list x-axis-list">
+                  <small class="axis-title">{{ _('X-axis') }}</small>
+                </div>
+                <div id="y-axis" class="axis-list y-axis-list">
+                  <small class="axis-title">{{ _('Y-axis') }}</small>
+                </div>
+                <div id="colour-attr" class="axis-list colour-attr-list">
+                  <small class="axis-title">{{ _('Colour') }}</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-        <section class="chart-container">
-            <canvas id="barChart"></canvas>
-        </section>
-</section>
+    <div class="panel-body">
+      <div class="chart-container hidden">
+        <canvas id="barChart"></canvas>
+      </div>
+      <div class="no-chart-container">
+        <figure class="no-chart-illustration">
+          <img src="/base/images/No-chart-illustration.png" class="img-responsive" alt="Illustration image" />
+        </figure>
+      </div>
+    </div>
+  </div>
+</div>

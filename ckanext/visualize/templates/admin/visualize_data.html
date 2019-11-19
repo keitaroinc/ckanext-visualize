@@ -12,16 +12,16 @@
 <form method="post" action="{{ action_url }}" class="form-horizontal">
   <div class="color-group">
     <label class="control-label" for="color-pallet">Chart Colors</label>
-    <div id="color-pallet" data-module="visualize-colors-settings-remove">
+    <div id="color-pallet" class="color-pallet-group" data-module="visualize-colors-settings-remove">
       {% for color in data.visualize_colors %}
-        <div class="input-group">
-          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
-          <div class="input-group-btn">
-            <button class="btn btn-default color-remove" type="button">
-              <i class="fa fa-times"></i>
-            </button>
-          </div>
+      <div class="input-group">
+        {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
+        <div class="input-group-btn">
+          <button class="btn btn-default color-remove" type="button">
+            <i class="fa fa-times"></i>
+          </button>
         </div>
+      </div>
       {% endfor %}
     </div>
   </div>

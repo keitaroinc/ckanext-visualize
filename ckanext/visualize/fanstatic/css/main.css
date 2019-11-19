@@ -1,46 +1,36 @@
-/* Visualize Chart Colors */
-
-.color-primary {
-  color: #fff;
-  background-color: #332288;
-}
-.color-secondary {
-  color: #fff;
-  background-color: #882255;
-}
-.color-success {
-  color: #fff;
-  background-color: #117733;
-}
-.color-info {
-  color: #000;
-  background-color: #ddcc77;
-}
-.color-warning {
-  color: #fff;
-  background-color: #aa4499;
-}
-
-.color-danger {
-  color: #fff;
-  background-color: #cc6677;
-}
-
 /* Visualize CSS */
 .visualize-wrapper {
-  width: 100%;
-  background: #fff;
-  padding: 2rem;
-  border: 2px solid #ddd;
-  margin: 3rem 0 0.5rem 0;
-  border-radius: 4px;
+  margin-top: 1rem;
 }
 
-.main-nav {
-  border: 1px solid #ddd;
-  padding: 3rem 0.5rem 1rem 2rem;
-  background: #f6f6f6;
+.panel-visualize .panel-heading,
+.panel-visualize .panel-body {
+  padding: 2rem;
 }
+
+.panel-visualize .panel-footer {
+  box-shadow: none;
+  background-color: #fafafa;
+}
+
+.panel-drop {
+  margin-bottom: 0;
+}
+
+.desc-footer {
+  background-color: #fafafa;
+  padding: 1px 0;
+  border: none;
+}
+
+.desc-muted {
+  font-weight: 400;
+}
+
+.chart-container {
+  padding: 1rem;
+}
+
 .list-group {
   display: flex;
   flex-direction: column;
@@ -48,74 +38,58 @@
   margin-bottom: 0;
 }
 
-.list-group-item.column {
-  padding: .75rem;
+.axis-list {
+  flex: 1 1 33%;
+  max-width: 33%;
+  padding: 1rem;
+  min-height: 5rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
+
+.list-group-item.column {
+  padding: 0.75rem;
+  border: none;
+  background: none;
+  text-align: center;
+  margin: 0;
+}
+
 .list-group-horizontal {
   flex-direction: row;
-}
-
-.group-items-select {
   flex-wrap: wrap;
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 0px 0px 4px 4px;
-  padding: 2rem;
-}
-.group-items-select li {
-  background: transparent;
-  border: none;
 }
 
-.group-items-drop {
-  margin: 2.5rem 0 1.5rem 0;
+.drop-list-group {
+  display: flex;
 }
 
-.group-items-drop li {
-  width: 100%;
-  margin: 0;
-  margin-top: 2rem;
-  min-height: 4.5rem;
-  margin-left: -1px;
+.x-axis-list,
+.y-axis-list,
+.colour-attr-list {
+  position: relative;
+  border-radius: 4px;
+  margin: .5rem;
+  border: 1px dashed #aaa;
 }
 
-.group-items-drop .list-group-item.column {
-  width: 100%;
-  border: none;
-  padding: 0;
-  margin: 0;
-  background: transparent;
-  text-align: center;
-}
-.info-text {
-  font-size: 16px;
-  color: #333333;
+.axis-title {
+  display: inline-block;
+  font-size: 1.5rem;
   position: absolute;
-  top: -2.5rem;
-  left: 0.2rem;
-  font-weight: 600;
-}
-
-.section-heading {
-  background: #e5e5e5;
-  border: 1px solid #ddd;
-  padding: 1rem;
-  margin: 0;
-  border-radius: 4px 4px 0px 0px;
-}
-.section-heading > em {
-  color: #777777;
-  margin-left: 1rem;
-  font-weight: 500;
-  font-size: 13px;
+  top: -1.25rem;
+  padding: 0 1rem;
+  background: #ffffff;
 }
 
 .badge-pill {
   display: inline-block;
   min-width: 10px;
-  padding: 10px 23px;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
   line-height: 1;
   color: #fff;
   text-align: center;
@@ -128,17 +102,38 @@
   cursor: grab;
 }
 
-.figure-wrapper {
+.fa-fw {
+  padding-right: 10px;
+}
+
+.symbol-wrapper {
+  margin: 2rem 0 0 0;
+}
+
+.symbol-item {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background: #fff;
-  border: 1px solid #dddddd;
+  padding: 1rem;
+  background: #ffffff;
   border-radius: 4px;
+  border: 1px solid #757575;
 }
 
-#color-pallet {
+.no-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-chart-illustration {
+  width: 600px;
+  margin: 5rem 3rem;
+}
+
+/* Admin Panel Visualize */
+
+.color-pallet-group {
   display: flex;
   flex-wrap: wrap;
 }
@@ -157,12 +152,15 @@
 input[type='color']::-webkit-color-swatch-wrapper {
   padding: 0;
 }
+
 input[type='color']::-webkit-color-swatch {
   border: none;
 }
+
 .form-group.item-color {
   margin: 0;
 }
+
 .form-group.item-color .control-label {
   display: none;
 }
@@ -172,15 +170,17 @@ input[type='color']::-webkit-color-swatch {
   box-shadow: none;
   padding-left: 0;
 }
+
 .color-actions {
   margin-top: 2rem;
 }
+
 .btn.btn-default.color-remove {
   position: absolute;
   padding: 0;
   border: none;
   color: white;
-  background: rgba(0, 0, 0, 0.02);
+  background: #00000005;
   bottom: 0.7rem;
   right: 1.3rem;
   z-index: 999;
@@ -188,32 +188,34 @@ input[type='color']::-webkit-color-swatch {
 
 /* Responsive Design */
 
-@media (max-width: 576px) {
-  .list-group-horizontal {
-    flex-direction: row;
+@media (max-width: 576px) {}
+
+@media (max-width: 768px) {}
+
+@media (min-width: 992px) {
+  .pr-0 {
+    padding-right: 0;
   }
 }
 
-@media (max-width: 768px) {
-  .list-group-horizontal {
-    flex-direction: column;
-  }
-
-  .group-items-select {
-    flex-direction: row;
-  }
-  .group-items-drop li {
-    margin-top: 3rem;
-  }
-}
 @media (max-width: 992px) {
   .figure-wrapper {
     margin-bottom: 2rem;
   }
+
+  .axis-list {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin: 1rem;
+  }
+
+  .drop-list-group {
+    flex-wrap: wrap;
+  }
+
 }
 
-@media (max-width: 1200px) {
-}
+@media (max-width: 1200px) {}
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */
