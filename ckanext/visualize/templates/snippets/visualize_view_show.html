@@ -6,7 +6,8 @@
 {% resource 'visualize/js/modules/visualize-data.js' %}
 
 <div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
-  data-module-resource-view="{{ h.dump_json(resource_view) }}" data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
+  data-module-resource-view="{{ h.dump_json(resource_view) }}"
+  data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
   <div class="panel panel-default panel-visualize">
     <div class="panel-heading">
       <div class="row">
@@ -21,7 +22,7 @@
         <div class="col-md-10">
           <div class="panel panel-default">
             <div class="panel-body group-items-select">
-              <ul id="all-columns" class="list-group list-group-horizontal">
+              <div id="all-columns" class="list-group list-group-horizontal">
                 {% for field in fields %}
                 {% if field.type == 'text' %}
                 {% set column_color = '#332288' %}
@@ -43,14 +44,13 @@
                 {% set column_color = '#332288' %}
                 {% endif %}
 
-
-
-                <li class="list-group-item column" data-column="{{ field.value }}">
+                <div class="list-group-item column" data-column="{{ field.value }}">
                   <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
-                      class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw" aria-hidden="true"></i>{{ field.value }}</span>
-                </li>
+                      class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw"
+                      aria-hidden="true"></i>{{ field.value }}</span>
+                </div>
                 {% endfor %}
-              </ul>
+              </div>
             </div>
             <div class="panel-footer">
               <ul class="list-inline">
@@ -94,17 +94,17 @@
           </div>
           <div class="panel panel-default panel-drop">
             <div class="panel-body group-items-drop">
-              <ul class="list-group list-group-horizontal drop-list-group">
-                <li id="x-axis" class="list-group-item axis-list x-axis-list">
-                  <span class="axis-title"><small>{{ _('X-axis') }}</small></span>
-                </li>
-                <li id="y-axis" class="list-group-item axis-list y-axis-list">
-                  <span class="axis-title"><small>{{ _('Y-axis') }}</small></span>
-                </li>
-                <li id="colour-attr" class="list-group-item axis-list colour-attr-list">
-                  <span class="axis-title"><small>{{ _('Colour') }}</small></span>
-                </li>
-              </ul>
+              <div class="drop-list-group">
+                <div id="x-axis" class="axis-list x-axis-list">
+                  <small class="axis-title">{{ _('X-axis') }}</small>
+                </div>
+                <div id="y-axis" class="axis-list y-axis-list">
+                  <small class="axis-title">{{ _('Y-axis') }}</small>
+                </div>
+                <div id="colour-attr" class="axis-list colour-attr-list">
+                  <small class="axis-title">{{ _('Colour') }}</small>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -114,11 +114,8 @@
       <div class="chart-container hidden">
         <canvas id="barChart"></canvas>
       </div>
-
       <div class="no-chart-container">
-        <div class="panel-heading text-center">
-        </div>
-        <figure class="panel-body no-chart-illustration">
+        <figure class="no-chart-illustration">
           <img src="/base/images/No-chart-illustration.png" class="img-responsive" alt="Illustration image" />
         </figure>
       </div>
