@@ -39,8 +39,14 @@
 }
 
 .axis-list {
+  flex: 1 1 33%;
+  max-width: 33%;
+  padding: 1rem;
+  min-height: 5rem;
+  text-align: center;
   display: flex;
-  width: 100%;
+  align-items: center;
+  flex-direction: column;
 }
 
 .list-group-item.column {
@@ -57,43 +63,25 @@
 }
 
 .drop-list-group {
-  flex-wrap: nowrap;
-}
-
-.group-items-drop {
-  padding: 1rem 2rem 2rem 2rem;
-  background: #ffffff;
-}
-
-.group-items-drop li {
-  margin-top: 2rem;
-  min-height: 4.5rem;
+  display: flex;
 }
 
 .x-axis-list,
 .y-axis-list,
 .colour-attr-list {
+  position: relative;
   border-radius: 4px;
-  margin-right: 1.3rem;
+  margin: .5rem;
   border: 1px dashed #aaa;
-  background: no-repeat;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-self: flex-start;
-}
-
-.colour-attr-list:last-child {
-  margin-right: 0;
 }
 
 .axis-title {
+  display: inline-block;
   font-size: 1.5rem;
-  font-weight: 500;
   position: absolute;
   top: -1.25rem;
-  background: #ffffff;
   padding: 0 1rem;
+  background: #ffffff;
 }
 
 .badge-pill {
@@ -131,9 +119,16 @@
   border-radius: 4px;
   border: 1px solid #757575;
 }
+
+.no-chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .no-chart-illustration {
   width: 600px;
-  margin: 0 auto;
+  margin: 5rem 3rem;
 }
 
 /* Admin Panel Visualize */
@@ -193,14 +188,9 @@ input[type='color']::-webkit-color-swatch {
 
 /* Responsive Design */
 
-@media (max-width: 576px) {
-}
+@media (max-width: 576px) {}
 
-@media (max-width: 768px) {
-  .group-items-drop li {
-    margin-top: 3rem;
-  }
-}
+@media (max-width: 768px) {}
 
 @media (min-width: 992px) {
   .pr-0 {
@@ -213,17 +203,19 @@ input[type='color']::-webkit-color-swatch {
     margin-bottom: 2rem;
   }
 
+  .axis-list {
+    flex-basis: 100%;
+    max-width: 100%;
+    margin: 1rem;
+  }
+
   .drop-list-group {
     flex-wrap: wrap;
   }
 
-  .group-items-drop li {
-    margin-right: 0;
-  }
 }
 
-@media (max-width: 1200px) {
-}
+@media (max-width: 1200px) {}
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */
