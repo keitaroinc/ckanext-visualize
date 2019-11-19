@@ -71,7 +71,7 @@
 .colour-attr-list {
   position: relative;
   border-radius: 4px;
-  margin: .5rem;
+  margin: 0.5rem;
   border: 1px dashed #aaa;
 }
 
@@ -143,10 +143,7 @@
 }
 
 .item-color {
-  margin: 1rem 1rem 1rem 0;
-  background: none;
-  border: none;
-  width: 12.7rem;
+  width: 13.6rem;
 }
 
 input[type='color']::-webkit-color-swatch-wrapper {
@@ -168,29 +165,38 @@ input[type='color']::-webkit-color-swatch {
 .form-group.item-color input[type='color'] {
   border: none;
   box-shadow: none;
-  padding-left: 0;
 }
 
-.color-actions {
-  margin-top: 2rem;
+.form-group.item-color input[type='color']:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.chart-icons {
+  margin-top: 6rem;
 }
 
 .btn.btn-default.color-remove {
-  position: absolute;
+  position: relative;
   padding: 0;
   border: none;
-  color: white;
+  color: #ffffff;
   background: #00000005;
-  bottom: 0.7rem;
-  right: 1.3rem;
+  right: 2.5rem;
   z-index: 999;
 }
 
 /* Responsive Design */
 
-@media (max-width: 576px) {}
+@media (max-width: 576px) {
+}
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+}
 
 @media (min-width: 992px) {
   .pr-0 {
@@ -212,10 +218,10 @@ input[type='color']::-webkit-color-swatch {
   .drop-list-group {
     flex-wrap: wrap;
   }
-
 }
 
-@media (max-width: 1200px) {}
+@media (max-width: 1200px) {
+}
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */

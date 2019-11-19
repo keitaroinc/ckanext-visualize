@@ -10,26 +10,61 @@
 
 {% block primary_content_inner %}
 <form method="post" action="{{ action_url }}" class="form-horizontal">
-  <div class="color-group">
-    <label class="control-label" for="color-pallet">Chart Colors</label>
-    <div id="color-pallet" class="color-pallet-group" data-module="visualize-colors-settings-remove">
-      {% for color in data.visualize_colors %}
-      <div class="input-group">
-        {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="button">
-            <i class="fa fa-times"></i>
-          </button>
+  <label class="control-label" for="color-pallet">Chart Colors</label>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div id="color-pallet" class="color-pallet-group" data-module="visualize-colors-settings-remove">
+        {% for color in data.visualize_colors %}
+        <div class="input-group">
+          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
+          <div class="input-group-btn">
+            <button class="btn btn-default color-remove" type="button">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </div>
-  <div class="form-actions color-actions">
+  <div class="form-actions">
     <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-add"><i
         class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
     <button type="button" class="btn btn-default pull-right" data-module="visualize-colors-settings-reset"><i
         class="fa fa-sliders"></i>{{ _(' Set Default') }}</button>
+  </div>
+
+  <div class="row chart-icons">
+    <div class="col-md-4">
+      <label class="control-label" for="bar-chart-icon">Bar Chart Icon</label>
+      <div class="panel panel-default text-center">
+        <div id="bar-chart-icon" class="panel-body">
+          <img src="/base/images/Bar-symbol.png" class="img-responsive center-block" alt="Chart icon">
+        </div>
+        <div class="panel-footer upload-image-select">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label class="control-label" for="line-chart-icon">Line Chart Icon</label>
+      <div class="panel panel-default text-center">
+        <div id="line-chart-icon" class="panel-body">
+          <img src="/base/images/Line-symbol.png" class="img-responsive center-block" alt="Chart icon">
+        </div>
+        <div class="panel-footer upload-image-select">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}</div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <label class="control-label" for="line-chart-icon">Point Chart Icon</label>
+      <div class="panel panel-default text-center">
+        <div id="point-chart-icon" class="panel-body">
+          <img src="/base/images/Point-symbol.png" class="img-responsive center-block" alt="Chart icon">
+        </div>
+        <div class="panel-footer upload-image-select">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}</div>
+      </div>
+    </div>
   </div>
   <hr>
   <div class="form-actions">
@@ -37,9 +72,7 @@
     <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
   </div>
 </form>
-
 {% endblock %}
-
 {% block secondary_content %}
 <div class="module module-narrow module-shallow">
   <h2 class="module-heading">
