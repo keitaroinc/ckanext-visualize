@@ -42,7 +42,7 @@
                             {% else %}
                                 {% set column_color = '#332288' %}
                             {% endif %}
-                            <li class="list-group-item column" data-column="{{ field.value }}">
+                            <li class="list-group-item column" data-column="{{ field.value }}" data-column-type="{{ field.type }}">
                                 <span class="badge-pill column-pill" style="background-color: {{ column_color }};">{{ field.value }}</span>
                             </li>
                         {% endfor %}
@@ -63,6 +63,6 @@
 
     </div>
         <section class="chart-container">
-            <canvas id="barChart"></canvas>
+            <canvas id="chart-canvas"></canvas>
         </section>
 </section>

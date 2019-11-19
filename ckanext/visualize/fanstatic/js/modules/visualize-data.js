@@ -7,8 +7,74 @@ ckan.module('visualize-data', function($) {
   var CHART_TYPES = {
     BAR: 'bar',
     LINE: 'line',
-    POINT: 'point'
+    POINT: 'scatter'
   };
+  var currentChartType = 'bar';
+  var currentxAxisType = '';
+  var currentyAxisType = '';
+  var currentxAxis = '';
+  var currentyAxis = '';
+  var chart;
+  var chartData = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Some dataset label',
+        data: [],
+        fill: false
+      }
+    ]
+  };
+  var columns = {};
+  var ctx = document.getElementById('chart-canvas').getContext('2d');
+
+  function initChart() {
+    chartData.datasets[0].backgroundColor = colorPalette[0];
+    chartData.datasets[0].borderColor = colorPalette[0];
+    chart = new Chart(ctx, {
+      type: currentChartType,
+      data: chartData,
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    });
+  }
+
+  function getChartType(xAxisType, yAxisType) {
+    if (
+      (xAxisType === 'date' || xAxisType === 'timestamp') &&
+      yAxisType === 'numeric'
+    ) {
+      return CHART_TYPES.LINE;
+    } else if (xAxisType === 'numeric' && yAxisType === 'numeric') {
+      return CHART_TYPES.POINT;
+    } else if (
+      xAxisType === 'numeric' ||
+      xAxisType === 'text' ||
+      xAxisType === 'date' ||
+      xAxisType === 'numeric' ||
+      xAxisType === 'text' ||
+      yAxisType === 'text' ||
+      yAxisType === 'numeric' ||
+      yAxisType === 'date' ||
+      (xAxisType === 'numeric' && yAxisType === 'text') ||
+      (xAxisType === 'text' && yAxisType === 'numeric')
+    ) {
+      return CHART_TYPES.BAR;
+    }
+  }
+
   return {
     initialize: function() {
       var resourceView = this.options.resourceView;
@@ -43,8 +109,6 @@ ckan.module('visualize-data', function($) {
       });
     },
     prepareDataForChart: function(data) {
-      var columns = {};
-
       $.each(data.fields, function(i, item) {
         if (item.id !== '_id') {
           columns[item.id] = [];
@@ -59,44 +123,13 @@ ckan.module('visualize-data', function($) {
         });
       });
 
-      this.drawChart(columns);
+      this.drawChart();
     },
-    drawChart: function(columns) {
-      var barChartData = {
-        labels: [],
-        datasets: [
-          {
-            label: 'Some dataset label',
-            data: [],
-            backgroundColor: colorPalette[0]
-          }
-        ]
-      };
-
-      var ctx = document.getElementById('barChart').getContext('2d');
-
-      var barChart = new Chart(ctx, {
-        type: 'bar',
-        data: barChartData,
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                }
-              }
-            ]
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      });
-
-      this.initDragging(barChart, barChartData, columns);
+    drawChart: function() {
+      initChart();
+      this.initDragging(columns);
     },
-    initDragging: function(chart, data, columns) {
+    initDragging: function(columns) {
       Sortable.create(document.getElementById('all-columns'), {
         group: {
           name: 'columns',
@@ -151,43 +184,182 @@ ckan.module('visualize-data', function($) {
       function onColumnAdd(evt) {
         var item = $(evt.item);
         var column = item.attr('data-column');
+        var columnType = item.attr('data-column-type');
         var to = $(evt.to).attr('id');
         if (columns[column]) {
           if (to === 'x-axis') {
-            $.each(columns[column], function(i, item) {
-              data.labels.push(item);
-            });
-          } else if (to === 'y-axis') {
-            $.each(columns[column], function(i, item) {
-              data.datasets[0].data.push(item);
-            });
-          } else if (to === 'colour-attr') {
-            var colors = [];
-
-            // Extract the unique values from the selected column
-            var unique = columns[column].filter(
-              (v, i, a) => a.indexOf(v) === i
-            );
-
-            var columnColorsMapping = {};
-            var colorsIndex = 0;
-
-            // For each value assign a color
-            unique.forEach(function(value, i) {
-              var currentColor = colorPalette[i];
-
-              if (!currentColor) {
-                currentColor = colorPalette[colorsIndex];
-                colorsIndex++;
+            currentxAxisType = columnType;
+            currentxAxis = column;
+            currentChartType =
+              getChartType(currentxAxisType, currentyAxisType) || 'bar';
+            if (currentChartType === CHART_TYPES.POINT) {
+              if (chartData.datasets[0].data.length === 0) {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num
+                ) {
+                  return {
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              } else {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
               }
+            } else {
+              $.each(columns[column], function(i, item) {
+                chartData.labels.push(item);
+              });
+            }
+            chart.destroy();
+            initChart();
+          } else if (to === 'y-axis') {
+            currentyAxisType = columnType;
+            currentyAxis = column;
+            currentChartType =
+              getChartType(currentxAxisType, currentyAxisType) || 'bar';
 
-              columnColorsMapping[value] = currentColor;
-            });
+            if (currentChartType === CHART_TYPES.POINT) {
+              if (chartData.datasets[0].data.length === 0) {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num
+                ) {
+                  return {
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              } else {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              }
+            } else {
+              $.each(columns[column], function(i, item) {
+                chartData.datasets[0].data.push(item);
+              });
+            }
+            chart.destroy();
+            initChart();
+          } else if (to === 'colour-attr') {
+            if (
+              currentChartType === CHART_TYPES.BAR ||
+              currentChartType === CHART_TYPES.POINT
+            ) {
+              var colors = [];
 
-            columns[column].forEach(function(value) {
-              colors.push(columnColorsMapping[value]);
-            });
-            data.datasets[0].backgroundColor = colors;
+              // Extract the unique values from the selected column
+              var unique = columns[column].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+
+              var columnColorsMapping = {};
+              var colorsIndex = 0;
+
+              // For each value assign a color
+              unique.forEach(function(value, i) {
+                var currentColor = colorPalette[i];
+
+                if (!currentColor) {
+                  currentColor = colorPalette[colorsIndex];
+                  colorsIndex++;
+                }
+
+                columnColorsMapping[value] = currentColor;
+              });
+
+              columns[column].forEach(function(value) {
+                colors.push(columnColorsMapping[value]);
+              });
+              chartData.datasets[0].backgroundColor = colors;
+            } else {
+              console.log('columns', columns);
+              // Extract the unique values from the selected column
+              var unique = columns[column].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+
+              var columnColorsMapping = {};
+              var colorsIndex = 0;
+
+              // For each value assign a color
+              unique.forEach(function(value, i) {
+                var currentColor = colorPalette[i];
+
+                if (!currentColor) {
+                  currentColor = colorPalette[colorsIndex];
+                  colorsIndex++;
+                }
+
+                columnColorsMapping[value] = currentColor;
+              });
+
+              console.log('columnColorsMapping', columnColorsMapping);
+
+              chartData.datasets = [];
+              var uniqueLabels = columns[currentxAxis].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+
+              chartData.labels = uniqueLabels;
+
+              for (var key in columnColorsMapping) {
+                var dataset = {
+                  label: 'Some dataset label',
+                  data: [],
+                  backgroundColor: columnColorsMapping[key]
+                };
+                uniqueLabels.forEach(function(label) {});
+                chartData.datasets.push(dataset);
+              }
+            }
           }
           chart.update();
         }
@@ -199,35 +371,21 @@ ckan.module('visualize-data', function($) {
         var from = $(evt.from).attr('id');
         if (columns[column]) {
           if (from === 'x-axis') {
-            data.labels = [];
+            chartData.labels = [];
+            currentxAxisType = null;
+            currentxAxis = null;
           } else if (from === 'y-axis') {
-            data.datasets[0].data = [];
+            chartData.datasets[0].data = [];
+            currentyAxisType = null;
+            currentyAxis = null;
           } else if (from === 'colour-attr') {
-            data.datasets[0].backgroundColor = colorPalette[0];
+            chartData.datasets[0].backgroundColor = colorPalette[0];
           }
+          currentChartType =
+            getChartType(currentxAxisType, currentyAxisType) || 'bar';
           item.remove();
           chart.update();
         }
-      }
-    },
-    getChartType: function(xAxisType, yAxisType) {
-      if (
-        xAxisType === 'numeric' ||
-        xAxisType === 'text' ||
-        xAxisType === 'date' ||
-        xAxisType === 'numeric' ||
-        xAxisType === 'text' ||
-        yAxisType === 'text' ||
-        yAxisType === 'numeric' ||
-        yAxisType === 'date' ||
-        (xAxisType === 'numeric' && yAxisType === 'text') ||
-        (xAxisType === 'text' && yAxisType === 'numeric')
-      ) {
-        return CHART_TYPES.BAR;
-      } else if (xAxisType === 'date' || yAxisType === 'numeric') {
-        return CHART_TYPES.LINE;
-      } else if (xAxisType === 'numeric' || yAxisType === 'numeric') {
-        return CHART_TYPES.POINT;
       }
     }
   };
