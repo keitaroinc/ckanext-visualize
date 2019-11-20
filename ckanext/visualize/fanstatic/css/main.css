@@ -13,10 +13,6 @@
   background-color: #fafafa;
 }
 
-.panel-drop {
-  margin-bottom: 0;
-}
-
 .desc-footer {
   background-color: #fafafa;
   padding: 1px 0;
@@ -163,6 +159,8 @@ input[type='color']::-webkit-color-swatch {
 }
 
 .form-group.item-color input[type='color'] {
+  margin: 1rem;
+  padding: 0;
   border: none;
   box-shadow: none;
 }
@@ -186,7 +184,7 @@ input[type='color']::-webkit-color-swatch {
   border: none;
   color: #ffffff;
   background: #00000005;
-  right: 2.5rem;
+  right: 1rem;
   z-index: 999;
 }
 
