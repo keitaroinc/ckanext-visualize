@@ -134,12 +134,11 @@
   flex-wrap: wrap;
 }
 
-.color-group .control-label {
-  margin-bottom: 1rem;
+.form-horizontal .control-label {
+  margin-bottom: 5px;
 }
-
 .item-color {
-  width: 13.6rem;
+  width: 11.2rem;
 }
 
 input[type='color']::-webkit-color-swatch-wrapper {
@@ -159,23 +158,27 @@ input[type='color']::-webkit-color-swatch {
 }
 
 .form-group.item-color input[type='color'] {
-  margin: 1rem;
-  padding: 0;
-  border: none;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: transparent;
   box-shadow: none;
 }
 
-.form-group.item-color input[type='color']:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(102, 175, 233, 0.6);
+.form-group.item-color input[type='color']:hover,
+.form-group.item-color input[type='color']:focus,
+.form-group.item-color input[type='color']:active {
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-.chart-icons {
-  margin-top: 6rem;
+.img-upload-group {
+  border: none;
+  box-shadow: none;
+  margin-top: 2rem;
+}
+
+.colors-settings {
+  padding: 2rem 1rem 0 1rem;
 }
 
 .btn.btn-default.color-remove {
@@ -184,7 +187,7 @@ input[type='color']::-webkit-color-swatch {
   border: none;
   color: #ffffff;
   background: #00000005;
-  right: 1rem;
+  right: 1.5rem;
   z-index: 999;
 }
 
