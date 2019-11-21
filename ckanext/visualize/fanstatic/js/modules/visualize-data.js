@@ -27,6 +27,10 @@ ckan.module('visualize-data', function($) {
   };
   var columns = {};
   var ctx = document.getElementById('chart-canvas').getContext('2d');
+  var chartContainer = $('.chart-container');
+  var noChartContainer = $('.no-chart-container');
+  var xAxisList = $('.x-axis-list');
+  var yAxisList = $('.y-axis-list');
 
   function initChart() {
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -237,6 +241,9 @@ ckan.module('visualize-data', function($) {
             }
             chart.destroy();
             initChart();
+
+            chartContainer.removeClass('hidden');
+            noChartContainer.addClass('hidden');
           } else if (to === 'y-axis') {
             currentyAxisType = columnType;
             currentyAxis = column;
@@ -288,6 +295,9 @@ ckan.module('visualize-data', function($) {
             }
             chart.destroy();
             initChart();
+
+            chartContainer.removeClass('hidden');
+            noChartContainer.addClass('hidden');
           } else if (to === 'colour-attr') {
             if (
               currentChartType === CHART_TYPES.BAR ||
@@ -374,10 +384,18 @@ ckan.module('visualize-data', function($) {
             chartData.labels = [];
             currentxAxisType = null;
             currentxAxis = null;
+            if (yAxisList.find('li').length === 0) {
+              chartContainer.addClass('hidden');
+              noChartContainer.removeClass('hidden');
+            }
           } else if (from === 'y-axis') {
             chartData.datasets[0].data = [];
             currentyAxisType = null;
             currentyAxis = null;
+            if (xAxisList.find('li').length === 0) {
+              chartContainer.addClass('hidden');
+              noChartContainer.removeClass('hidden');
+            }
           } else if (from === 'colour-attr') {
             chartData.datasets[0].backgroundColor = colorPalette[0];
           }

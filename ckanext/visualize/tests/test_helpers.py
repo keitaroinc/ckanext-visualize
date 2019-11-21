@@ -28,3 +28,11 @@ class TestHelpers(core_helpers.FunctionalTestBase):
     @core_helpers.change_config('visualize_colors', '[{"color_1":"#fff"}]')
     def test_get_color_palette_from_config(self):
         assert extension_helpers.get_color_palette() == ['#fff']
+
+    def test_get_icon_for_data_type(self):
+        assert extension_helpers.get_icon_for_data_type(
+            'text') == 'fa-file-text'
+
+    def test_get_icon_for_data_type_no_type(self):
+        assert extension_helpers.get_icon_for_data_type(
+            'non_existing_type') == ''

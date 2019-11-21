@@ -86,5 +86,6 @@ class VisualizePlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {
-            'get_color_palette': helpers.get_color_palette
+            'get_color_palette': helpers.get_color_palette,
+            'get_icon_for_data_type': helpers.get_icon_for_data_type,
         }
