@@ -31,6 +31,9 @@ ckan.module('visualize-data', function($) {
   var noChartContainer = $('.no-chart-container');
   var xAxisList = $('.x-axis-list');
   var yAxisList = $('.y-axis-list');
+  var chartIcon = $('#chart-icon');
+  var lastxAxisEvent;
+  var lastyAxisEvent;
 
   function initChart() {
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -53,6 +56,17 @@ ckan.module('visualize-data', function($) {
         }
       }
     });
+    updateChartIcon();
+  }
+
+  function updateChartIcon() {
+    if (currentChartType === 'bar') {
+      chartIcon.attr('src', '/base/images/Bar-symbol.png');
+    } else if (currentChartType === 'line') {
+      chartIcon.attr('src', '/base/images/Line-symbol.png');
+    } else if (currentChartType === 'scatter') {
+      chartIcon.attr('src', '/base/images/Point-symbol.png');
+    }
   }
 
   function getChartType(xAxisType, yAxisType) {
@@ -146,7 +160,9 @@ ckan.module('visualize-data', function($) {
       Sortable.create(document.getElementById('x-axis'), {
         group: {
           name: 'x-axis',
-          put: ['columns']
+          put: function(to) {
+            return to.el.children.length <= 1;
+          }
         },
         animation: 150,
         onAdd: function onAdd(evt) {
@@ -160,7 +176,9 @@ ckan.module('visualize-data', function($) {
       Sortable.create(document.getElementById('y-axis'), {
         group: {
           name: 'y-axis',
-          put: ['columns']
+          put: function(to) {
+            return to.el.children.length <= 1;
+          }
         },
         animation: 150,
         onAdd: function onAdd(evt) {
@@ -174,7 +192,9 @@ ckan.module('visualize-data', function($) {
       Sortable.create(document.getElementById('colour-attr'), {
         group: {
           name: 'colour-attr',
-          put: ['columns']
+          put: function(to) {
+            return to.el.children.length <= 1;
+          }
         },
         animation: 150,
         onAdd: function onAdd(evt) {
@@ -192,6 +212,7 @@ ckan.module('visualize-data', function($) {
         var to = $(evt.to).attr('id');
         if (columns[column]) {
           if (to === 'x-axis') {
+            lastxAxisEvent = { item: evt.item, to: evt.to };
             currentxAxisType = columnType;
             currentxAxis = column;
             currentChartType =
@@ -245,6 +266,7 @@ ckan.module('visualize-data', function($) {
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
           } else if (to === 'y-axis') {
+            lastyAxisEvent = { item: evt.item, to: evt.to };
             currentyAxisType = columnType;
             currentyAxis = column;
             currentChartType =
@@ -330,7 +352,6 @@ ckan.module('visualize-data', function($) {
               });
               chartData.datasets[0].backgroundColor = colors;
             } else {
-              console.log('columns', columns);
               // Extract the unique values from the selected column
               var unique = columns[column].filter(
                 (v, i, a) => a.indexOf(v) === i
@@ -351,21 +372,26 @@ ckan.module('visualize-data', function($) {
                 columnColorsMapping[value] = currentColor;
               });
 
-              console.log('columnColorsMapping', columnColorsMapping);
-
               chartData.datasets = [];
               var uniqueLabels = columns[currentxAxis].filter(
                 (v, i, a) => a.indexOf(v) === i
               );
 
               chartData.labels = uniqueLabels;
+              var currentIndex = 0;
 
               for (var key in columnColorsMapping) {
                 var dataset = {
-                  label: 'Some dataset label',
+                  label: key,
                   data: [],
-                  backgroundColor: columnColorsMapping[key]
+                  backgroundColor: columnColorsMapping[key],
+                  borderColor: columnColorsMapping[key],
+                  fill: false
                 };
+                for (var i = 0; i < uniqueLabels.length; i++) {
+                  dataset.data.push(columns[currentyAxis][currentIndex]);
+                  currentIndex++;
+                }
                 uniqueLabels.forEach(function(label) {});
                 chartData.datasets.push(dataset);
               }
@@ -397,7 +423,22 @@ ckan.module('visualize-data', function($) {
               noChartContainer.removeClass('hidden');
             }
           } else if (from === 'colour-attr') {
-            chartData.datasets[0].backgroundColor = colorPalette[0];
+            chartData = {
+              labels: [],
+              datasets: [
+                {
+                  label: 'Some dataset label',
+                  data: [],
+                  fill: false
+                }
+              ]
+            };
+
+            chart.destroy();
+            initChart();
+
+            onColumnAdd(lastxAxisEvent);
+            onColumnAdd(lastyAxisEvent);
           }
           currentChartType =
             getChartType(currentxAxisType, currentyAxisType) || 'bar';
