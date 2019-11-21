@@ -4,10 +4,95 @@ uploaded to DataStore. */
 
 ckan.module('visualize-data', function($) {
   var colorPalette = [];
+  var CHART_TYPES = {
+    BAR: 'bar',
+    LINE: 'line',
+    POINT: 'scatter'
+  };
+  var currentChartType = 'bar';
+  var currentxAxisType = '';
+  var currentyAxisType = '';
+  var currentxAxis = '';
+  var currentyAxis = '';
+  var chart;
+  var chartData = {
+    labels: [],
+    datasets: [
+      {
+        label: 'Some dataset label',
+        data: [],
+        fill: false
+      }
+    ]
+  };
+  var columns = {};
+  var ctx = document.getElementById('chart-canvas').getContext('2d');
   var chartContainer = $('.chart-container');
   var noChartContainer = $('.no-chart-container');
   var xAxisList = $('.x-axis-list');
   var yAxisList = $('.y-axis-list');
+  var chartIcon = $('#chart-icon');
+  var lastxAxisEvent;
+  var lastyAxisEvent;
+
+  function initChart() {
+    chartData.datasets[0].backgroundColor = colorPalette[0];
+    chartData.datasets[0].borderColor = colorPalette[0];
+    chart = new Chart(ctx, {
+      type: currentChartType,
+      data: chartData,
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    });
+    updateChartIcon();
+  }
+
+  function updateChartIcon() {
+    if (currentChartType === 'bar') {
+      chartIcon.attr('src', '/base/images/Bar-symbol.png');
+    } else if (currentChartType === 'line') {
+      chartIcon.attr('src', '/base/images/Line-symbol.png');
+    } else if (currentChartType === 'scatter') {
+      chartIcon.attr('src', '/base/images/Point-symbol.png');
+    }
+  }
+
+  function getChartType(xAxisType, yAxisType) {
+    if (
+      (xAxisType === 'date' || xAxisType === 'timestamp') &&
+      yAxisType === 'numeric'
+    ) {
+      return CHART_TYPES.LINE;
+    } else if (xAxisType === 'numeric' && yAxisType === 'numeric') {
+      return CHART_TYPES.POINT;
+    } else if (
+      xAxisType === 'numeric' ||
+      xAxisType === 'text' ||
+      xAxisType === 'date' ||
+      xAxisType === 'numeric' ||
+      xAxisType === 'text' ||
+      yAxisType === 'text' ||
+      yAxisType === 'numeric' ||
+      yAxisType === 'date' ||
+      (xAxisType === 'numeric' && yAxisType === 'text') ||
+      (xAxisType === 'text' && yAxisType === 'numeric')
+    ) {
+      return CHART_TYPES.BAR;
+    }
+  }
+
   return {
     initialize: function() {
       var resourceView = this.options.resourceView;
@@ -42,8 +127,6 @@ ckan.module('visualize-data', function($) {
       });
     },
     prepareDataForChart: function(data) {
-      var columns = {};
-
       $.each(data.fields, function(i, item) {
         if (item.id !== '_id') {
           columns[item.id] = [];
@@ -58,44 +141,13 @@ ckan.module('visualize-data', function($) {
         });
       });
 
-      this.drawChart(columns);
+      this.drawChart();
     },
-    drawChart: function(columns) {
-      var barChartData = {
-        labels: [],
-        datasets: [
-          {
-            label: 'Some dataset label',
-            data: [],
-            backgroundColor: colorPalette[0]
-          }
-        ]
-      };
-
-      var ctx = document.getElementById('barChart').getContext('2d');
-
-      var barChart = new Chart(ctx, {
-        type: 'bar',
-        data: barChartData,
-        options: {
-          scales: {
-            yAxes: [
-              {
-                ticks: {
-                  beginAtZero: true
-                }
-              }
-            ]
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      });
-
-      this.initDragging(barChart, barChartData, columns);
+    drawChart: function() {
+      initChart();
+      this.initDragging(columns);
     },
-    initDragging: function(chart, data, columns) {
+    initDragging: function(columns) {
       Sortable.create(document.getElementById('all-columns'), {
         group: {
           name: 'columns',
@@ -108,7 +160,9 @@ ckan.module('visualize-data', function($) {
       Sortable.create(document.getElementById('x-axis'), {
         group: {
           name: 'x-axis',
-          put: ['columns']
+          put: function(to) {
+            return to.el.children.length <= 1;
+          }
         },
         animation: 150,
         onAdd: function onAdd(evt) {
@@ -122,7 +176,9 @@ ckan.module('visualize-data', function($) {
       Sortable.create(document.getElementById('y-axis'), {
         group: {
           name: 'y-axis',
-          put: ['columns']
+          put: function(to) {
+            return to.el.children.length <= 1;
+          }
         },
         animation: 150,
         onAdd: function onAdd(evt) {
@@ -136,7 +192,9 @@ ckan.module('visualize-data', function($) {
       Sortable.create(document.getElementById('colour-attr'), {
         group: {
           name: 'colour-attr',
-          put: ['columns']
+          put: function(to) {
+            return to.el.children.length <= 1;
+          }
         },
         animation: 150,
         onAdd: function onAdd(evt) {
@@ -150,47 +208,194 @@ ckan.module('visualize-data', function($) {
       function onColumnAdd(evt) {
         var item = $(evt.item);
         var column = item.attr('data-column');
+        var columnType = item.attr('data-column-type');
         var to = $(evt.to).attr('id');
         if (columns[column]) {
           if (to === 'x-axis') {
-            $.each(columns[column], function(i, item) {
-              data.labels.push(item);
-            });
+            lastxAxisEvent = { item: evt.item, to: evt.to };
+            currentxAxisType = columnType;
+            currentxAxis = column;
+            currentChartType =
+              getChartType(currentxAxisType, currentyAxisType) || 'bar';
+            if (currentChartType === CHART_TYPES.POINT) {
+              if (chartData.datasets[0].data.length === 0) {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num
+                ) {
+                  return {
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              } else {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              }
+            } else {
+              $.each(columns[column], function(i, item) {
+                chartData.labels.push(item);
+              });
+            }
+            chart.destroy();
+            initChart();
+
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
           } else if (to === 'y-axis') {
-            $.each(columns[column], function(i, item) {
-              data.datasets[0].data.push(item);
-            });
+            lastyAxisEvent = { item: evt.item, to: evt.to };
+            currentyAxisType = columnType;
+            currentyAxis = column;
+            currentChartType =
+              getChartType(currentxAxisType, currentyAxisType) || 'bar';
+
+            if (currentChartType === CHART_TYPES.POINT) {
+              if (chartData.datasets[0].data.length === 0) {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num
+                ) {
+                  return {
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              } else {
+                chartData.datasets[0].data = columns[currentxAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    x: num
+                  };
+                });
+                chartData.datasets[0].data = columns[currentyAxis].map(function(
+                  num,
+                  i
+                ) {
+                  return {
+                    ...chartData.datasets[0].data[i],
+                    y: num
+                  };
+                });
+              }
+            } else {
+              $.each(columns[column], function(i, item) {
+                chartData.datasets[0].data.push(item);
+              });
+            }
+            chart.destroy();
+            initChart();
+
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
           } else if (to === 'colour-attr') {
-            var colors = [];
+            if (
+              currentChartType === CHART_TYPES.BAR ||
+              currentChartType === CHART_TYPES.POINT
+            ) {
+              var colors = [];
 
-            // Extract the unique values from the selected column
-            var unique = columns[column].filter(
-              (v, i, a) => a.indexOf(v) === i
-            );
+              // Extract the unique values from the selected column
+              var unique = columns[column].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
 
-            var columnColorsMapping = {};
-            var colorsIndex = 0;
+              var columnColorsMapping = {};
+              var colorsIndex = 0;
 
-            // For each value assign a color
-            unique.forEach(function(value, i) {
-              var currentColor = colorPalette[i];
+              // For each value assign a color
+              unique.forEach(function(value, i) {
+                var currentColor = colorPalette[i];
 
-              if (!currentColor) {
-                currentColor = colorPalette[colorsIndex];
-                colorsIndex++;
+                if (!currentColor) {
+                  currentColor = colorPalette[colorsIndex];
+                  colorsIndex++;
+                }
+
+                columnColorsMapping[value] = currentColor;
+              });
+
+              columns[column].forEach(function(value) {
+                colors.push(columnColorsMapping[value]);
+              });
+              chartData.datasets[0].backgroundColor = colors;
+            } else {
+              // Extract the unique values from the selected column
+              var unique = columns[column].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+
+              var columnColorsMapping = {};
+              var colorsIndex = 0;
+
+              // For each value assign a color
+              unique.forEach(function(value, i) {
+                var currentColor = colorPalette[i];
+
+                if (!currentColor) {
+                  currentColor = colorPalette[colorsIndex];
+                  colorsIndex++;
+                }
+
+                columnColorsMapping[value] = currentColor;
+              });
+
+              chartData.datasets = [];
+              var uniqueLabels = columns[currentxAxis].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+
+              chartData.labels = uniqueLabels;
+              var currentIndex = 0;
+
+              for (var key in columnColorsMapping) {
+                var dataset = {
+                  label: key,
+                  data: [],
+                  backgroundColor: columnColorsMapping[key],
+                  borderColor: columnColorsMapping[key],
+                  fill: false
+                };
+                for (var i = 0; i < uniqueLabels.length; i++) {
+                  dataset.data.push(columns[currentyAxis][currentIndex]);
+                  currentIndex++;
+                }
+                uniqueLabels.forEach(function(label) {});
+                chartData.datasets.push(dataset);
               }
-
-              columnColorsMapping[value] = currentColor;
-            });
-
-            columns[column].forEach(function(value) {
-              colors.push(columnColorsMapping[value]);
-            });
-            data.datasets[0].backgroundColor = colors;
+            }
           }
           chart.update();
         }
@@ -202,20 +407,41 @@ ckan.module('visualize-data', function($) {
         var from = $(evt.from).attr('id');
         if (columns[column]) {
           if (from === 'x-axis') {
-            data.labels = [];
+            chartData.labels = [];
+            currentxAxisType = null;
+            currentxAxis = null;
             if (yAxisList.find('li').length === 0) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
           } else if (from === 'y-axis') {
-            data.datasets[0].data = [];
+            chartData.datasets[0].data = [];
+            currentyAxisType = null;
+            currentyAxis = null;
             if (xAxisList.find('li').length === 0) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
           } else if (from === 'colour-attr') {
-            data.datasets[0].backgroundColor = colorPalette[0];
+            chartData = {
+              labels: [],
+              datasets: [
+                {
+                  label: 'Some dataset label',
+                  data: [],
+                  fill: false
+                }
+              ]
+            };
+
+            chart.destroy();
+            initChart();
+
+            onColumnAdd(lastxAxisEvent);
+            onColumnAdd(lastyAxisEvent);
           }
+          currentChartType =
+            getChartType(currentxAxisType, currentyAxisType) || 'bar';
           item.remove();
           chart.update();
         }

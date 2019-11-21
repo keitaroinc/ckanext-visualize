@@ -14,7 +14,7 @@
         <div class="col-md-2 pr-0">
           <div class="panel panel-default">
             <figure class="panel-body">
-              <img src="/base/images/Bar-symbol.png" class="img-responsive"
+              <img src="/base/images/Bar-symbol.png" id="chart-icon" class="img-responsive"
                 alt="An icon representing visualization type" />
             </figure>
           </div>
@@ -44,7 +44,7 @@
                 {% set column_color = '#332288' %}
                 {% endif %}
 
-                <div class="list-group-item column" data-column="{{ field.value }}">
+                <div class="list-group-item column" data-column="{{ field.value }}" data-column-type="{{ field.type }}">
                   <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
                       class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw"
                       aria-hidden="true"></i>{{ field.value }}</span>
@@ -112,7 +112,7 @@
     </div>
     <div class="panel-body">
       <div class="chart-container hidden">
-        <canvas id="barChart"></canvas>
+        <canvas id="chart-canvas"></canvas>
       </div>
       <div class="no-chart-container">
         <figure class="no-chart-illustration">
