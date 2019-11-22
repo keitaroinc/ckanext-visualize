@@ -15,21 +15,19 @@ ckan.module('visualize-colors-settings-reset', function($) {
         '#dd4444'
       ];
       var inputGroup = [
-        '<div class="input-group">',
+        '<div class="color-input">',
         '<div class="form-group item-color">',
         '<label class="control-label" for="color_$id$">Color #$id$</label>',
         '<div class="controls">',
         '<input id="color_$id$" type="color" name="color_$id$" value="$color$" placeholder="" class="form-control">',
         '</div>',
         '</div>',
-        '<div class="input-group-btn">',
-        '<button class="btn btn-default color-remove" type="button">',
+        '<button class="btn btn-sm btn-default color-remove" type="button">',
         '<i class="fa fa-times"></i>',
         '</button>',
-        '</div>',
         '</div>'
       ].join('');
-      var colorsContainer = $('#color-pallet');
+      var colorsContainer = $('#color-pallete');
       this.el.on('click', function(e) {
         colorsContainer.html('');
 

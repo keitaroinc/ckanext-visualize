@@ -64,7 +64,7 @@
 
 .x-axis-list,
 .y-axis-list,
-.colour-attr-list {
+.color-attr-list {
   position: relative;
   border-radius: 4px;
   margin: 0.5rem;
@@ -129,16 +129,62 @@
 
 /* Admin Panel Visualize */
 
-.color-pallet-group {
+.panel-icon {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-icon .panel-body{
+  padding: 30px;
+}
+.panel-icon .panel-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.panel-icon .panel-footer .form-group {
+  margin: 0;
+}
+
+.panel-icon .panel-footer .control-label {
+  display: none;
+}
+
+.panel-colors {
+  margin-bottom: 3rem;
+}
+
+.panel-colors .panel-body {
+  padding: 1rem;
+}
+
+.color-pallete {
   display: flex;
   flex-wrap: wrap;
 }
 
+.color-pallete .color-remove {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.color-pallete .color-input {
+  display: flex;
+  margin: 0.5rem;
+}
+
+.color-pallete .color-input .fa {
+  margin-right: 0;
+}
+
+.color-pallete .color-input .form-group {
+  margin: 0;
+  padding: 0;
+  min-width: 11.1rem;
+}
+
 .form-horizontal .control-label {
   margin-bottom: 5px;
-}
-.item-color {
-  width: 11.2rem;
 }
 
 input[type='color']::-webkit-color-swatch-wrapper {
@@ -149,26 +195,29 @@ input[type='color']::-webkit-color-swatch {
   border: none;
 }
 
-.form-group.item-color {
-  margin: 0;
-}
-
 .form-group.item-color .control-label {
   display: none;
 }
 
+.form-group.item-color .controls {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  overflow: hidden;
+}
+
 .form-group.item-color input[type='color'] {
-  margin: 0.5rem;
-  padding: 0.5rem;
+  margin: 0;
+  padding: 0;
   border: transparent;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .form-group.item-color input[type='color']:hover,
 .form-group.item-color input[type='color']:focus,
 .form-group.item-color input[type='color']:active {
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  /* border: 1px solid #ddd; */
+  /* border-radius: 4px; */
 }
 
 .img-upload-group {
@@ -177,27 +226,15 @@ input[type='color']::-webkit-color-swatch {
   margin-top: 2rem;
 }
 
-.colors-settings {
-  padding: 2rem 1rem 0 1rem;
-}
-
-.btn.btn-default.color-remove {
-  position: relative;
-  padding: 0;
-  border: none;
-  color: #ffffff;
-  background: #00000005;
-  right: 1.5rem;
-  z-index: 999;
+.form-actions-colors {
+  padding: .5rem 0;
 }
 
 /* Responsive Design */
 
-@media (max-width: 576px) {
-}
+@media (max-width: 576px) {}
 
-@media (max-width: 768px) {
-}
+@media (max-width: 768px) {}
 
 @media (min-width: 992px) {
   .pr-0 {
@@ -221,8 +258,7 @@ input[type='color']::-webkit-color-swatch {
   }
 }
 
-@media (max-width: 1200px) {
-}
+@media (max-width: 1200px) {}
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */

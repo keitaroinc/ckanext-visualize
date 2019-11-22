@@ -8943,7 +8943,7 @@
           if (drawColorBoxes) {
             var rtlColorX = rtlHelper.x(colorX);
 
-            // Fill a white rect so that colours merge nicely if the opacity is < 1
+            // Fill a white rect so that colors merge nicely if the opacity is < 1
             ctx.fillStyle = vm.legendColorBackground;
             ctx.fillRect(rtlHelper.leftForLtr(rtlColorX, bodyFontSize), pt.y, bodyFontSize, bodyFontSize);
 
@@ -12456,7 +12456,7 @@
       ctx.rotate(rotation);
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillStyle = scaleLabelFontColor; // render in correct colour
+      ctx.fillStyle = scaleLabelFontColor; // render in correct color
       ctx.font = scaleLabelFont.string;
       ctx.fillText(scaleLabel.labelString, 0, 0);
       ctx.restore();
@@ -13397,7 +13397,7 @@
       // Boolean - Show a backdrop to the scale label
       showLabelBackdrop: true,
 
-      // String - The colour of the label backdrop
+      // String - The color of the label backdrop
       backdropColor: 'rgba(255,255,255,0.75)',
 
       // Number - The backdrop padding above & below the label in pixels
@@ -19760,8 +19760,8 @@
         // Generates labels shown in the legend
         // Valid properties to return:
         // text : text to display
-        // fillStyle : fill of coloured box
-        // strokeStyle: stroke of coloured box
+        // fillStyle : fill of colored box
+        // strokeStyle: stroke of colored box
         // hidden : if this legend item refers to a hidden item
         // lineCap : cap style for line
         // lineDash
@@ -20087,7 +20087,7 @@
       ctx.textBaseline = 'middle';
       ctx.lineWidth = 0.5;
       ctx.strokeStyle = fontColor; // for strikethrough effect
-      ctx.fillStyle = fontColor; // render in correct colour
+      ctx.fillStyle = fontColor; // render in correct color
       ctx.font = labelFont.string;
 
       var boxWidth = getBoxWidth(labelOpts, fontSize);
@@ -20503,7 +20503,7 @@
       var right = me.right;
       var maxWidth, titleX, titleY;
 
-      ctx.fillStyle = helpers$1.valueOrDefault(opts.fontColor, core_defaults.global.defaultFontColor); // render in correct colour
+      ctx.fillStyle = helpers$1.valueOrDefault(opts.fontColor, core_defaults.global.defaultFontColor); // render in correct color
       ctx.font = fontOpts.string;
 
       // Horizontal

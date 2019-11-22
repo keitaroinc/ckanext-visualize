@@ -9,89 +9,74 @@
 {% set action_url = h.url_for('ckanadmin_visualize_data') %}
 
 {% block primary_content_inner %}
-<form method="post" action="{{ action_url }}" class="form-horizontal">
-  <label class="control-label" for="color-pallet">Chart Colors</label>
-  <div class="panel panel-default">
+<form method="post" action="{{ action_url }}">
+  <h5 for="color-pallete">Chart Colors:</h5>
+  <div class="panel panel-default panel-colors">
     <div class="panel-body">
-      <div id="color-pallet" class="color-pallet-group" data-module="visualize-colors-settings-remove">
+      <div id="color-pallete" class="color-pallete" data-module="visualize-colors-settings-remove">
         {% for color in data.visualize_colors %}
-        <div class="input-group">
+        <div class="color-input">
           {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
-          <div class="input-group-btn">
-            <button class="btn btn-default color-remove" type="button">
-              <i class="fa fa-times" aria-hidden="true"></i>
-            </button>
-          </div>
+          <button class="btn btn-sm btn-default color-remove" type="button">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
         </div>
         {% endfor %}
       </div>
-      <div class="form-actions colors-settings">
+    </div>
+    <div class="panel-footer">
+      <div class="form-actions form-actions-color">
         <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-reset"><i
             class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{ _(' Set Default') }}</button>
-        <button type="button" class="btn btn-default pull-right" data-module="visualize-colors-settings-add"><i
+        <button type="button" class="btn btn-default" data-module="visualize-colors-settings-add"><i
             class="fa fa-paint-brush fa-fw" aria-hidden="true"></i>{{ _('Add') }}</button>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
-      <label class="control-label" for="bar-chart-icon">Bar Chart Icon</label>
-      <div id="bar-chart-icon" class="row">
-        <div class="col-md-5">
-          <div class="panel panel-default">
-            <figure class="panel-body">
+    <div class="col-md-4">
+      <h5>Bar Chart Icon:</h5>
+      <div class="panel panel-default panel-icon">
+        <div class="panel-body">
+          <div id="bar-chart-icon">
+            <figure>
               <img src="/base/images/Bar-symbol.png" class="img-responsive center-block" alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
-        <div class="col-md-7">
-          <div class="panel panel-default img-upload-group">
-            <div class="panel-body">
-              {{ form.image_upload({}, {}, is_upload_enabled=true) }}
-            </div>
-          </div>
+        <div class="panel-footer">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <label class="control-label" for="line-chart-icon">Line Chart Icon</label>
-      <div id="line-chart-icon" class="row">
-        <div class="col-md-5">
-          <div class="panel panel-default">
-            <figure class="panel-body">
+    <div class="col-md-4">
+      <h5>Line Chart Icon:</h5>
+      <div class="panel panel-default panel-icon">
+        <div class="panel-body">
+          <div id="line-chart-icon">
+            <figure>
               <img src="/base/images/Line-symbol.png" class="img-responsive center-block" alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
-        <div class="col-md-7">
-          <div class="panel panel-default img-upload-group">
-            <div class="panel-body">
-              {{ form.image_upload({}, {}, is_upload_enabled=true) }}
-            </div>
-          </div>
+        <div class="panel-footer">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <label class="control-label" for="point-chart-icon">Point Chart Icon</label>
-      <div id="point-chart-icon" class="row">
-        <div class="col-md-5">
-          <div class="panel panel-default">
-            <figure class="panel-body">
-              <img
-                src="/base/images/Point-symbol.png"
-                class="img-responsive center-block" alt="Visualization Type Icon">
+    <div class="col-md-4">
+      <h5>Point Chart Icon:</h5>
+      <div class="panel panel-default panel-icon">
+        <div class="panel-body">
+          <div id="line-chart-icon">
+            <figure>
+              <img src="/base/images/Point-symbol.png" class="img-responsive center-block"
+                alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
-        <div class="col-md-7">
-          <div class="panel panel-default img-upload-group">
-            <div class="panel-body">
-              {{ form.image_upload({}, {}, is_upload_enabled=true) }}
-            </div>
-          </div>
+        <div class="panel-footer">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}
         </div>
       </div>
     </div>
