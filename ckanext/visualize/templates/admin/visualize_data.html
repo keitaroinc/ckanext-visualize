@@ -9,37 +9,85 @@
 {% set action_url = h.url_for('ckanadmin_visualize_data') %}
 
 {% block primary_content_inner %}
-<form method="post" action="{{ action_url }}" class="form-horizontal">
-  <div class="color-group">
-    <label class="control-label" for="color-pallet">Chart Colors</label>
-    <div id="color-pallet" class="color-pallet-group" data-module="visualize-colors-settings-remove">
-      {% for color in data.visualize_colors %}
-      <div class="input-group">
-        {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
-        <div class="input-group-btn">
-          <button class="btn btn-default color-remove" type="button">
-            <i class="fa fa-times"></i>
+<form method="post" action="{{ action_url }}">
+  <h5 for="color-pallete">Chart Colors:</h5>
+  <div class="panel panel-default panel-colors">
+    <div class="panel-body">
+      <div id="color-pallete" class="color-pallete" data-module="visualize-colors-settings-remove">
+        {% for color in data.visualize_colors %}
+        <div class="color-input">
+          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
+          <button class="btn btn-sm btn-default color-remove" type="button">
+            <i class="fa fa-times" aria-hidden="true"></i>
           </button>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+    </div>
+    <div class="panel-footer">
+      <div class="form-actions form-actions-color">
+        <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-reset"><i
+            class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{ _(' Set Default') }}</button>
+        <button type="button" class="btn btn-default" data-module="visualize-colors-settings-add"><i
+            class="fa fa-paint-brush fa-fw" aria-hidden="true"></i>{{ _('Add') }}</button>
+      </div>
     </div>
   </div>
-  <div class="form-actions color-actions">
-    <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-add"><i
-        class="fa fa-paint-brush"></i>{{ _('Add') }}</button>
-    <button type="button" class="btn btn-default pull-right" data-module="visualize-colors-settings-reset"><i
-        class="fa fa-sliders"></i>{{ _(' Set Default') }}</button>
+  <div class="row">
+    <div class="col-md-4">
+      <h5>Bar Chart Icon:</h5>
+      <div class="panel panel-default panel-icon">
+        <div class="panel-body">
+          <div id="bar-chart-icon">
+            <figure>
+              <img src="/base/images/Bar-symbol.png" class="img-responsive center-block" alt="Visualization Type Icon">
+            </figure>
+          </div>
+        </div>
+        <div class="panel-footer">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5>Line Chart Icon:</h5>
+      <div class="panel panel-default panel-icon">
+        <div class="panel-body">
+          <div id="line-chart-icon">
+            <figure>
+              <img src="/base/images/Line-symbol.png" class="img-responsive center-block" alt="Visualization Type Icon">
+            </figure>
+          </div>
+        </div>
+        <div class="panel-footer">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5>Point Chart Icon:</h5>
+      <div class="panel panel-default panel-icon">
+        <div class="panel-body">
+          <div id="line-chart-icon">
+            <figure>
+              <img src="/base/images/Point-symbol.png" class="img-responsive center-block"
+                alt="Visualization Type Icon">
+            </figure>
+          </div>
+        </div>
+        <div class="panel-footer">
+          {{ form.image_upload({}, {}, is_upload_enabled=true) }}
+        </div>
+      </div>
+    </div>
   </div>
-  <hr>
-  <div class="form-actions">
+  <div class="form-actions global-btn-group">
+    <hr>
     <button type="submit" class="btn btn-danger pull-left" name="reset">{{ _('Reset') }}</button>
     <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
   </div>
 </form>
-
 {% endblock %}
-
 {% block secondary_content %}
 <div class="module module-narrow module-shallow">
   <h2 class="module-heading">

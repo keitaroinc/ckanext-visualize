@@ -152,7 +152,7 @@ ckan.module('visualize-data', function($) {
         group: {
           name: 'columns',
           pull: 'clone',
-          put: ['x-axis', 'y-axis', 'colour-attr']
+          put: ['x-axis', 'y-axis', 'color-attr']
         },
         animation: 150
       });
@@ -189,9 +189,9 @@ ckan.module('visualize-data', function($) {
         }
       });
 
-      Sortable.create(document.getElementById('colour-attr'), {
+      Sortable.create(document.getElementById('color-attr'), {
         group: {
-          name: 'colour-attr',
+          name: 'color-attr',
           put: function(to) {
             return to.el.children.length <= 1;
           }
@@ -320,7 +320,7 @@ ckan.module('visualize-data', function($) {
 
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
-          } else if (to === 'colour-attr') {
+          } else if (to === 'color-attr') {
             if (
               currentChartType === CHART_TYPES.BAR ||
               currentChartType === CHART_TYPES.POINT
@@ -422,7 +422,7 @@ ckan.module('visualize-data', function($) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
-          } else if (from === 'colour-attr') {
+          } else if (from === 'color-attr') {
             chartData = {
               labels: [],
               datasets: [
