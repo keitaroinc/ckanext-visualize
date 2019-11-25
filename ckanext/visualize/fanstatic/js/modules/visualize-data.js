@@ -230,33 +230,34 @@ ckan.module('visualize-data', function($) {
                   num,
                   i
                 ) {
-                  return {
-                    ...chartData.datasets[0].data[i],
+                  return $.extend({}, chartData.datasets[0].data[i], {
                     y: num
-                  };
+                  });
                 });
               } else {
                 chartData.datasets[0].data = columns[currentxAxis].map(function(
                   num,
                   i
                 ) {
-                  return {
-                    ...chartData.datasets[0].data[i],
+                  return $.extend({}, chartData.datasets[0].data[i], {
                     x: num
-                  };
+                  });
                 });
                 chartData.datasets[0].data = columns[currentyAxis].map(function(
                   num,
                   i
                 ) {
-                  return {
-                    ...chartData.datasets[0].data[i],
+                  return $.extend({}, chartData.datasets[0].data[i], {
                     y: num
-                  };
+                  });
                 });
               }
             } else {
-              $.each(columns[column], function(i, item) {
+              // Extract the unique values from the selected column
+              var unique = columns[column].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+              $.each(unique, function(i, item) {
                 chartData.labels.push(item);
               });
             }
@@ -285,34 +286,50 @@ ckan.module('visualize-data', function($) {
                   num,
                   i
                 ) {
-                  return {
-                    ...chartData.datasets[0].data[i],
+                  return $.extend({}, chartData.datasets[0].data[i], {
                     y: num
-                  };
+                  });
                 });
               } else {
                 chartData.datasets[0].data = columns[currentxAxis].map(function(
                   num,
                   i
                 ) {
-                  return {
-                    ...chartData.datasets[0].data[i],
+                  return $.extend({}, chartData.datasets[0].data[i], {
                     x: num
-                  };
+                  });
                 });
                 chartData.datasets[0].data = columns[currentyAxis].map(function(
                   num,
                   i
                 ) {
-                  return {
-                    ...chartData.datasets[0].data[i],
+                  return $.extend({}, chartData.datasets[0].data[i], {
                     y: num
-                  };
+                  });
                 });
               }
             } else {
-              $.each(columns[column], function(i, item) {
-                chartData.datasets[0].data.push(item);
+              // Extract the unique values from the x-axis column
+              var uniqueLabels = columns[currentxAxis].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+              var j = 0;
+              $.each(uniqueLabels, function(x, label) {
+                var countRows = 0;
+                for (var i = j; i < columns[currentxAxis].length; i++) {
+                  if (label === columns[currentxAxis][i]) {
+                    countRows++;
+                  } else {
+                    chartData.datasets[0].data.push(countRows);
+                    countRows = 0;
+                    j = i;
+                    break;
+                  }
+
+                  if (i === columns[currentxAxis].length - 1) {
+                    chartData.datasets[0].data.push(countRows);
+                  }
+                }
               });
             }
             chart.destroy();
