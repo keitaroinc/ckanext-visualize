@@ -135,8 +135,9 @@
 }
 
 .panel-icon .panel-body {
-  padding: 15px;
+  padding: 2rem;
 }
+
 .panel-icon .panel-footer {
   display: flex;
   justify-content: center;
