@@ -30,7 +30,7 @@
       <div class="form-actions form-actions-color">
         <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-reset"><i
             class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{ _('Set Default') }}</button>
-        <button type="button" class="btn btn-default" data-module="visualize-colors-settings-add"><i
+        <button type="button" class="btn btn-default pull-right" data-module="visualize-colors-settings-add"><i
             class="fa fa-paint-brush fa-fw" aria-hidden="true"></i>{{ _('Add') }}</button>
       </div>
     </div>
@@ -57,7 +57,8 @@
               {% else %}
               {% set bar_chart_icon = '/base/images/Bar-symbol.png' %}
               {% endif %}
-              <img src="{{ bar_chart_icon }}" class="img-responsive center-block" alt="Visualization Type Icon">
+              <img src="{{ bar_chart_icon }}" class="img-responsive center-block img-icon"
+                alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
@@ -88,7 +89,8 @@
               {% else %}
               {% set line_chart_icon = '/base/images/Line-symbol.png' %}
               {% endif %}
-              <img src="{{ line_chart_icon }}" class="img-responsive center-block" alt="Visualization Type Icon">
+              <img src="{{ line_chart_icon }}" class="img-responsive center-block img-icon"
+                alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
@@ -119,7 +121,8 @@
               {% else %}
               {% set point_chart_icon = '/base/images/Point-symbol.png' %}
               {% endif %}
-              <img src="{{ point_chart_icon }}" class="img-responsive center-block" alt="Visualization Type Icon">
+              <img src="{{ point_chart_icon }}" class="img-responsive center-block img-icon"
+                alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
