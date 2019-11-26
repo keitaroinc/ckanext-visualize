@@ -80,9 +80,9 @@ class TestVisualizeView(helpers.FunctionalTestBase):
             'resource': {'id': resource.get('id')},
             'resource_view': {},
             'fields': [{'value': u'Age', 'type': 'numeric'}, {'value': u'Name', 'type': 'text'}],
-            'point_chart_icon': None,
-            'line_chart_icon': None,
-            'bar_chart_icon': None,
+            'point_chart_icon': '/base/images/Point-symbol.png',
+            'line_chart_icon': '/base/images/Line-symbol.png',
+            'bar_chart_icon': '/base/images/Bar-symbol.png',
         }
 
     def test_view_template(self):
