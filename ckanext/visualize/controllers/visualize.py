@@ -26,9 +26,9 @@ class VisualizeDataController(BaseController):
                 'id': resource_id
             },
             'resource_view': {},
-            'bar_chart_icon': config.get('bar_chart_icon'),
-            'line_chart_icon': config.get('line_chart_icon'),
-            'point_chart_icon': config.get('point_chart_icon'),
+            'bar_chart_icon': config.get('bar_chart_icon') or '/base/images/Bar-symbol.png',
+            'line_chart_icon': config.get('line_chart_icon') or '/base/images/Line-symbol.png',
+            'point_chart_icon': config.get('point_chart_icon') or '/base/images/Point-symbol.png',
         }
 
         if (resource_id):
