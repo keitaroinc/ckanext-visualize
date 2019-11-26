@@ -34,6 +34,9 @@ ckan.module('visualize-data', function($) {
   var chartIcon = $('#chart-icon');
   var lastxAxisEvent;
   var lastyAxisEvent;
+  var barChartIcon;
+  var lineChartIcon;
+  var pointChartIcon;
 
   function initChart() {
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -61,11 +64,11 @@ ckan.module('visualize-data', function($) {
 
   function updateChartIcon() {
     if (currentChartType === 'bar') {
-      chartIcon.attr('src', '/base/images/Bar-symbol.png');
+      chartIcon.attr('src', barChartIcon);
     } else if (currentChartType === 'line') {
-      chartIcon.attr('src', '/base/images/Line-symbol.png');
+      chartIcon.attr('src', lineChartIcon);
     } else if (currentChartType === 'scatter') {
-      chartIcon.attr('src', '/base/images/Point-symbol.png');
+      chartIcon.attr('src', pointChartIcon);
     }
   }
 
@@ -101,6 +104,40 @@ ckan.module('visualize-data', function($) {
         endpoint: this.sandbox.client.endpoint + '/api'
       };
       colorPalette = this.options.colorPalette;
+
+      if (this.options.barChartIcon.indexOf('http') > -1) {
+        barChartIcon = this.options.barChartIcon;
+      } else if (this.options.barChartIcon.indexOf('/base/images') > -1) {
+        barChartIcon = window.ckan.SITE_ROOT + this.options.barChartIcon;
+      } else {
+        barChartIcon =
+          window.ckan.SITE_ROOT +
+          '/uploads/chart_icons/' +
+          this.options.barChartIcon;
+      }
+
+      if (this.options.lineChartIcon.indexOf('http') > -1) {
+        lineChartIcon = this.options.lineChartIcon;
+      } else if (this.options.lineChartIcon.indexOf('/base/images') > -1) {
+        lineChartIcon = window.ckan.SITE_ROOT + this.options.lineChartIcon;
+      } else {
+        lineChartIcon =
+          window.ckan.SITE_ROOT +
+          '/uploads/chart_icons/' +
+          this.options.lineChartIcon;
+      }
+
+      if (this.options.pointChartIcon.indexOf('http') > -1) {
+        pointChartIcon = this.options.pointChartIcon;
+      } else if (this.options.pointChartIcon.indexOf('/base/images') > -1) {
+        pointChartIcon = window.ckan.SITE_ROOT + this.options.pointChartIcon;
+      } else {
+        pointChartIcon =
+          window.ckan.SITE_ROOT +
+          '/uploads/chart_icons/' +
+          this.options.pointChartIcon;
+      }
+
       var filters = resourceView.filters || [];
       var queryParams = {
         filters: [],

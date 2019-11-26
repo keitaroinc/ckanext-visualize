@@ -174,3 +174,55 @@ class TestAdminController(helpers.FunctionalTestBase):
         response = app.post(url=route, extra_environ=env, params=params)
 
         assert '302 Found' in response.body
+
+    def test_visualize_data_endpoint_post_icon_url(self):
+        app = self._get_test_app()
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        controller =\
+            'ckanext.visualize.controllers.admin:AdminController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        params = {
+            'save': True,
+            'bar_chart_upload': 'http://example.com/image.png'
+        }
+        response = app.post(url=route, extra_environ=env,
+                            params=params)
+
+        assert '302 Found' in response.body
+
+    def test_visualize_data_endpoint_post_icon_upload(self):
+        app = self._get_test_app()
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        controller =\
+            'ckanext.visualize.controllers.admin:AdminController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        params = {
+            'save': True,
+        }
+        upload_content = 'image data'
+        upload_info = ('bar_chart_upload', 'image.png', upload_content)
+        response = app.post(url=route, extra_environ=env,
+                            params=params, upload_files=[upload_info])
+
+        assert '302 Found' in response.body
+
+    def test_visualize_data_endpoint_reset(self):
+        app = self._get_test_app()
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        controller =\
+            'ckanext.visualize.controllers.admin:AdminController'
+        action = 'visualize_data'
+        route = url_for(controller=controller, action=action)
+        params = {
+            'reset': 'true',
+            'color_1': '#332288',
+            'color_2': '#117733',
+        }
+        response = app.post(url=route, extra_environ=env, params=params)
+
+        assert '302 Found' in response.body

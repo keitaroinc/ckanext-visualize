@@ -40,6 +40,7 @@ cd -
 
 echo "Installing ckanext-visualize and its requirements..."
 python setup.py develop
+pip install -r requirements.txt
 pip install -r dev-requirements.txt
 
 echo "travis-build.bash is done."
