@@ -61,9 +61,9 @@ class VisualizePlugin(plugins.SingletonPlugin):
             'resource': resource,
             'resource_view': resource_view,
             'fields': fields,
-            'bar_chart_icon': config.get('bar_chart_icon'),
-            'line_chart_icon': config.get('line_chart_icon'),
-            'point_chart_icon': config.get('point_chart_icon'),
+            'bar_chart_icon': config.get('bar_chart_icon') or '/base/images/Bar-symbol.png',
+            'line_chart_icon': config.get('line_chart_icon') or '/base/images/Line-symbol.png',
+            'point_chart_icon': config.get('point_chart_icon') or '/base/images/Point-symbol.png',
         }
 
     def view_template(self, context, data_dict):
