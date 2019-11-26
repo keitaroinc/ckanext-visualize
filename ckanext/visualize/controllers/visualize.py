@@ -1,5 +1,5 @@
 from ckan.lib.base import BaseController, render
-from ckan.common import request
+from ckan.common import request, config
 from ckan import logic
 from ckan.plugins import toolkit
 
@@ -26,6 +26,9 @@ class VisualizeDataController(BaseController):
                 'id': resource_id
             },
             'resource_view': {},
+            'bar_chart_icon': config.get('bar_chart_icon'),
+            'line_chart_icon': config.get('line_chart_icon'),
+            'point_chart_icon': config.get('point_chart_icon'),
         }
 
         if (resource_id):

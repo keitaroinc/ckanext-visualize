@@ -80,6 +80,9 @@ class TestVisualizeView(helpers.FunctionalTestBase):
             'resource': {'id': resource.get('id')},
             'resource_view': {},
             'fields': [{'value': u'Age', 'type': 'numeric'}, {'value': u'Name', 'type': 'text'}],
+            'point_chart_icon': None,
+            'line_chart_icon': None,
+            'bar_chart_icon': None,
         }
 
     def test_view_template(self):

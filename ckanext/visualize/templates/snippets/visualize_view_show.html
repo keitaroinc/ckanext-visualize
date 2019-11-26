@@ -7,14 +7,17 @@
 
 <div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
   data-module-resource-view="{{ h.dump_json(resource_view) }}"
-  data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}">
+  data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}"
+  data-module-bar-chart-icon="{{ bar_chart_icon }}"
+  data-module-line-chart-icon="{{ line_chart_icon }}"
+  data-module-point-chart-icon="{{ point_chart_icon }}">
   <div class="panel panel-default panel-visualize">
     <div class="panel-heading">
       <div class="row">
         <div class="col-md-2 pr-0">
           <div class="panel panel-default">
             <figure class="panel-body">
-              <img src="/base/images/Bar-symbol.png" id="chart-icon" class="img-responsive"
+              <img id="chart-icon" class="img-responsive"
                 alt="An icon representing visualization type" />
             </figure>
           </div>

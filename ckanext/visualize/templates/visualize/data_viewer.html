@@ -2,11 +2,19 @@
 
 {% extends 'base.html' %}
 
+{%- block styles %}
+  {{ super() }}
+  <link href="/base/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block page %}
     {% snippet 'snippets/visualize_view_show.html',
         fields=fields,
         resource_id=resource.id,
-        resource_view=resource_view
+        resource_view=resource_view,
+        bar_chart_icon=bar_chart_icon,
+        line_chart_icon=line_chart_icon,
+        point_chart_icon=point_chart_icon
     %}
 {% endblock %}
 

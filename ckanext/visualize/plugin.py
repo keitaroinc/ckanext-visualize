@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+from ckan.common import config
 
 from ckanext.visualize import helpers
 
@@ -23,7 +24,12 @@ class VisualizePlugin(plugins.SingletonPlugin):
 
     def update_config_schema(self, schema):
         not_empty = toolkit.get_validator('not_empty')
-        schema.update({'visualize_colors': [not_empty, unicode]})
+        schema.update({
+            'visualize_colors': [not_empty, unicode],
+            'bar_chart_icon': [not_empty, unicode],
+            'line_chart_icon': [not_empty, unicode],
+            'point_chart_icon': [not_empty, unicode],
+        })
 
         return schema
 
@@ -55,6 +61,9 @@ class VisualizePlugin(plugins.SingletonPlugin):
             'resource': resource,
             'resource_view': resource_view,
             'fields': fields,
+            'bar_chart_icon': config.get('bar_chart_icon'),
+            'line_chart_icon': config.get('line_chart_icon'),
+            'point_chart_icon': config.get('point_chart_icon'),
         }
 
     def view_template(self, context, data_dict):
