@@ -29,7 +29,7 @@
     <div class="panel-footer">
       <div class="form-actions form-actions-color">
         <button type="button" class="btn btn-default pull-left" data-module="visualize-colors-settings-reset"><i
-            class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{ _(' Set Default') }}</button>
+            class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{ _('Set Default') }}</button>
         <button type="button" class="btn btn-default" data-module="visualize-colors-settings-add"><i
             class="fa fa-paint-brush fa-fw" aria-hidden="true"></i>{{ _('Add') }}</button>
       </div>
@@ -39,19 +39,23 @@
     <div class="col-md-4">
       <h5>Bar Chart Icon:</h5>
       <div class="panel panel-default panel-icon">
+        <div class="panel-heading text-center">
+          <button type="button" class="btn btn-default" data-module="visualize-chart-icon-reset"
+            data-module-type="bar"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>{{ _('Set Default') }}</button>
+        </div>
         <div class="panel-body">
           <div id="bar-chart-icon">
             <figure>
               {% if data.bar_chart_icon %}
-                {% if data.bar_chart_icon.startswith('http') %}
-                  {% set bar_chart_icon = data.bar_chart_icon %}
-                {% elif data.bar_chart_icon.startswith('/base/images') %}
-                  {% set bar_chart_icon = data.bar_chart_icon %}
-                {% else %}
-                  {% set bar_chart_icon = '/uploads/chart_icons/' + data.bar_chart_icon %}
-                {% endif %}
+              {% if data.bar_chart_icon.startswith('http') %}
+              {% set bar_chart_icon = data.bar_chart_icon %}
+              {% elif data.bar_chart_icon.startswith('/base/images') %}
+              {% set bar_chart_icon = data.bar_chart_icon %}
               {% else %}
-                {% set bar_chart_icon = '/base/images/Bar-symbol.png' %}
+              {% set bar_chart_icon = '/uploads/chart_icons/' + data.bar_chart_icon %}
+              {% endif %}
+              {% else %}
+              {% set bar_chart_icon = '/base/images/Bar-symbol.png' %}
               {% endif %}
               <img src="{{ bar_chart_icon }}" class="img-responsive center-block" alt="Visualization Type Icon">
             </figure>
@@ -60,30 +64,29 @@
         <div class="panel-footer" data-module="visualize-chart-type" data-module-type="bar">
           {{ form.image_upload(data, {}, is_upload_enabled=true, field_url='bar_chart', field_upload='bar_chart_upload', field_clear='bar_chart_clear_upload') }}
         </div>
-        <button class="btn btn-sm btn-default"
-                type="button"
-                data-module="visualize-chart-icon-reset"
-                data-module-type="bar">
-          {{ _('Set default') }}
-        </button>
       </div>
     </div>
     <div class="col-md-4">
       <h5>Line Chart Icon:</h5>
       <div class="panel panel-default panel-icon">
+        <div class="panel-heading text-center">
+          <button type="button" class="btn btn-default" data-module="visualize-chart-icon-reset"
+            data-module-type="line"><i class="fa fa-sliders fa-fw"
+              aria-hidden="true"></i>{{ _('Set Default') }}</button>
+        </div>
         <div class="panel-body">
           <div id="line-chart-icon">
             <figure>
               {% if data.line_chart_icon %}
-                {% if data.line_chart_icon.startswith('http') %}
-                  {% set line_chart_icon = data.line_chart_icon %}
-                {% elif data.line_chart_icon.startswith('/base/images') %}
-                  {% set line_chart_icon = data.line_chart_icon %}
-                {% else %}
-                  {% set line_chart_icon = '/uploads/chart_icons/' + data.line_chart_icon %}
-                {% endif %}
+              {% if data.line_chart_icon.startswith('http') %}
+              {% set line_chart_icon = data.line_chart_icon %}
+              {% elif data.line_chart_icon.startswith('/base/images') %}
+              {% set line_chart_icon = data.line_chart_icon %}
               {% else %}
-                {% set line_chart_icon = '/base/images/Line-symbol.png' %}
+              {% set line_chart_icon = '/uploads/chart_icons/' + data.line_chart_icon %}
+              {% endif %}
+              {% else %}
+              {% set line_chart_icon = '/base/images/Line-symbol.png' %}
               {% endif %}
               <img src="{{ line_chart_icon }}" class="img-responsive center-block" alt="Visualization Type Icon">
             </figure>
@@ -91,51 +94,45 @@
         </div>
         <div class="panel-footer" data-module="visualize-chart-type" data-module-type="line">
           {{ form.image_upload(data, {}, is_upload_enabled=true, field_url='line_chart', field_upload='line_chart_upload', field_clear='line_chart_clear_upload') }}
-        </div><button class="btn btn-sm btn-default"
-                type="button"
-                data-module="visualize-chart-icon-reset"
-                data-module-type="line">
-          {{ _('Set default') }}
-        </button>
+        </div>
       </div>
     </div>
     <div class="col-md-4">
       <h5>Point Chart Icon:</h5>
       <div class="panel panel-default panel-icon">
+        <div class="panel-heading text-center">
+          <button type="button" class="btn btn-default" data-module="visualize-chart-icon-reset"
+            data-module-type="point"><i class="fa fa-sliders fa-fw"
+              aria-hidden="true"></i>{{ _('Set Default') }}</button>
+        </div>
         <div class="panel-body">
           <div id="point-chart-icon">
             <figure>
               {% if data.point_chart_icon %}
-                {% if data.point_chart_icon.startswith('http') %}
-                  {% set point_chart_icon = data.point_chart_icon %}
-                {% elif data.point_chart_icon.startswith('/base/images') %}
-                  {% set point_chart_icon = data.point_chart_icon %}
-                {% else %}
-                  {% set point_chart_icon = '/uploads/chart_icons/' + data.point_chart_icon %}
-                {% endif %}
+              {% if data.point_chart_icon.startswith('http') %}
+              {% set point_chart_icon = data.point_chart_icon %}
+              {% elif data.point_chart_icon.startswith('/base/images') %}
+              {% set point_chart_icon = data.point_chart_icon %}
               {% else %}
-                {% set point_chart_icon = '/base/images/Point-symbol.png' %}
+              {% set point_chart_icon = '/uploads/chart_icons/' + data.point_chart_icon %}
               {% endif %}
-              <img src="{{ point_chart_icon }}" class="img-responsive center-block"
-                alt="Visualization Type Icon">
+              {% else %}
+              {% set point_chart_icon = '/base/images/Point-symbol.png' %}
+              {% endif %}
+              <img src="{{ point_chart_icon }}" class="img-responsive center-block" alt="Visualization Type Icon">
             </figure>
           </div>
         </div>
         <div class="panel-footer" data-module="visualize-chart-type" data-module-type="point">
           {{ form.image_upload(data, {}, is_upload_enabled=true, field_url='point_chart', field_upload='point_chart_upload', field_clear='point_chart_clear_upload') }}
         </div>
-        <button class="btn btn-sm btn-default"
-                type="button"
-                data-module="visualize-chart-icon-reset"
-                data-module-type="point">
-          {{ _('Set default') }}
-        </button>
       </div>
     </div>
   </div>
   <div class="form-actions global-btn-group">
     <hr>
-    <a href="{{ action_url + '?reset=true' }}" class="btn btn-danger pull-left" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to reset the config?') }}">{{ _('Reset') }}</a>
+    <a href="{{ action_url + '?reset=true' }}" class="btn btn-danger pull-left" data-module="confirm-action"
+      data-module-content="{{ _('Are you sure you want to reset the config?') }}">{{ _('Reset') }}</a>
     <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
   </div>
 </form>

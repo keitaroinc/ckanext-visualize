@@ -134,8 +134,8 @@
   flex-direction: column;
 }
 
-.panel-icon .panel-body{
-  padding: 30px;
+.panel-icon .panel-body {
+  padding: 15px;
 }
 .panel-icon .panel-footer {
   display: flex;
@@ -149,7 +149,11 @@
 .panel-icon .panel-footer .control-label {
   display: none;
 }
-
+.img-responsive {
+  height: 15rem;
+  object-fit: contain;
+  border-radius: 4px;
+}
 .panel-colors {
   margin-bottom: 3rem;
 }
@@ -213,13 +217,6 @@ input[type='color']::-webkit-color-swatch {
   cursor: pointer;
 }
 
-.form-group.item-color input[type='color']:hover,
-.form-group.item-color input[type='color']:focus,
-.form-group.item-color input[type='color']:active {
-  /* border: 1px solid #ddd; */
-  /* border-radius: 4px; */
-}
-
 .img-upload-group {
   border: none;
   box-shadow: none;
@@ -227,14 +224,16 @@ input[type='color']::-webkit-color-swatch {
 }
 
 .form-actions-colors {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 
 /* Responsive Design */
 
-@media (max-width: 576px) {}
+@media (max-width: 576px) {
+}
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+}
 
 @media (min-width: 992px) {
   .pr-0 {
@@ -258,7 +257,8 @@ input[type='color']::-webkit-color-swatch {
   }
 }
 
-@media (max-width: 1200px) {}
+@media (max-width: 1200px) {
+}
 
 /* Hides the Preview button when creating/editing a view, because the view
 is initially shown, no need to click the Preview button. */
