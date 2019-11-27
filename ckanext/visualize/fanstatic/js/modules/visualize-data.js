@@ -375,10 +375,50 @@ ckan.module('visualize-data', function($) {
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
           } else if (to === 'color-attr') {
-            if (
-              currentChartType === CHART_TYPES.BAR ||
-              currentChartType === CHART_TYPES.POINT
-            ) {
+            if (currentChartType === CHART_TYPES.BAR) {
+              chartData.datasets = [];
+
+              // Extract the unique values from the selected column
+              var uniqueLabels = columns[column].filter(
+                (v, i, a) => a.indexOf(v) === i
+              );
+
+              var valuesMapping = {};
+              uniqueLabels.forEach(function(label, i) {
+                valuesMapping[label] = [];
+              });
+
+              var currentIndex = 0;
+
+              columns[column].forEach(function(value, i) {
+                valuesMapping[value].push(1);
+              });
+
+              var colorsIndex = 0;
+
+              uniqueLabels.forEach(function(label, i) {
+                var currentColor = colorPalette[i];
+
+                if (!currentColor) {
+                  currentColor = colorPalette[colorsIndex];
+                  if (!currentColor) {
+                    currentIndex = 0;
+                    currentColor = colorPalette[colorsIndex];
+                  } else {
+                    colorsIndex++;
+                  }
+                }
+
+                chartData.datasets.push({
+                  label: label,
+                  backgroundColor: currentColor,
+                  data: valuesMapping[label]
+                });
+              });
+
+              chart.options.scales.yAxes[0].stacked = true;
+              chart.options.scales.xAxes[0].stacked = true;
+            } else if (currentChartType === CHART_TYPES.POINT) {
               var colors = [];
 
               // Extract the unique values from the selected column
@@ -405,7 +445,7 @@ ckan.module('visualize-data', function($) {
                 colors.push(columnColorsMapping[value]);
               });
               chartData.datasets[0].backgroundColor = colors;
-            } else {
+            } else if (currentChartType === CHART_TYPES.LINE) {
               // Extract the unique values from the selected column
               var unique = columns[column].filter(
                 (v, i, a) => a.indexOf(v) === i
