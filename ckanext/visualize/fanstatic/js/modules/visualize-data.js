@@ -435,7 +435,12 @@ ckan.module('visualize-data', function($) {
 
                 if (!currentColor) {
                   currentColor = colorPalette[colorsIndex];
-                  colorsIndex++;
+                  if (!currentColor) {
+                    currentIndex = 0;
+                    currentColor = colorPalette[colorsIndex];
+                  } else {
+                    colorsIndex++;
+                  }
                 }
 
                 columnColorsMapping[value] = currentColor;
@@ -460,7 +465,12 @@ ckan.module('visualize-data', function($) {
 
                 if (!currentColor) {
                   currentColor = colorPalette[colorsIndex];
-                  colorsIndex++;
+                  if (!currentColor) {
+                    currentIndex = 0;
+                    currentColor = colorPalette[colorsIndex];
+                  } else {
+                    colorsIndex++;
+                  }
                 }
 
                 columnColorsMapping[value] = currentColor;
