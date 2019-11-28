@@ -297,12 +297,40 @@ ckan.module('visualize-data', function($) {
               $.each(unique, function(i, item) {
                 chartData.labels.push(item);
               });
+
+              if (currentyAxis) {
+                // Extract the unique values from the x-axis column
+                var uniqueLabels = columns[currentxAxis].filter(
+                  (v, i, a) => a.indexOf(v) === i
+                );
+                var j = 0;
+                $.each(uniqueLabels, function(x, label) {
+                  var countRows = 0;
+                  for (var i = j; i < columns[currentxAxis].length; i++) {
+                    if (label === columns[currentxAxis][i]) {
+                      countRows++;
+                    } else {
+                      chartData.datasets[0].data.push(countRows);
+                      countRows = 0;
+                      j = i;
+                      break;
+                    }
+
+                    if (i === columns[currentxAxis].length - 1) {
+                      chartData.datasets[0].data.push(countRows);
+                    }
+                  }
+                });
+              }
             }
             chart.destroy();
             initChart();
 
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
+
+            var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
+            xAxisHiddenInput.val(currentxAxis);
           } else if (to === 'y-axis') {
             lastyAxisEvent = { item: evt.item, to: evt.to };
             currentyAxisType = columnType;
@@ -346,34 +374,39 @@ ckan.module('visualize-data', function($) {
                 });
               }
             } else {
-              // Extract the unique values from the x-axis column
-              var uniqueLabels = columns[currentxAxis].filter(
-                (v, i, a) => a.indexOf(v) === i
-              );
-              var j = 0;
-              $.each(uniqueLabels, function(x, label) {
-                var countRows = 0;
-                for (var i = j; i < columns[currentxAxis].length; i++) {
-                  if (label === columns[currentxAxis][i]) {
-                    countRows++;
-                  } else {
-                    chartData.datasets[0].data.push(countRows);
-                    countRows = 0;
-                    j = i;
-                    break;
-                  }
+              if (currentxAxis) {
+                // Extract the unique values from the x-axis column
+                var uniqueLabels = columns[currentxAxis].filter(
+                  (v, i, a) => a.indexOf(v) === i
+                );
+                var j = 0;
+                $.each(uniqueLabels, function(x, label) {
+                  var countRows = 0;
+                  for (var i = j; i < columns[currentxAxis].length; i++) {
+                    if (label === columns[currentxAxis][i]) {
+                      countRows++;
+                    } else {
+                      chartData.datasets[0].data.push(countRows);
+                      countRows = 0;
+                      j = i;
+                      break;
+                    }
 
-                  if (i === columns[currentxAxis].length - 1) {
-                    chartData.datasets[0].data.push(countRows);
+                    if (i === columns[currentxAxis].length - 1) {
+                      chartData.datasets[0].data.push(countRows);
+                    }
                   }
-                }
-              });
+                });
+              }
             }
             chart.destroy();
             initChart();
 
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
+
+            var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
+            yAxisHiddenInput.val(currentyAxis);
           } else if (to === 'color-attr') {
             if (
               currentChartType === CHART_TYPES.BAR ||
@@ -450,6 +483,9 @@ ckan.module('visualize-data', function($) {
                 chartData.datasets.push(dataset);
               }
             }
+
+            var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
+            colorAttrHiddenInput.val(column);
           }
           chart.update();
         }
@@ -468,6 +504,8 @@ ckan.module('visualize-data', function($) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
+            var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
+            xAxisHiddenInput.val('');
           } else if (from === 'y-axis') {
             chartData.datasets[0].data = [];
             currentyAxisType = null;
@@ -476,6 +514,8 @@ ckan.module('visualize-data', function($) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
+            var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
+            yAxisHiddenInput.val('');
           } else if (from === 'color-attr') {
             chartData = {
               labels: [],
@@ -491,14 +531,50 @@ ckan.module('visualize-data', function($) {
             chart.destroy();
             initChart();
 
-            onColumnAdd(lastxAxisEvent);
-            onColumnAdd(lastyAxisEvent);
+            if (currentxAxis) {
+              onColumnAdd(lastxAxisEvent);
+            }
+
+            if (currentyAxis) {
+              onColumnAdd(lastyAxisEvent);
+            }
+
+            var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
+            colorAttrHiddenInput.val('');
           }
           currentChartType =
             getChartType(currentxAxisType, currentyAxisType) || 'bar';
           item.remove();
           chart.update();
         }
+      }
+
+      var xAxisColumn = this.options.resourceView.visualize_x_axis;
+      var yAxisColumn = this.options.resourceView.visualize_y_axis;
+      var colorAttr = this.options.resourceView.visualize_color_attr;
+
+      if (xAxisColumn) {
+        var item = $('div[data-column="' + xAxisColumn + '"]');
+        var to = $('#x-axis');
+        const payload = { item: item[0], to: to[0] };
+        item.clone().appendTo(to);
+        onColumnAdd(payload);
+      }
+
+      if (yAxisColumn) {
+        var item = $('div[data-column="' + yAxisColumn + '"]');
+        var to = $('#y-axis');
+        const payload = { item: item[0], to: to[0] };
+        item.clone().appendTo(to);
+        onColumnAdd(payload);
+      }
+
+      if (colorAttr) {
+        var item = $('div[data-column="' + colorAttr + '"]');
+        var to = $('#color-attr');
+        const payload = { item: item[0], to: to[0] };
+        item.clone().appendTo(to);
+        onColumnAdd(payload);
       }
     }
   };

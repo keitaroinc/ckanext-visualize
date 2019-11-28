@@ -36,7 +36,11 @@ class VisualizePlugin(plugins.SingletonPlugin):
     # IResourceView
 
     def info(self):
-        schema = {}
+        schema = {
+            'visualize_x_axis': [ignore_missing],
+            'visualize_y_axis': [ignore_missing],
+            'visualize_color_attr': [ignore_missing],
+        }
 
         return {
             'name': 'visualize',
@@ -57,13 +61,15 @@ class VisualizePlugin(plugins.SingletonPlugin):
         remap_keys = list(fields)
         remap_keys.insert(0, {'value': ''})
 
+        print 'resource_view', resource_view
+
         return {
             'resource': resource,
             'resource_view': resource_view,
             'fields': fields,
             'bar_chart_icon': config.get('bar_chart_icon') or '/base/images/Bar-symbol.png',
             'line_chart_icon': config.get('line_chart_icon') or '/base/images/Line-symbol.png',
-            'point_chart_icon': config.get('point_chart_icon') or '/base/images/Point-symbol.png',
+            'point_chart_icon': config.get('point_chart_icon') or '/base/images/Point-symbol.png'
         }
 
     def view_template(self, context, data_dict):
