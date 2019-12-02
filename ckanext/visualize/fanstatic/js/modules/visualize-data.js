@@ -33,6 +33,9 @@ ckan.module('visualize-data', function($) {
   var xAxisList = $('.x-axis-list');
   var yAxisList = $('.y-axis-list');
   var chartIcon = $('#chart-icon');
+  var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
+  var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
+  var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
   var lastxAxisEvent;
   var lastyAxisEvent;
   var lastColorAttrEvent;
@@ -344,7 +347,6 @@ ckan.module('visualize-data', function($) {
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
 
-            var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
             xAxisHiddenInput.val(currentxAxis);
           } else if (to === 'y-axis') {
             lastyAxisEvent = { item: evt.item, to: evt.to };
@@ -424,7 +426,6 @@ ckan.module('visualize-data', function($) {
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
 
-            var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
             yAxisHiddenInput.val(currentyAxis);
           } else if (to === 'color-attr') {
             currentColorAttr = column;
@@ -555,7 +556,6 @@ ckan.module('visualize-data', function($) {
               }
             }
 
-            var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
             colorAttrHiddenInput.val(column);
 
             chart.destroy();
@@ -578,7 +578,6 @@ ckan.module('visualize-data', function($) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
-            var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
             xAxisHiddenInput.val('');
           } else if (from === 'y-axis') {
             chartData.datasets[0].data = [];
@@ -588,7 +587,6 @@ ckan.module('visualize-data', function($) {
               chartContainer.addClass('hidden');
               noChartContainer.removeClass('hidden');
             }
-            var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
             yAxisHiddenInput.val('');
           } else if (from === 'color-attr') {
             chartData = {
@@ -616,7 +614,6 @@ ckan.module('visualize-data', function($) {
               onColumnAdd(lastyAxisEvent);
             }
 
-            var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
             colorAttrHiddenInput.val('');
           }
           currentChartType =
@@ -626,6 +623,9 @@ ckan.module('visualize-data', function($) {
         }
       }
 
+      this.drawChartFromPredefinedView(onColumnAdd);
+    },
+    drawChartFromPredefinedView: function(onColumnAdd) {
       var xAxisColumn = this.options.resourceView.visualize_x_axis;
       var yAxisColumn = this.options.resourceView.visualize_y_axis;
       var colorAttr = this.options.resourceView.visualize_color_attr;
