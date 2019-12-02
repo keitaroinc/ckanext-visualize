@@ -38,6 +38,7 @@ ckan.module('visualize-colors-settings-reset', function($) {
               .replace(new RegExp('\\$color\\$', 'g'), color)
           );
         });
+        window.ckan.module.initializeElement(colorsContainer[0]);
       });
     }
   };
