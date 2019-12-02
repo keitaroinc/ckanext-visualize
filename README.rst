@@ -79,3 +79,10 @@ To run the tests and produce a coverage report, first make sure you have
 coverage installed in your virtualenv (``pip install coverage``) then run::
 
     nosetests --nologcapture --with-pylons=test.ini --with-coverage --cover-package=ckanext.visualize --cover-inclusive --cover-erase
+
+
+-----------------
+Chart icons
+-----------------
+
+The default icons that are used for the types of chart are taken from _The R Graph Gallery: https://www.r-graph-gallery.com
