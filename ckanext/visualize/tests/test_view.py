@@ -4,6 +4,8 @@ from ckan.plugins import toolkit
 
 from ckanext.visualize.plugin import VisualizePlugin
 
+ignore_missing = p.toolkit.get_validator('ignore_missing')
+
 
 class TestVisualizeView(helpers.FunctionalTestBase):
 
@@ -35,7 +37,11 @@ class TestVisualizeView(helpers.FunctionalTestBase):
             'icon': 'bar-chart-o',
             'filterable': True,
             'iframed': False,
-            'schema': {}
+            'schema': {
+                'visualize_x_axis': [ignore_missing],
+                'visualize_y_axis': [ignore_missing],
+                'visualize_color_attr': [ignore_missing],
+            }
         }
 
     def test_can_view(self):
