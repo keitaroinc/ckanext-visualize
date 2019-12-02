@@ -14,6 +14,7 @@ ckan.module('visualize-data', function($) {
   var currentyAxisType = '';
   var currentxAxis = '';
   var currentyAxis = '';
+  var currentColorAttr = '';
   var chart;
   var chartData = {
     labels: [],
@@ -34,30 +35,39 @@ ckan.module('visualize-data', function($) {
   var chartIcon = $('#chart-icon');
   var lastxAxisEvent;
   var lastyAxisEvent;
+  var lastColorAttrEvent;
   var barChartIcon;
   var lineChartIcon;
   var pointChartIcon;
 
   function initChart() {
+    var chartOptions = {
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ],
+        xAxes: [{}]
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
     chartData.datasets[0].backgroundColor = colorPalette[0];
     chartData.datasets[0].borderColor = colorPalette[0];
+
+    if (currentColorAttr && currentChartType === CHART_TYPES.BAR) {
+      chartOptions.scales.yAxes[0].stacked = true;
+      chartOptions.scales.xAxes[0].stacked = true;
+    }
+
     chart = new Chart(ctx, {
       type: currentChartType,
       data: chartData,
-      options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ]
-        },
-        legend: {
-          position: 'bottom'
-        }
-      }
+      options: chartOptions
     });
     updateChartIcon();
   }
@@ -322,7 +332,12 @@ ckan.module('visualize-data', function($) {
                   }
                 });
               }
+
+              if (currentyAxis && lastColorAttrEvent) {
+                onColumnAdd(lastColorAttrEvent);
+              }
             }
+
             chart.destroy();
             initChart();
 
@@ -398,6 +413,10 @@ ckan.module('visualize-data', function($) {
                   }
                 });
               }
+
+              if (currentxAxis && lastColorAttrEvent) {
+                onColumnAdd(lastColorAttrEvent);
+              }
             }
             chart.destroy();
             initChart();
@@ -408,134 +427,139 @@ ckan.module('visualize-data', function($) {
             var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
             yAxisHiddenInput.val(currentyAxis);
           } else if (to === 'color-attr') {
-            if (currentChartType === CHART_TYPES.BAR) {
-              chartData.datasets = [];
+            currentColorAttr = column;
+            lastColorAttrEvent = { item: evt.item, to: evt.to };
 
-              // Extract the unique values from the selected column
-              var uniqueLabels = columns[column].filter(
-                (v, i, a) => a.indexOf(v) === i
-              );
+            if (currentxAxis && currentyAxis) {
+              if (currentChartType === CHART_TYPES.BAR) {
+                chartData.datasets = [];
 
-              var valuesMapping = {};
-              uniqueLabels.forEach(function(label, i) {
-                valuesMapping[label] = [];
-              });
+                // Extract the unique values from the selected column
+                var uniqueLabels = columns[column].filter(
+                  (v, i, a) => a.indexOf(v) === i
+                );
 
-              var currentIndex = 0;
-
-              columns[column].forEach(function(value, i) {
-                valuesMapping[value].push(1);
-              });
-
-              var colorsIndex = 0;
-
-              uniqueLabels.forEach(function(label, i) {
-                var currentColor = colorPalette[i];
-
-                if (!currentColor) {
-                  currentColor = colorPalette[colorsIndex];
-                  if (!currentColor) {
-                    currentIndex = 0;
-                    currentColor = colorPalette[colorsIndex];
-                  } else {
-                    colorsIndex++;
-                  }
-                }
-
-                chartData.datasets.push({
-                  label: label,
-                  backgroundColor: currentColor,
-                  data: valuesMapping[label]
+                var valuesMapping = {};
+                uniqueLabels.forEach(function(label, i) {
+                  valuesMapping[label] = [];
                 });
-              });
 
-              chart.options.scales.yAxes[0].stacked = true;
-              chart.options.scales.xAxes[0].stacked = true;
-            } else if (currentChartType === CHART_TYPES.POINT) {
-              var colors = [];
+                var currentIndex = 0;
 
-              // Extract the unique values from the selected column
-              var unique = columns[column].filter(
-                (v, i, a) => a.indexOf(v) === i
-              );
+                columns[column].forEach(function(value, i) {
+                  valuesMapping[value].push(1);
+                });
 
-              var columnColorsMapping = {};
-              var colorsIndex = 0;
+                var colorsIndex = 0;
 
-              // For each value assign a color
-              unique.forEach(function(value, i) {
-                var currentColor = colorPalette[i];
+                uniqueLabels.forEach(function(label, i) {
+                  var currentColor = colorPalette[i];
 
-                if (!currentColor) {
-                  currentColor = colorPalette[colorsIndex];
                   if (!currentColor) {
-                    currentIndex = 0;
                     currentColor = colorPalette[colorsIndex];
-                  } else {
-                    colorsIndex++;
+                    if (!currentColor) {
+                      currentIndex = 0;
+                      currentColor = colorPalette[colorsIndex];
+                    } else {
+                      colorsIndex++;
+                    }
                   }
-                }
 
-                columnColorsMapping[value] = currentColor;
-              });
+                  chartData.datasets.push({
+                    label: label,
+                    backgroundColor: currentColor,
+                    data: valuesMapping[label]
+                  });
+                });
+              } else if (currentChartType === CHART_TYPES.POINT) {
+                var colors = [];
 
-              columns[column].forEach(function(value) {
-                colors.push(columnColorsMapping[value]);
-              });
-              chartData.datasets[0].backgroundColor = colors;
-            } else if (currentChartType === CHART_TYPES.LINE) {
-              // Extract the unique values from the selected column
-              var unique = columns[column].filter(
-                (v, i, a) => a.indexOf(v) === i
-              );
+                // Extract the unique values from the selected column
+                var unique = columns[column].filter(
+                  (v, i, a) => a.indexOf(v) === i
+                );
 
-              var columnColorsMapping = {};
-              var colorsIndex = 0;
+                var columnColorsMapping = {};
+                var colorsIndex = 0;
 
-              // For each value assign a color
-              unique.forEach(function(value, i) {
-                var currentColor = colorPalette[i];
+                // For each value assign a color
+                unique.forEach(function(value, i) {
+                  var currentColor = colorPalette[i];
 
-                if (!currentColor) {
-                  currentColor = colorPalette[colorsIndex];
                   if (!currentColor) {
-                    currentIndex = 0;
                     currentColor = colorPalette[colorsIndex];
-                  } else {
-                    colorsIndex++;
+                    if (!currentColor) {
+                      currentIndex = 0;
+                      currentColor = colorPalette[colorsIndex];
+                    } else {
+                      colorsIndex++;
+                    }
                   }
+
+                  columnColorsMapping[value] = currentColor;
+                });
+
+                columns[column].forEach(function(value) {
+                  colors.push(columnColorsMapping[value]);
+                });
+                chartData.datasets[0].backgroundColor = colors;
+              } else if (currentChartType === CHART_TYPES.LINE) {
+                // Extract the unique values from the selected column
+                var unique = columns[column].filter(
+                  (v, i, a) => a.indexOf(v) === i
+                );
+
+                var columnColorsMapping = {};
+                var colorsIndex = 0;
+
+                // For each value assign a color
+                unique.forEach(function(value, i) {
+                  var currentColor = colorPalette[i];
+
+                  if (!currentColor) {
+                    currentColor = colorPalette[colorsIndex];
+                    if (!currentColor) {
+                      currentIndex = 0;
+                      currentColor = colorPalette[colorsIndex];
+                    } else {
+                      colorsIndex++;
+                    }
+                  }
+
+                  columnColorsMapping[value] = currentColor;
+                });
+
+                chartData.datasets = [];
+                var uniqueLabels = columns[currentxAxis].filter(
+                  (v, i, a) => a.indexOf(v) === i
+                );
+
+                chartData.labels = uniqueLabels;
+                var currentIndex = 0;
+
+                for (var key in columnColorsMapping) {
+                  var dataset = {
+                    label: key,
+                    data: [],
+                    backgroundColor: columnColorsMapping[key],
+                    borderColor: columnColorsMapping[key],
+                    fill: false
+                  };
+                  for (var i = 0; i < uniqueLabels.length; i++) {
+                    dataset.data.push(columns[currentyAxis][currentIndex]);
+                    currentIndex++;
+                  }
+                  uniqueLabels.forEach(function(label) {});
+                  chartData.datasets.push(dataset);
                 }
-
-                columnColorsMapping[value] = currentColor;
-              });
-
-              chartData.datasets = [];
-              var uniqueLabels = columns[currentxAxis].filter(
-                (v, i, a) => a.indexOf(v) === i
-              );
-
-              chartData.labels = uniqueLabels;
-              var currentIndex = 0;
-
-              for (var key in columnColorsMapping) {
-                var dataset = {
-                  label: key,
-                  data: [],
-                  backgroundColor: columnColorsMapping[key],
-                  borderColor: columnColorsMapping[key],
-                  fill: false
-                };
-                for (var i = 0; i < uniqueLabels.length; i++) {
-                  dataset.data.push(columns[currentyAxis][currentIndex]);
-                  currentIndex++;
-                }
-                uniqueLabels.forEach(function(label) {});
-                chartData.datasets.push(dataset);
               }
             }
 
             var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
             colorAttrHiddenInput.val(column);
+
+            chart.destroy();
+            initChart();
           }
           chart.update();
         }
@@ -577,6 +601,9 @@ ckan.module('visualize-data', function($) {
                 }
               ]
             };
+
+            currentColorAttr = null;
+            lastColorAttrEvent = null;
 
             chart.destroy();
             initChart();
