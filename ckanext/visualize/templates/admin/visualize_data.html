@@ -1,8 +1,10 @@
+{% resource 'visualize/js/vendor/native-color-picker.js' %}
 {% resource 'visualize/js/modules/visualize-colors-settings-add.js' %}
 {% resource 'visualize/js/modules/visualize-colors-settings-remove.js' %}
 {% resource 'visualize/js/modules/visualize-colors-settings-reset.js' %}
 {% resource 'visualize/js/modules/visualize-chart-type.js' %}
 {% resource 'visualize/js/modules/visualize-chart-icon-reset.js' %}
+{% resource 'visualize/js/modules/visualize-input-color-picker.js' %}
 
 {% extends 'admin/base.html' %}
 
@@ -18,7 +20,7 @@
       <div id="color-pallete" class="color-pallete" data-module="visualize-colors-settings-remove">
         {% for color in data.visualize_colors %}
         <div class="color-input">
-          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color']) }}
+          {{ form.input('color_' ~ loop.index, type='color', label=_('Color #' ~ loop.index), value=color['color_' ~ loop.index], classes=['item-color'], attrs={'data-module': 'visualize-input-color-picker', 'class': 'form-control'}) }}
           <button class="btn btn-sm btn-default color-remove" type="button">
             <i class="fa fa-times" aria-hidden="true"></i>
           </button>
