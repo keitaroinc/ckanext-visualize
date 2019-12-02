@@ -85,4 +85,4 @@ coverage installed in your virtualenv (``pip install coverage``) then run::
 Chart icons
 -----------------
 
-The default icons that are used for the types of chart are taken from _The R Graph Gallery: https://www.r-graph-gallery.com
+The default icons that are used for the types of chart are taken from `The R Graph Gallery <https://www.r-graph-gallery.com>`_.
