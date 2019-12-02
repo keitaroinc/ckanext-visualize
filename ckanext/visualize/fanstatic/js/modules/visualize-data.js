@@ -304,18 +304,22 @@ ckan.module('visualize-data', function($) {
               }
             } else {
               // Extract the unique values from the selected column
-              var unique = columns[column].filter(
-                (v, i, a) => a.indexOf(v) === i
-              );
+              var unique = columns[column].filter(function(v, i, a) {
+                return a.indexOf(v) === i;
+              });
               $.each(unique, function(i, item) {
                 chartData.labels.push(item);
               });
 
               if (currentyAxis) {
                 // Extract the unique values from the x-axis column
-                var uniqueLabels = columns[currentxAxis].filter(
-                  (v, i, a) => a.indexOf(v) === i
-                );
+                var uniqueLabels = columns[currentxAxis].filter(function(
+                  v,
+                  i,
+                  a
+                ) {
+                  return a.indexOf(v) === i;
+                });
                 var j = 0;
                 $.each(uniqueLabels, function(x, label) {
                   var countRows = 0;
@@ -393,9 +397,13 @@ ckan.module('visualize-data', function($) {
             } else {
               if (currentxAxis) {
                 // Extract the unique values from the x-axis column
-                var uniqueLabels = columns[currentxAxis].filter(
-                  (v, i, a) => a.indexOf(v) === i
-                );
+                var uniqueLabels = columns[currentxAxis].filter(function(
+                  v,
+                  i,
+                  a
+                ) {
+                  return a.indexOf(v) === i;
+                });
                 var j = 0;
                 $.each(uniqueLabels, function(x, label) {
                   var countRows = 0;
@@ -436,9 +444,9 @@ ckan.module('visualize-data', function($) {
                 chartData.datasets = [];
 
                 // Extract the unique values from the selected column
-                var uniqueLabels = columns[column].filter(
-                  (v, i, a) => a.indexOf(v) === i
-                );
+                var uniqueLabels = columns[column].filter(function(v, i, a) {
+                  return a.indexOf(v) === i;
+                });
 
                 var valuesMapping = {};
                 uniqueLabels.forEach(function(label, i) {
@@ -476,9 +484,9 @@ ckan.module('visualize-data', function($) {
                 var colors = [];
 
                 // Extract the unique values from the selected column
-                var unique = columns[column].filter(
-                  (v, i, a) => a.indexOf(v) === i
-                );
+                var unique = columns[column].filter(function(v, i, a) {
+                  return a.indexOf(v) === i;
+                });
 
                 var columnColorsMapping = {};
                 var colorsIndex = 0;
@@ -506,9 +514,9 @@ ckan.module('visualize-data', function($) {
                 chartData.datasets[0].backgroundColor = colors;
               } else if (currentChartType === CHART_TYPES.LINE) {
                 // Extract the unique values from the selected column
-                var unique = columns[column].filter(
-                  (v, i, a) => a.indexOf(v) === i
-                );
+                var unique = columns[column].filter(function(v, i, a) {
+                  return a.indexOf(v) === i;
+                });
 
                 var columnColorsMapping = {};
                 var colorsIndex = 0;
@@ -531,9 +539,13 @@ ckan.module('visualize-data', function($) {
                 });
 
                 chartData.datasets = [];
-                var uniqueLabels = columns[currentxAxis].filter(
-                  (v, i, a) => a.indexOf(v) === i
-                );
+                var uniqueLabels = columns[currentxAxis].filter(function(
+                  v,
+                  i,
+                  a
+                ) {
+                  return a.indexOf(v) === i;
+                });
 
                 chartData.labels = uniqueLabels;
                 var currentIndex = 0;
