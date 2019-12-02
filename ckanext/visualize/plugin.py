@@ -61,8 +61,6 @@ class VisualizePlugin(plugins.SingletonPlugin):
         remap_keys = list(fields)
         remap_keys.insert(0, {'value': ''})
 
-        print 'resource_view', resource_view
-
         return {
             'resource': resource,
             'resource_view': resource_view,
