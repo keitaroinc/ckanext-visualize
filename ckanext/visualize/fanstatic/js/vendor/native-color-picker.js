@@ -39,13 +39,13 @@
         }
 
         // input defaults
-        this.input.value = this.color;
+        this.color = this.input.value;
         this.input.unselectable = 'on';
         this.css(this.input, {
           backgroundColor: this.color,
-          borderWidth: '0.4em 0.3em',
-          width: '3em',
-          cursor: 'default'
+          borderWidth: 'inherit',
+          width: 'auto',
+          cursor: 'pointer'
         });
 
         // register input event
@@ -116,7 +116,7 @@
       onFocus: function(inputId) {
         this.input = this.inputs[inputId];
         this.color = this.getColor();
-        this.input.value = this.color;
+        this.color = this.input.value;
         nativeColorPicker.css(this.input, {
           backgroundColor: this.color,
           color: this.color
