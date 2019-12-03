@@ -19,6 +19,10 @@
   border: none;
 }
 
+.panel-visualize .img-responsive {
+  margin: auto;
+}
+
 .desc-muted {
   font-weight: 400;
 }
