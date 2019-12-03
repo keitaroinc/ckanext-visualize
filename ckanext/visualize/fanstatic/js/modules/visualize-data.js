@@ -43,6 +43,22 @@ ckan.module('visualize-data', function($) {
   var lineChartIcon;
   var pointChartIcon;
 
+  function getUniqueValues(arr) {
+    if (isIE()) {
+      var a = [];
+      for (var i = 0, l = arr.length; i < l; i++)
+        if (a.indexOf(arr[i]) === -1 && arr[i] !== '') a.push(arr[i]);
+      return a;
+    } else {
+      return [...new Set(arr)];
+    }
+  }
+
+  function isIE() {
+    var ua = window.navigator.userAgent;
+    return /MSIE|Trident/.test(ua);
+  }
+
   function initChart() {
     var chartOptions = {
       scales: {
@@ -304,22 +320,14 @@ ckan.module('visualize-data', function($) {
               }
             } else {
               // Extract the unique values from the selected column
-              var unique = columns[column].filter(function(v, i, a) {
-                return a.indexOf(v) === i;
-              });
+              var unique = getUniqueValues(columns[column]);
               $.each(unique, function(i, item) {
                 chartData.labels.push(item);
               });
 
               if (currentyAxis) {
                 // Extract the unique values from the x-axis column
-                var uniqueLabels = columns[currentxAxis].filter(function(
-                  v,
-                  i,
-                  a
-                ) {
-                  return a.indexOf(v) === i;
-                });
+                var uniqueLabels = getUniqueValues(columns[currentxAxis]);
                 var j = 0;
                 $.each(uniqueLabels, function(x, label) {
                   var countRows = 0;
@@ -397,13 +405,7 @@ ckan.module('visualize-data', function($) {
             } else {
               if (currentxAxis) {
                 // Extract the unique values from the x-axis column
-                var uniqueLabels = columns[currentxAxis].filter(function(
-                  v,
-                  i,
-                  a
-                ) {
-                  return a.indexOf(v) === i;
-                });
+                var uniqueLabels = getUniqueValues(columns[currentxAxis]);
                 var j = 0;
                 $.each(uniqueLabels, function(x, label) {
                   var countRows = 0;
@@ -444,9 +446,7 @@ ckan.module('visualize-data', function($) {
                 chartData.datasets = [];
 
                 // Extract the unique values from the selected column
-                var uniqueLabels = columns[column].filter(function(v, i, a) {
-                  return a.indexOf(v) === i;
-                });
+                var uniqueLabels = getUniqueValues(columns[column]);
 
                 var valuesMapping = {};
                 uniqueLabels.forEach(function(label, i) {
@@ -484,9 +484,7 @@ ckan.module('visualize-data', function($) {
                 var colors = [];
 
                 // Extract the unique values from the selected column
-                var unique = columns[column].filter(function(v, i, a) {
-                  return a.indexOf(v) === i;
-                });
+                var unique = getUniqueValues(columns[column]);
 
                 var columnColorsMapping = {};
                 var colorsIndex = 0;
@@ -514,9 +512,7 @@ ckan.module('visualize-data', function($) {
                 chartData.datasets[0].backgroundColor = colors;
               } else if (currentChartType === CHART_TYPES.LINE) {
                 // Extract the unique values from the selected column
-                var unique = columns[column].filter(function(v, i, a) {
-                  return a.indexOf(v) === i;
-                });
+                var unique = getUniqueValues(columns[column]);
 
                 var columnColorsMapping = {};
                 var colorsIndex = 0;
@@ -539,13 +535,7 @@ ckan.module('visualize-data', function($) {
                 });
 
                 chartData.datasets = [];
-                var uniqueLabels = columns[currentxAxis].filter(function(
-                  v,
-                  i,
-                  a
-                ) {
-                  return a.indexOf(v) === i;
-                });
+                var uniqueLabels = getUniqueValues(columns[currentxAxis]);
 
                 chartData.labels = uniqueLabels;
                 var currentIndex = 0;
