@@ -99,6 +99,8 @@
 }
 
 .column-pill {
+  cursor: move;
+  /* ^ fallback for Internet Explorer */
   cursor: grab;
 }
 
