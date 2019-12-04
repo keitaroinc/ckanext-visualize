@@ -11,8 +11,8 @@
   data-module-line-chart-icon="{{ line_chart_icon }}" data-module-point-chart-icon="{{ point_chart_icon }}">
   <div class="panel panel-default panel-visualize">
     <div class="panel-heading">
-      <div class="row">
-        <div class="col-md-2 pr-0">
+      <div class="row row-flex">
+        <div class="col-md-3 panel-wrap-flex pr-0">
           <div class="panel panel-default">
             <figure class="panel-body">
               <img src="{{ h.url_for_static('/base/images/Chart-placeholder.png') }}" id="chart-icon"
@@ -20,7 +20,7 @@
             </figure>
           </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-9">
           <div class="panel panel-default">
             <div class="panel-body group-items-select">
               <div id="all-columns" class="list-group list-group-horizontal">
