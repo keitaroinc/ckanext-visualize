@@ -5,7 +5,8 @@
 {% resource 'visualize/js/vendor/backend.ckan.js' %}
 {% resource 'visualize/js/modules/visualize-data.js' %}
 
-<div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
+<div class="visualize-wrapper" data-module="visualize-data"
+  data-module-resource-id="{{ resource_id }}"
   data-module-resource-view="{{ h.dump_json(resource_view) }}"
   data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}"
   data-module-bar-chart-icon="{{ bar_chart_icon }}"
@@ -17,9 +18,22 @@
         <div class="col-md-2 pr-0">
           <div class="panel panel-default">
             <figure class="panel-body">
-              <img src="{{ h.url_for_static('/base/images/Chart-placeholder.png') }}" id="chart-icon" class="img-responsive"
-                alt="An icon representing visualization type" />
+              <img src="{{ h.url_for_static('/base/images/Chart-placeholder.png') }}"
+              id="chart-icon" class="img-responsive" alt="An icon representing visualization type" />
             </figure>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-body panel-aggregation">
+              <ul class="list-inline text-center">
+                <li>
+                  <h5 class="text-muted desc-muted">Aggregation Type</h5>
+                </li>
+                <li>
+                  <i class="fa fa-sort-numeric-asc fa-fw" aria-hidden="true"></i>
+                  <span>Count</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <div class="col-md-10">

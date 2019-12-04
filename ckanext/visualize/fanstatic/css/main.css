@@ -26,6 +26,9 @@
 .desc-muted {
   font-weight: 400;
 }
+.panel-body.panel-aggregation {
+  padding: 1.35rem;
+}
 
 .chart-container {
   padding: 1rem;
