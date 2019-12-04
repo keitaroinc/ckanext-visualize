@@ -32,6 +32,10 @@
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .panel-visualize .row-flex,
 .panel-visualize .panel-wrap-flex {
   flex-wrap: wrap;
@@ -87,14 +91,14 @@
 }
 
 .axis-list {
-  flex: 1 1 33%;
-  max-width: 33%;
-  padding: 1rem;
-  min-height: 5rem;
+  padding: 1.5rem 1rem 1rem;
+  min-height: 8.5rem;
   text-align: center;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   flex-direction: column;
+  align-items: center;
+  background-color: #fafafa;
 }
 
 .list-group-item.column {
@@ -110,10 +114,6 @@
   flex-wrap: wrap;
 }
 
-.drop-list-group {
-  display: flex;
-}
-
 .aggregation-list .badge-pill {
   margin: 1rem;
   background-color: #757575;
@@ -125,7 +125,6 @@
 .color-attr-list {
   position: relative;
   border-radius: 4px;
-  margin: 0.5rem;
   border: 1px dashed #aaa;
 }
 
@@ -135,7 +134,9 @@
   position: absolute;
   top: -1.25rem;
   padding: 0 1rem;
-  background: #ffffff;
+  background: #fafafa;
+  border-radius: 4px;
+  border: 1px dashed #aaa;
 }
 
 .badge-pill {
@@ -312,11 +313,7 @@ input[type='color']::-webkit-color-swatch {
   .axis-list {
     flex-basis: 100%;
     max-width: 100%;
-    margin: 1rem;
-  }
-
-  .drop-list-group {
-    flex-wrap: wrap;
+    margin: 1rem auto;
   }
 }
 
