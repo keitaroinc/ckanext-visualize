@@ -69,6 +69,12 @@
   display: flex;
 }
 
+.aggregation-list .badge-pill{
+  margin: 1rem;
+  background-color: #757575;
+}
+
+.aggregation-list,
 .x-axis-list,
 .y-axis-list,
 .color-attr-list {
