@@ -11,6 +11,7 @@
 .panel-visualize .panel-footer {
   box-shadow: none;
   background-color: #fafafa;
+  margin-top: auto;
 }
 
 .desc-footer {
@@ -23,9 +24,16 @@
   margin: auto;
 }
 
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
 .panel-visualize .row-flex,
 .panel-visualize .panel-wrap-flex {
-  display: flex;
   flex-wrap: wrap;
 }
 
@@ -37,12 +45,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.panel-wrap-flex .panel-body-h-100 {
   height: 100%;
 }
 
 .panel-wrap-flex .panel {
   flex-direction: column;
+  flex-wrap: wrap;
   flex-grow: 1;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.mw-100 {
+  max-width: 100%;
 }
 
 .desc-muted {
