@@ -23,9 +23,32 @@
   margin: auto;
 }
 
+.panel-visualize .row-flex,
+.panel-visualize .panel-wrap-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.panel-visualize .panel-wrap-flex {
+  flex-grow: 1;
+}
+
+.panel-wrap-flex .panel-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.panel-wrap-flex .panel {
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .desc-muted {
   font-weight: 400;
 }
+
 .panel-body.panel-aggregation {
   padding: 1.35rem;
 }
@@ -69,7 +92,7 @@
   display: flex;
 }
 
-.aggregation-list .badge-pill{
+.aggregation-list .badge-pill {
   margin: 1rem;
   background-color: #757575;
 }
