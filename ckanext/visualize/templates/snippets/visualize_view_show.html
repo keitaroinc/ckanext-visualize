@@ -21,9 +21,9 @@
           </div>
         </div>
         <div class="col-md-9 d-flex panel-wrap-flex">
-          <div class="panel panel-default d-flex overflow-auto">
-            <div class="panel-body group-items-select overflow-auto">
-              <div id="all-columns" class="list-group list-group-horizontal overflow-auto mw-100">
+          <div class="panel panel-default d-flex overflow-auto-ie">
+            <div class="panel-body group-items-select overflow-auto-ie">
+              <div id="all-columns" class="list-group list-group-horizontal overflow-auto-ie mw-100">
                 {% for field in fields %}
                 {% if field.type == 'text' %}
                 {% set column_color = '#332288' %}
