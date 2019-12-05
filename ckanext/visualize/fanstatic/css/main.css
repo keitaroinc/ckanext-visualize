@@ -99,6 +99,8 @@
 }
 
 .column-pill {
+  cursor: move;
+  /* ^ fallback for Internet Explorer */
   cursor: grab;
 }
 
@@ -248,9 +250,22 @@ input[type='color']::-webkit-color-swatch {
   .panel-icon .controls {
     text-align: center;
   }
+
+  /* Fix IE flexbox alignment issues */
+  _:-ms-fullscreen,
+  :root .axis-title {
+    left: 40%;
+  }
 }
 
 @media (max-width: 992px) {
+
+  /* Fix IE flexbox alignment issues */
+  _:-ms-fullscreen,
+  :root .axis-title {
+    left: 45%;
+  }
+
   .figure-wrapper {
     margin-bottom: 2rem;
   }
