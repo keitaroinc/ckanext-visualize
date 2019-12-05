@@ -11,6 +11,7 @@
 .panel-visualize .panel-footer {
   box-shadow: none;
   background-color: #fafafa;
+  margin-top: auto;
 }
 
 .desc-footer {
@@ -23,8 +24,60 @@
   margin: auto;
 }
 
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.panel-visualize .row-flex,
+.panel-visualize .panel-wrap-flex {
+  flex-wrap: wrap;
+}
+
+.panel-visualize .panel-wrap-flex {
+  flex-grow: 1;
+}
+
+.panel-wrap-flex .panel-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.panel-wrap-flex .panel-body-h-100 {
+  height: 100%;
+}
+
+.panel-wrap-flex .panel {
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+_:-ms-fullscreen,
+:root .overflow-auto-ie {
+  overflow-x: auto;
+}
+
+.mw-100 {
+  max-width: 100%;
+}
+
 .desc-muted {
   font-weight: 400;
+}
+
+.panel-body.panel-aggregation {
+  padding: 1.35rem;
 }
 
 .chart-container {
@@ -39,14 +92,14 @@
 }
 
 .axis-list {
-  flex: 1 1 33%;
-  max-width: 33%;
-  padding: 1rem;
-  min-height: 5rem;
+  padding: 1.5rem 1rem 1rem;
+  min-height: 8.5rem;
   text-align: center;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   flex-direction: column;
+  align-items: center;
+  background-color: #fafafa;
 }
 
 .list-group-item.column {
@@ -62,16 +115,17 @@
   flex-wrap: wrap;
 }
 
-.drop-list-group {
-  display: flex;
+.aggregation-list .badge-pill {
+  margin: 1rem;
+  background-color: #757575;
 }
 
+.aggregation-list,
 .x-axis-list,
 .y-axis-list,
 .color-attr-list {
   position: relative;
   border-radius: 4px;
-  margin: 0.5rem;
   border: 1px dashed #aaa;
 }
 
@@ -79,9 +133,11 @@
   display: inline-block;
   font-size: 1.5rem;
   position: absolute;
-  top: -1.25rem;
-  padding: 0 1rem;
-  background: #ffffff;
+  top: -1.75rem;
+  padding: 0.5rem 1rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  /* border: 1px dashed #aaa; */
 }
 
 .badge-pill {
@@ -99,6 +155,8 @@
 }
 
 .column-pill {
+  cursor: move;
+  /* ^ fallback for Internet Explorer */
   cursor: grab;
 }
 
@@ -248,9 +306,32 @@ input[type='color']::-webkit-color-swatch {
   .panel-icon .controls {
     text-align: center;
   }
+
+  /* Fix IE flexbox alignment issues */
+  _:-ms-fullscreen,
+  :root .axis-title {
+    left: 40%;
+  }
+
+  _:-ms-fullscreen,
+  :root .aggregation-list .axis-title {
+    left: 25%;
+  }
 }
 
 @media (max-width: 992px) {
+
+  /* Fix IE flexbox alignment issues */
+  _:-ms-fullscreen,
+  :root .axis-title {
+    left: 45%;
+  }
+
+  _:-ms-fullscreen,
+  :root .aggregation-list .axis-title {
+    left: 39%;
+  }
+
   .figure-wrapper {
     margin-bottom: 2rem;
   }
@@ -258,11 +339,7 @@ input[type='color']::-webkit-color-swatch {
   .axis-list {
     flex-basis: 100%;
     max-width: 100%;
-    margin: 1rem;
-  }
-
-  .drop-list-group {
-    flex-wrap: wrap;
+    margin: 1rem auto;
   }
 }
 

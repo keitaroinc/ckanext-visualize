@@ -7,25 +7,23 @@
 
 <div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
   data-module-resource-view="{{ h.dump_json(resource_view) }}"
-  data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}"
-  data-module-bar-chart-icon="{{ bar_chart_icon }}"
-  data-module-line-chart-icon="{{ line_chart_icon }}"
-  data-module-point-chart-icon="{{ point_chart_icon }}">
+  data-module-color-palette="{{ h.dump_json(h.get_color_palette()) }}" data-module-bar-chart-icon="{{ bar_chart_icon }}"
+  data-module-line-chart-icon="{{ line_chart_icon }}" data-module-point-chart-icon="{{ point_chart_icon }}">
   <div class="panel panel-default panel-visualize">
     <div class="panel-heading">
-      <div class="row">
-        <div class="col-md-2 pr-0">
+      <div class="row d-flex flex-wrap">
+        <div class="col-md-3 d-flex panel-wrap-flex pr-0">
           <div class="panel panel-default">
-            <figure class="panel-body">
-              <img src="{{ h.url_for_static('/base/images/Chart-placeholder.png') }}" id="chart-icon" class="img-responsive"
-                alt="An icon representing visualization type" />
+            <figure class="panel-body panel-body-h-100">
+              <img src="{{ h.url_for_static('/base/images/Chart-placeholder.png') }}" id="chart-icon"
+                class="img-responsive" alt="An icon representing visualization type" />
             </figure>
           </div>
         </div>
-        <div class="col-md-10">
-          <div class="panel panel-default">
-            <div class="panel-body group-items-select">
-              <div id="all-columns" class="list-group list-group-horizontal">
+        <div class="col-md-9 d-flex panel-wrap-flex">
+          <div class="panel panel-default d-flex overflow-auto-ie">
+            <div class="panel-body group-items-select overflow-auto-ie">
+              <div id="all-columns" class="list-group list-group-horizontal overflow-auto-ie mw-100">
                 {% for field in fields %}
                 {% if field.type == 'text' %}
                 {% set column_color = '#332288' %}
@@ -95,18 +93,32 @@
               </ul>
             </div>
           </div>
-          <div class="panel panel-default">
-            <div class="panel-body group-items-drop">
-              <div class="drop-list-group">
-                <div id="x-axis" class="axis-list x-axis-list">
-                  <small class="axis-title">{{ _('X-axis') }}</small>
-                </div>
-                <div id="y-axis" class="axis-list y-axis-list">
-                  <small class="axis-title">{{ _('Y-axis') }}</small>
-                </div>
-                <div id="color-attr" class="axis-list color-attr-list">
-                  <small class="axis-title">{{ _('color') }}</small>
-                </div>
+        </div>
+      </div>
+      <div class="row group-items-drop">
+        <div class="col-md-3 pr-0">
+          <div id="aggregation" class="axis-list aggregation-list">
+            <small class="axis-title">{{ _('Aggregation Type') }}</small>
+            <span class="badge badge-pill">
+              <i class="fa fa-filter fa-fw" aria-hidden="true"></i><span>Count</span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-4 pr-0">
+              <div id="x-axis" class="axis-list x-axis-list">
+                <small class="axis-title">{{ _('X-axis') }}</small>
+              </div>
+            </div>
+            <div class="col-md-4 pr-0">
+              <div id="y-axis" class="axis-list y-axis-list">
+                <small class="axis-title">{{ _('Y-axis') }}</small>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div id="color-attr" class="axis-list color-attr-list">
+                <small class="axis-title">{{ _('Color') }}</small>
               </div>
             </div>
           </div>
