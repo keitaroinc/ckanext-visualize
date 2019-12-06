@@ -86,3 +86,10 @@ Chart icons
 -----------------
 
 The default icons that are used for the types of chart are taken from `The R Graph Gallery <https://www.r-graph-gallery.com>`_.
+
+
+-----------------
+Illustration
+-----------------
+
+The illustration that is used is a modified version based on the open-source illustration from Katerina Limpitsouni <https://undraw.co/>`_.
