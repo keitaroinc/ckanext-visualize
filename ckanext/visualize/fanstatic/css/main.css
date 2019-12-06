@@ -82,8 +82,7 @@ _:-ms-fullscreen,
   padding: 1rem;
 }
 
-.group-items-select {
-}
+.group-items-select {}
 
 .panel-wrap-flex .group-items-select.panel-body {
   flex-direction: row;
@@ -106,8 +105,8 @@ _:-ms-fullscreen,
   padding: 0.75rem;
   border: none;
   background: none;
-  text-align: center;
   margin: 0;
+  max-width: 100%;
 }
 
 .list-group-horizontal {
@@ -152,6 +151,12 @@ _:-ms-fullscreen,
   white-space: nowrap;
   vertical-align: middle;
   border-radius: 100rem;
+}
+
+.axis-list .column-pill {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .column-pill {
