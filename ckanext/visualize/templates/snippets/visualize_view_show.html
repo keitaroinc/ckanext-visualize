@@ -47,7 +47,7 @@
               <div class="list-group-item column" data-column="{{ field.value }}" data-column-type="{{ field.type }}">
                 <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
                     class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw"
-                    aria-hidden="true"></i>{{ field.value }}</span>
+                    aria-hidden="true"></i><span class="pill-title" title="{{ field.value }}">{{ field.value }}</span></span>
               </div>
               {% endfor %}
             </div>
