@@ -27,33 +27,18 @@ can create predefined charts and easily configure them based on the needs.
 Features
 --------
 
-- **Intuitive and easy to use**. This CKAN extension enables users to easily
-build and visualize charts that are simple to use.
-- **Predefined charts**. Administrators can create meaningful charts for users
-as CKAN views, so they can immediately visualize and understand the data.
-- **Standalone chart viewer**. The extension allows the chart viewer to be
-embedded on third-party websites without creating CKAN views.
-- **Intelligent chart type selection**. Depending on the data types of the
-columns that are chosen, the extension automatically chooses the most
-appropriate type to visualize the data.
-- **Drag-and-drop columns**. Creating a chart is as easy as dragging a column
-from the list of all available columns into the X or Y axis.
-- **Color attribute**. Data in the chart can be grouped based on the selected
-column and colored for each distinct value.
-- **Visually distinct columns**. All available columns that can be dragged are
-color coded based on the data type of the column and have a specific icon
-defined in a legend.
-- **Chart types**. The viewer supports the following types of chart: bar, line
-and point, with more coming in the next release.
-- **Customizable color palette**. The extension comes with a default color
-palette that is using carefully chosen colors that are accessible, with the
-possibility to change them and add additional ones from a configuration page.
-- **Customizable chart type icons**. For each supported chart type, there is a
-corresponding icon that can be customized from a configuration page.
-- **Mobile support**. Drag-and-drop functionality is supported on mobile
-devices as well.
-- **Responsive**. The extension is optimized to work across many screen sizes,
-from mobile to desktop.
+- **Intuitive and easy to use**. This CKAN extension enables users to easily build and visualize charts that are simple to use.
+- **Predefined charts**. Administrators can create meaningful charts for users as CKAN views, so they can immediately visualize and understand the data.
+- **Standalone chart viewer**. The extension allows the chart viewer to be embedded on third-party websites without creating CKAN views.
+- **Intelligent chart type selection**. Depending on the data types of the columns that are chosen, the extension automatically chooses the most appropriate type to visualize the data.
+- **Drag-and-drop columns**. Creating a chart is as easy as dragging a column from the list of all available columns into the X or Y axis.
+- **Color attribute**. Data in the chart can be grouped based on the selected column and colored for each distinct value.
+- **Visually distinct columns**. All available columns that can be dragged are color coded based on the data type of the column and have a specific icon defined in a legend.
+- **Chart types**. The viewer supports the following types of chart: bar, line and point, with more coming in the next release.
+- **Customizable color palette**. The extension comes with a default color palette that is using carefully chosen colors that are accessible, with the possibility to change them and add additional ones from a configuration page.
+- **Customizable chart type icons**. For each supported chart type, there is a corresponding icon that can be customized from a configuration page.
+- **Mobile support**. Drag-and-drop functionality is supported on mobile devices as well.
+- **Responsive**. The extension is optimized to work across many screen sizes, from mobile to desktop.
 
 
 -----------------
