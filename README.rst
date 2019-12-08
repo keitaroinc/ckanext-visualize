@@ -149,3 +149,11 @@ Illustration
 -----------------
 
 The illustration that is used is a modified version based on the open-source illustration from `Katerina Limpitsouni <https://undraw.co/>`_.
+
+
+------------
+Known issues
+------------
+
+- **Performance**. If a resource contains large data, e.g. more than 10000 rows, the viewer may be slower as it needs more time to prepare the data.
+- **Internet Explorer**. The HTML element ``<input type="color">`` is not supported in Internet Explorer, so the color picker does not work in the administrator configuration page.
