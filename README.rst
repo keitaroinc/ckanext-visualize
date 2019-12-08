@@ -67,11 +67,29 @@ Used technologies
 Screenshots
 -----------
 
-.. figure:: screenshots/predefined-chart.png
-  :scale: 50 %
-  :alt: Predefined chart
+- Predefined chart
+.. image:: screenshots/predefined-chart.png
 
-  Predefined chart
+- Intelligent chart type selection
+.. image:: screenshots/line-chart.png
+
+- Drag-and-drop columns
+.. image:: screenshots/drag-and-drop.png
+
+- Color attributes
+.. image:: screenshots/color-attributes.png
+
+- Chart colors
+.. image:: screenshots/chart-colors.png
+
+- Data types
+.. image:: screenshots/data-types.png
+
+- Chart types
+.. image:: screenshots/chart-types.png
+
+- Customizable color palette
+.. image:: screenshots/customizable-color-palette.png
 
 ------------
 Requirements
