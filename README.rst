@@ -67,7 +67,11 @@ Used technologies
 Screenshots
 -----------
 
-.. image:: screenshots/predefined-chart.png
+.. figure:: screenshots/predefined-chart.png
+  :scale: 50 %
+  :alt: Predefined chart
+
+  Predefined chart
 
 ------------
 Requirements
