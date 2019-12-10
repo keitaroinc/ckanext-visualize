@@ -17,8 +17,64 @@ ckanext-visualize
    What does it do? What features does it have?
    Consider including some screenshots or embedding a video!
 
-CKAN extension which allows users to easily visualize data that's in DataStore
-using a chart.
+CKAN extension which allows users to visualize data in a very efficient and
+intuitive way, in a simple to use User Interface. The viewer automatically
+creates the most meaningful chart based on the chosen columns. Administrators
+can create predefined charts and easily configure them based on the needs.
+
+
+--------
+Features
+--------
+
+- **Intuitive and easy to use**. This CKAN extension enables users to easily build and visualize charts that are simple to use.
+- **Predefined charts**. Administrators can create meaningful charts for users as CKAN views, so they can immediately visualize and understand the data.
+- **Standalone chart viewer**. The extension allows the chart viewer to be embedded on third-party websites without creating CKAN views.
+- **Intelligent chart type selection**. Depending on the data types of the columns that are chosen, the extension automatically chooses the most appropriate type to visualize the data.
+- **Drag-and-drop columns**. Creating a chart is as easy as dragging a column from the list of all available columns into the X or Y axis.
+- **Color attribute**. Data in the chart can be grouped based on the selected column and colored for each distinct value.
+- **Visually distinct columns**. All available columns that can be dragged are color coded based on the data type of the column and have a specific icon defined in a legend.
+- **Chart types**. The viewer supports the following types of chart: bar, line and point, with more coming in the next release.
+- **Customizable color palette**. The extension comes with a default color palette that is using carefully chosen colors that are accessible, with the possibility to change them and add additional ones from a configuration page.
+- **Customizable chart type icons**. For each supported chart type, there is a corresponding icon that can be customized from a configuration page.
+- **Mobile support**. Drag-and-drop functionality is supported on mobile devices as well.
+- **Responsive**. The extension is optimized to work across many screen sizes, from mobile to desktop.
+
+
+-----------------
+Used technologies
+-----------------
+
+- HTML, CSS, Bootstrap, JavaScript, jQuery, Chart.js, SortableJS, Python
+
+
+-----------
+Screenshots
+-----------
+
+- Predefined chart
+.. image:: screenshots/predefined-chart.png
+
+- Intelligent chart type selection
+.. image:: screenshots/line-chart.png
+
+- Drag-and-drop columns
+.. image:: screenshots/drag-and-drop.png
+
+- Color attributes
+.. image:: screenshots/color-attributes.png
+
+- Chart colors
+.. image:: screenshots/chart-colors.png
+
+- Data types
+.. image:: screenshots/data-types.png
+
+- Chart types
+.. image:: screenshots/chart-types.png
+
+- Customizable color palette
+.. image:: screenshots/customizable-color-palette.png
 
 ------------
 Requirements
@@ -93,3 +149,11 @@ Illustration
 -----------------
 
 The illustration that is used is a modified version based on the open-source illustration from `Katerina Limpitsouni <https://undraw.co/>`_.
+
+
+------------
+Known issues
+------------
+
+- **Performance**. If a resource contains large data, e.g. more than 10000 rows, the viewer may be slower as it needs more time to prepare the data.
+- **Internet Explorer**. The HTML element ``<input type="color">`` is not supported in Internet Explorer, therefore the color picker does not work in the administrator configuration page.
