@@ -120,6 +120,7 @@ do::
     git clone https://github.com/keitaroinc/ckanext-visualize.git
     cd ckanext-visualize
     python setup.py develop
+    pip install -r requirements.txt
     pip install -r dev-requirements.txt
 
 
