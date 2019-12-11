@@ -50,7 +50,12 @@ ckan.module('visualize-data', function($) {
         if (a.indexOf(arr[i]) === -1 && arr[i] !== '') a.push(arr[i]);
       return a;
     } else {
-      return [...new Set(arr)];
+      var set = new Set(arr);
+      var arr = [];
+      set.forEach(function(item) {
+        arr.push(item);
+      });
+      return arr;
     }
   }
 
