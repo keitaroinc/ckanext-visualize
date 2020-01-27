@@ -20,7 +20,7 @@ ckan.module('visualize-data', function($) {
     labels: [],
     datasets: [
       {
-        label: 'Some dataset label',
+        label: '',
         data: [],
         fill: false
       }
@@ -600,7 +600,7 @@ ckan.module('visualize-data', function($) {
               labels: [],
               datasets: [
                 {
-                  label: 'Some dataset label',
+                  label: '',
                   data: [],
                   fill: false
                 }
