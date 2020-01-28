@@ -20,7 +20,7 @@ ckan.module('visualize-data', function($) {
     labels: [],
     datasets: [
       {
-        label: 'Some dataset label',
+        label: '',
         data: [],
         fill: false
       }
@@ -42,7 +42,6 @@ ckan.module('visualize-data', function($) {
   var barChartIcon;
   var lineChartIcon;
   var pointChartIcon;
-
   function getUniqueValues(arr) {
     if (isIE()) {
       var a = [];
@@ -83,7 +82,8 @@ ckan.module('visualize-data', function($) {
         ]
       },
       legend: {
-        position: 'bottom'
+        position: 'bottom',
+        display: false       
       }
     };
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -92,13 +92,17 @@ ckan.module('visualize-data', function($) {
     if (currentColorAttr && currentChartType === CHART_TYPES.BAR) {
       chartOptions.scales.yAxes[0].stacked = true;
       chartOptions.scales.xAxes[0].stacked = true;
+      chartOptions.legend.display = true;
     }
-
+    if(currentColorAttr && currentChartType === CHART_TYPES.LINE) {
+      chartOptions.legend.display = true;
+    }
     chart = new Chart(ctx, {
       type: currentChartType,
       data: chartData,
       options: chartOptions
     });
+    
     updateChartIcon();
   }
 
@@ -484,7 +488,6 @@ ckan.module('visualize-data', function($) {
                       colorsIndex++;
                     }
                   }
-
                   chartData.datasets.push({
                     label: label,
                     backgroundColor: currentColor,
@@ -547,7 +550,6 @@ ckan.module('visualize-data', function($) {
 
                 chartData.datasets = [];
                 var uniqueLabels = getUniqueValues(columns[currentxAxis]);
-
                 chartData.labels = uniqueLabels;
                 var currentIndex = 0;
 
@@ -606,7 +608,7 @@ ckan.module('visualize-data', function($) {
               labels: [],
               datasets: [
                 {
-                  label: 'Some dataset label',
+                  label: '',
                   data: [],
                   fill: false
                 }
