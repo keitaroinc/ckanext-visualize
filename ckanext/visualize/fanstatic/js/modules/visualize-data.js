@@ -73,7 +73,13 @@ ckan.module('visualize-data', function($) {
             }
           }
         ],
-        xAxes: [{}]
+        xAxes: [
+          {
+            ticks: {
+              beginAtZero: true
+            }
+          }
+        ]
       },
       legend: {
         position: 'bottom',
