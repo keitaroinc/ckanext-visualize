@@ -379,6 +379,23 @@ ckan.module('visualize-data', function($) {
             lastyAxisEvent = { item: evt.item, to: evt.to };
             currentyAxisType = columnType;
             currentyAxis = column;
+            if (
+              (currentxAxisType === "text" && currentyAxisType === "text") ||
+              (currentxAxisType === ("timestamp" || "date") &&
+                currentyAxisType === ("timestamp" || "date")) ||
+              (currentxAxisType === "text" &&
+                currentyAxisType === ("timestamp" || "date")) ||
+              (currentxAxisType === ("timestamp" || "date") &&
+                currentyAxisType === "text") ||
+              (currentxAxisType === "numeric" &&
+                currentyAxisType === ("timestamp" || "date"))
+            ) {
+              alert("The chosen graph type is not supported! Please choose other values for X or Y axis.");
+              console.log(item);
+              currentyAxis = null;
+              currentyAxisType = null;
+              item.remove();
+            }
             currentChartType =
               getChartType(currentxAxisType, currentyAxisType) || 'bar';
 
