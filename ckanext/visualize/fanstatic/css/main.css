@@ -82,6 +82,11 @@ _:-ms-fullscreen,
   padding: 1rem;
 }
 
+.chart-unsupported {
+  position: absolute;
+  opacity: 0.9;
+}
+
 .group-items-select {}
 
 .panel-wrap-flex .group-items-select.panel-body {

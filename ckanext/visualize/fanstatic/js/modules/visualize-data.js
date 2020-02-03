@@ -30,7 +30,7 @@ ckan.module('visualize-data', function($) {
   var ctx = document.getElementById('chart-canvas').getContext('2d');
   var chartContainer = $('.chart-container');
   var noChartContainer = $('.no-chart-container');
-  var unsupportedContainer = $('.unsupported');
+  var unsupportedContainer = $('.chart-unsupported');
   var isSupported = true;
   var xAxisList = $('.x-axis-list');
   var yAxisList = $('.y-axis-list');
@@ -85,7 +85,7 @@ ckan.module('visualize-data', function($) {
       },
       legend: {
         position: 'bottom',
-        display: false   
+        display: false
       }
     };
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -104,7 +104,7 @@ ckan.module('visualize-data', function($) {
       data: chartData,
       options: chartOptions
     });
-    
+
     updateChartIcon();
   }
 
@@ -315,14 +315,14 @@ ckan.module('visualize-data', function($) {
         if(to === 'y-axis') {
           lastyAxisEvent = { item: evt.item, to: evt.to };
           currentyAxisType = columnType;
-          currentyAxis = column;                   
+          currentyAxis = column;
         }
         if(to === 'x-axis') {
           lastxAxisEvent = { item: evt.item, to: evt.to };
           currentxAxisType = columnType;
-          currentxAxis = column;            
+          currentxAxis = column;
         }
-        isSupported = isSupportedGraphType(currentxAxisType, currentyAxisType);   
+        isSupported = isSupportedGraphType(currentxAxisType, currentyAxisType);
         if(!isSupported) {
           chartContainer.addClass('hidden');
           noChartContainer.removeClass('hidden');
