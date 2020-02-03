@@ -31,6 +31,8 @@ ckan.module('visualize-data', function($) {
   var chartContainer = $('.chart-container');
   var noChartContainer = $('.no-chart-container');
   var xAxisList = $('.x-axis-list');
+  var unsupportedContainer = $('.unsupported');
+  var isSupported = true;
   var yAxisList = $('.y-axis-list');
   var chartIcon = $('#chart-icon');
   var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
@@ -291,7 +293,40 @@ ckan.module('visualize-data', function($) {
         var column = item.attr('data-column');
         var columnType = item.attr('data-column-type');
         var to = $(evt.to).attr('id');
-        if (columns[column]) {
+        unsupportedContainer.addClass('hidden');
+        isSupported = true;
+        if(to === 'y-axis') {
+          currentyAxisType = columnType;
+          currentyAxis = column;
+            
+          if (
+            (currentxAxisType === "text" && currentyAxisType === "text") ||
+            (currentxAxisType === ("timestamp" || "date") &&
+              currentyAxisType === ("timestamp" || "date")) ||
+            (currentxAxisType === "text" &&
+              currentyAxisType === ("timestamp" || "date")) ||
+            (currentxAxisType === ("timestamp" || "date") &&
+              currentyAxisType === "text") ||
+            (currentxAxisType === "numeric" &&
+              currentyAxisType === ("timestamp" || "date"))
+          ) {
+            chartContainer.addClass('hidden');
+            noChartContainer.removeClass('hidden');
+            unsupportedContainer.removeClass('hidden');
+            isSupported = false;
+            // chartData.labels = [];
+            // currentxAxisType = null;
+            // currentxAxis = null;
+            // chartData.datasets[0].data = [];
+            // currentyAxisType = null;
+            // currentyAxis = null;
+            // xAxisHiddenInput.val('');
+            // yAxisHiddenInput.val('');
+            // chart.destroy();
+            // initChart();
+            }            
+        }
+        if (columns[column] && isSupported) {
           if (to === 'x-axis') {
             lastxAxisEvent = { item: evt.item, to: evt.to };
             currentxAxisType = columnType;
@@ -379,23 +414,6 @@ ckan.module('visualize-data', function($) {
             lastyAxisEvent = { item: evt.item, to: evt.to };
             currentyAxisType = columnType;
             currentyAxis = column;
-            if (
-              (currentxAxisType === "text" && currentyAxisType === "text") ||
-              (currentxAxisType === ("timestamp" || "date") &&
-                currentyAxisType === ("timestamp" || "date")) ||
-              (currentxAxisType === "text" &&
-                currentyAxisType === ("timestamp" || "date")) ||
-              (currentxAxisType === ("timestamp" || "date") &&
-                currentyAxisType === "text") ||
-              (currentxAxisType === "numeric" &&
-                currentyAxisType === ("timestamp" || "date"))
-            ) {
-              alert("The chosen graph type is not supported! Please choose other values for X or Y axis.");
-              console.log(item);
-              currentyAxis = null;
-              currentyAxisType = null;
-              item.remove();
-            }
             currentChartType =
               getChartType(currentxAxisType, currentyAxisType) || 'bar';
 
@@ -601,6 +619,7 @@ ckan.module('visualize-data', function($) {
         var item = $(evt.item);
         var column = item.attr('data-column');
         var from = $(evt.from).attr('id');
+        isSupported = true;
         if (columns[column]) {
           if (from === 'x-axis') {
             chartData.labels = [];
