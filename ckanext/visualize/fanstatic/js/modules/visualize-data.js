@@ -85,7 +85,7 @@ ckan.module('visualize-data', function($) {
       },
       legend: {
         position: 'bottom',
-        display: false
+        display: true
       }
     };
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -94,11 +94,12 @@ ckan.module('visualize-data', function($) {
     if (currentColorAttr && currentChartType === CHART_TYPES.BAR) {
       chartOptions.scales.yAxes[0].stacked = true;
       chartOptions.scales.xAxes[0].stacked = true;
-      chartOptions.legend.display = true;
     }
-    if(currentColorAttr && currentChartType === CHART_TYPES.LINE) {
-      chartOptions.legend.display = true;
+
+    if(!currentColorAttr || (currentColorAttr && currentxAxis && !currentyAxis) || (currentColorAttr && !currentxAxis && currentyAxis)) {
+      chartOptions.legend.display = false;
     }
+
     chart = new Chart(ctx, {
       type: currentChartType,
       data: chartData,
@@ -330,7 +331,6 @@ ckan.module('visualize-data', function($) {
         }
         if (columns[column] && isSupported) {
           if (to === 'x-axis') {
-            lastxAxisEvent = { item: evt.item, to: evt.to };
             currentxAxisType = columnType;
             currentxAxis = column;
             currentChartType =
@@ -413,7 +413,6 @@ ckan.module('visualize-data', function($) {
 
             xAxisHiddenInput.val(currentxAxis);
           } else if (to === 'y-axis') {
-            lastyAxisEvent = { item: evt.item, to: evt.to };
             currentyAxisType = columnType;
             currentyAxis = column;
             currentChartType =
