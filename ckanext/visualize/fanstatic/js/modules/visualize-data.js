@@ -85,7 +85,7 @@ ckan.module('visualize-data', function($) {
       },
       legend: {
         position: 'bottom',
-        display: false       
+        display: false   
       }
     };
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -297,8 +297,7 @@ ckan.module('visualize-data', function($) {
         isSupported = true;
         if(to === 'y-axis') {
           currentyAxisType = columnType;
-          currentyAxis = column;
-            
+          currentyAxis = column;            
           if (
             // Unsupported graph types
             (currentxAxisType === "text" && currentyAxisType === "text") ||
