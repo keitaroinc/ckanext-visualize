@@ -313,10 +313,12 @@ ckan.module('visualize-data', function($) {
         unsupportedContainer.addClass('hidden');
         isSupported = true;
         if(to === 'y-axis') {
+          lastyAxisEvent = { item: evt.item, to: evt.to };
           currentyAxisType = columnType;
           currentyAxis = column;                   
         }
         if(to === 'x-axis') {
+          lastxAxisEvent = { item: evt.item, to: evt.to };
           currentxAxisType = columnType;
           currentxAxis = column;            
         }
@@ -619,7 +621,6 @@ ckan.module('visualize-data', function($) {
         var item = $(evt.item);
         var column = item.attr('data-column');
         var from = $(evt.from).attr('id');
-        isSupported = true;
         unsupportedContainer.addClass('hidden');
         if (columns[column]) {
           if (from === 'x-axis') {
