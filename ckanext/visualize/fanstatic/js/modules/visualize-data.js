@@ -142,7 +142,7 @@ ckan.module('visualize-data', function($) {
     }
   }
 
-  function isUnsupportedGraphType(xAxisType, yAxisType) {
+  function isSupportedGraphType(xAxisType, yAxisType) {
     if (
       // Unsupported graph types
       (xAxisType === "text" && yAxisType === "text") ||
@@ -155,8 +155,8 @@ ckan.module('visualize-data', function($) {
       (xAxisType === "numeric" &&
         yAxisType === ("timestamp" || "date"))
     ) {
-      return true;
-    } else return false;
+      return false;
+    } else return true;
   }
 
   return {
@@ -311,7 +311,7 @@ ckan.module('visualize-data', function($) {
         var columnType = item.attr('data-column-type');
         var to = $(evt.to).attr('id');
         unsupportedContainer.addClass('hidden');
-        isSupported = false;
+        isSupported = true;
         if(to === 'y-axis') {
           currentyAxisType = columnType;
           currentyAxis = column;                   
@@ -320,13 +320,13 @@ ckan.module('visualize-data', function($) {
           currentxAxisType = columnType;
           currentxAxis = column;            
         }
-        isSupported = isUnsupportedGraphType(currentxAxisType, currentyAxisType);   
-        if(isSupported) {
+        isSupported = isSupportedGraphType(currentxAxisType, currentyAxisType);   
+        if(!isSupported) {
           chartContainer.addClass('hidden');
           noChartContainer.removeClass('hidden');
           unsupportedContainer.removeClass('hidden');
         }
-        if (columns[column] && !isSupported) {
+        if (columns[column] && isSupported) {
           if (to === 'x-axis') {
             lastxAxisEvent = { item: evt.item, to: evt.to };
             currentxAxisType = columnType;
@@ -619,7 +619,7 @@ ckan.module('visualize-data', function($) {
         var item = $(evt.item);
         var column = item.attr('data-column');
         var from = $(evt.from).attr('id');
-        isSupported = false;
+        isSupported = true;
         unsupportedContainer.addClass('hidden');
         if (columns[column]) {
           if (from === 'x-axis') {
