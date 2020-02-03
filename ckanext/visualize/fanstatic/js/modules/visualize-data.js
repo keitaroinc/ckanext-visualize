@@ -300,6 +300,7 @@ ckan.module('visualize-data', function($) {
           currentyAxis = column;
             
           if (
+            // Unsupported graph types
             (currentxAxisType === "text" && currentyAxisType === "text") ||
             (currentxAxisType === ("timestamp" || "date") &&
               currentyAxisType === ("timestamp" || "date")) ||
@@ -314,16 +315,6 @@ ckan.module('visualize-data', function($) {
             noChartContainer.removeClass('hidden');
             unsupportedContainer.removeClass('hidden');
             isSupported = false;
-            // chartData.labels = [];
-            // currentxAxisType = null;
-            // currentxAxis = null;
-            // chartData.datasets[0].data = [];
-            // currentyAxisType = null;
-            // currentyAxis = null;
-            // xAxisHiddenInput.val('');
-            // yAxisHiddenInput.val('');
-            // chart.destroy();
-            // initChart();
             }            
         }
         if (columns[column] && isSupported) {
