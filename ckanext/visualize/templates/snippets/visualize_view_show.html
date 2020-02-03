@@ -46,8 +46,8 @@
 
               <div class="list-group-item column" data-column="{{ field.value }}" data-column-type="{{ field.type }}">
                 <span class="badge-pill column-pill" style="background-color: {{ column_color }};"><i
-                    class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw"
-                    aria-hidden="true"></i><span class="pill-title" title="{{ field.value }}">{{ field.value }}</span></span>
+                    class="fa {{ h.get_icon_for_data_type(field.type) }} fa-fw" aria-hidden="true"></i><span
+                    class="pill-title" title="{{ field.value }}">{{ field.value }}</span></span>
               </div>
               {% endfor %}
             </div>
@@ -128,6 +128,10 @@
         <canvas id="chart-canvas"></canvas>
       </div>
       <div class="no-chart-container">
+        <div class="chart-unsupported hidden alert alert-warning">
+          <i class="fa fa-warning fa-fw" aria-hidden="true"></i>
+          <span>{{ _('The requested graph type combination is currently not supported. Please try with another pill combination.') }}</span>
+        </div>
         <figure class="no-chart-illustration">
           <img src="/base/images/No-chart-illustration.png" class="img-responsive" alt="Illustration image" />
         </figure>

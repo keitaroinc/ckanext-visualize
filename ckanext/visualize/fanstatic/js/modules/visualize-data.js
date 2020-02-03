@@ -30,6 +30,8 @@ ckan.module('visualize-data', function($) {
   var ctx = document.getElementById('chart-canvas').getContext('2d');
   var chartContainer = $('.chart-container');
   var noChartContainer = $('.no-chart-container');
+  var unsupportedContainer = $('.chart-unsupported');
+  var isSupported = true;
   var xAxisList = $('.x-axis-list');
   var yAxisList = $('.y-axis-list');
   var chartIcon = $('#chart-icon');
@@ -83,7 +85,7 @@ ckan.module('visualize-data', function($) {
       },
       legend: {
         position: 'bottom',
-        display: false       
+        display: true
       }
     };
     chartData.datasets[0].backgroundColor = colorPalette[0];
@@ -92,17 +94,18 @@ ckan.module('visualize-data', function($) {
     if (currentColorAttr && currentChartType === CHART_TYPES.BAR) {
       chartOptions.scales.yAxes[0].stacked = true;
       chartOptions.scales.xAxes[0].stacked = true;
-      chartOptions.legend.display = true;
     }
-    if(currentColorAttr && currentChartType === CHART_TYPES.LINE) {
-      chartOptions.legend.display = true;
+
+    if(!currentColorAttr || (currentColorAttr && currentxAxis && !currentyAxis) || (currentColorAttr && !currentxAxis && currentyAxis)) {
+      chartOptions.legend.display = false;
     }
+
     chart = new Chart(ctx, {
       type: currentChartType,
       data: chartData,
       options: chartOptions
     });
-    
+
     updateChartIcon();
   }
 
@@ -138,6 +141,23 @@ ckan.module('visualize-data', function($) {
     ) {
       return CHART_TYPES.BAR;
     }
+  }
+
+  function isSupportedGraphType(xAxisType, yAxisType) {
+    if (
+      // Unsupported graph types
+      (xAxisType === "text" && yAxisType === "text") ||
+      (xAxisType === ("timestamp" || "date") &&
+        yAxisType === ("timestamp" || "date")) ||
+      (xAxisType === "text" &&
+        yAxisType === ("timestamp" || "date")) ||
+      (xAxisType === ("timestamp" || "date") &&
+        yAxisType === "text") ||
+      (xAxisType === "numeric" &&
+        yAxisType === ("timestamp" || "date"))
+    ) {
+      return false;
+    } else return true;
   }
 
   return {
@@ -291,9 +311,26 @@ ckan.module('visualize-data', function($) {
         var column = item.attr('data-column');
         var columnType = item.attr('data-column-type');
         var to = $(evt.to).attr('id');
-        if (columns[column]) {
+        unsupportedContainer.addClass('hidden');
+        isSupported = true;
+        if(to === 'y-axis') {
+          lastyAxisEvent = { item: evt.item, to: evt.to };
+          currentyAxisType = columnType;
+          currentyAxis = column;
+        }
+        if(to === 'x-axis') {
+          lastxAxisEvent = { item: evt.item, to: evt.to };
+          currentxAxisType = columnType;
+          currentxAxis = column;
+        }
+        isSupported = isSupportedGraphType(currentxAxisType, currentyAxisType);
+        if(!isSupported) {
+          chartContainer.addClass('hidden');
+          noChartContainer.removeClass('hidden');
+          unsupportedContainer.removeClass('hidden');
+        }
+        if (columns[column] && isSupported) {
           if (to === 'x-axis') {
-            lastxAxisEvent = { item: evt.item, to: evt.to };
             currentxAxisType = columnType;
             currentxAxis = column;
             currentChartType =
@@ -376,7 +413,6 @@ ckan.module('visualize-data', function($) {
 
             xAxisHiddenInput.val(currentxAxis);
           } else if (to === 'y-axis') {
-            lastyAxisEvent = { item: evt.item, to: evt.to };
             currentyAxisType = columnType;
             currentyAxis = column;
             currentChartType =
@@ -584,6 +620,7 @@ ckan.module('visualize-data', function($) {
         var item = $(evt.item);
         var column = item.attr('data-column');
         var from = $(evt.from).attr('id');
+        unsupportedContainer.addClass('hidden');
         if (columns[column]) {
           if (from === 'x-axis') {
             chartData.labels = [];
