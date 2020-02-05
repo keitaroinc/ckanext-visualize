@@ -380,24 +380,23 @@ ckan.module('visualize-data', function($) {
               if (currentyAxis) {
                 // Extract the unique values from the x-axis column
                 var uniqueLabels = getUniqueValues(columns[currentxAxis]);
-                var j = 0;
-                $.each(uniqueLabels, function(x, label) {
-                  var countRows = 0;
-                  for (var i = j; i < columns[currentxAxis].length; i++) {
-                    if (label === columns[currentxAxis][i]) {
-                      countRows++;
-                    } else {
-                      chartData.datasets[0].data.push(countRows);
-                      countRows = 0;
-                      j = i;
-                      break;
+                var dict = [];
+                for(var label in uniqueLabels) {
+                  dict.push({
+                    key: uniqueLabels[label],
+                    value: 0
+                  })
+                }
+                for (var i = 0; i < columns[currentxAxis].length; i++) {
+                  for(var k in dict) {
+                    if (dict[k].key === columns[currentxAxis][i]) {                       
+                      dict[k].value++;
                     }
-
-                    if (i === columns[currentxAxis].length - 1) {
-                      chartData.datasets[0].data.push(countRows);
-                    }
-                  }
-                });
+                  }   
+                }
+                for(var k in dict) {
+                  chartData.datasets[0].data.push(dict[k].value)
+                }
               }
 
               if (currentyAxis && lastColorAttrEvent) {
@@ -457,26 +456,24 @@ ckan.module('visualize-data', function($) {
               if (currentxAxis) {
                 // Extract the unique values from the x-axis column
                 var uniqueLabels = getUniqueValues(columns[currentxAxis]);
-                var j = 0;
-                $.each(uniqueLabels, function(x, label) {
-                  var countRows = 0;
-                  for (var i = j; i < columns[currentxAxis].length; i++) {
-                    if (label === columns[currentxAxis][i]) {
-                      countRows++;
-                    } else {
-                      chartData.datasets[0].data.push(countRows);
-                      countRows = 0;
-                      j = i;
-                      break;
+                var dict = [];
+                for(var label in uniqueLabels) {
+                  dict.push({
+                    key: uniqueLabels[label],
+                    value: 0
+                  })
+                }
+                for (var i = 0; i < columns[currentxAxis].length; i++) {
+                  for(var k in dict) {
+                    if (dict[k].key === columns[currentxAxis][i]) {                       
+                      dict[k].value++;
                     }
-
-                    if (i === columns[currentxAxis].length - 1) {
-                      chartData.datasets[0].data.push(countRows);
-                    }
-                  }
-                });
+                  }   
+                }
+                for(var k in dict) {
+                  chartData.datasets[0].data.push(dict[k].value)
+                }
               }
-
               if (currentxAxis && lastColorAttrEvent) {
                 onColumnAdd(lastColorAttrEvent);
               }
