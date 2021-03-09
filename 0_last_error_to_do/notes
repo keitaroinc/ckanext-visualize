@@ -1,0 +1,15 @@
+'dataset_resource.views' is the correct use of the routes
+have to remove "controller action" (deprecated - pylons)
+in dir: ...src/ckanext-visualize/ckanext/visualize/controllers
+look up flask blueprints vs pylons controllers for generating routes
+
+https://docs.ckan.org/en/2.9/theming/template-helper-functions.html#ckan.lib.helpers.url_for (find named route)
+
+From Dule:
+For the admin part
+Seems like nothing is overwritten
+Only an action is added
+So you can create a new blueprint with a new action and register it to the same route
+And only the checks for before request treba have to be the same as the ones in the admin view
+You can see how it was done here:
+https://github.com/ckan/ckan/blob/2.9/ckan/views/admin.py
