@@ -5,7 +5,9 @@ look up flask blueprints vs pylons controllers for generating routes
 
 https://docs.ckan.org/en/2.9/theming/template-helper-functions.html#ckan.lib.helpers.url_for (find named route)
 
-From Dule:
+https://docs.ckan.org/en/2.9/contributing/architecture.html?highlight=helpers#template-helper-functions
+
+From Dusko:
 For the admin part
 Seems like nothing is overwritten
 Only an action is added
