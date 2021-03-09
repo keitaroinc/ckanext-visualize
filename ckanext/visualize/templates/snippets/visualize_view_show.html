@@ -1,9 +1,9 @@
 {# Adds 'Visualize View' #}
 
-{% resource 'visualize/js/vendor/chart.bundle.js' %}
-{% resource 'visualize/js/vendor/sortable.js' %}
-{% resource 'visualize/js/vendor/backend.ckan.js' %}
-{% resource 'visualize/js/modules/visualize-data.js' %}
+{% asset 'visualize/chart_bundle' %}
+{% asset 'visualize/sortable' %}
+{% asset 'visualize/backend_ckan' %}
+{% asset 'visualize/visualize-data' %}
 
 <div class="visualize-wrapper" data-module="visualize-data" data-module-resource-id="{{ resource_id }}"
   data-module-resource-view="{{ h.dump_json(resource_view) }}"

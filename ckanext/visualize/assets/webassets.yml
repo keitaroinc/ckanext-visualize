@@ -1,0 +1,56 @@
+data_viewer:
+  output: visualize/%(version)s_data_viewer.css
+  contents:
+    - css/data_viewer.css
+
+main_css:
+  output: visualize/%(version)s_main.css
+  contents: 
+    - css/main.css
+
+visualize-chart-icon-reset:
+  output: visualize/%(version)s_visualize-chart-icon-reset.js
+  contents: 
+    - js/modules/visualize-chart-icon-reset.js
+
+visualize-colors-settings-remove:
+  output: visualize/%(version)s_visualize-colors-settings-remove.js
+  contents: 
+    - js/modules/visualize-colors-settings-remove.js
+
+visualize-chart-type:
+  output: visualize/%(version)s_visualize-chart-type.js
+  contents: 
+    - js/modules/visualize-chart-type.js
+
+visualize-colors-settings-reset:
+  output: visualize/%(version)s_visualize-colors-settings-reset.js
+  contents: 
+    - js/modules/visualize-colors-settings-reset.js
+
+visualize-data:
+  output: visualize/%(version)s_visualize-data.js
+  contents: 
+    - js/modules/data.js
+
+visualize-colors-settings-add:
+  output: visualize/%(version)s_visualize-colors-settings-add.js
+  contents: 
+    - js/modules/visualize-colors-settings-add.js
+
+backend_ckan:
+  output: visualize/%(version)s_backend.ckan.js
+  contents: 
+    - js/vendor/backend/ckan.js
+
+chart_bundle:
+  output: visualize/%(version)s_chart.bundle.js
+  contents: 
+    - js/vendor/chart.bundle.js
+
+sortable:
+  output: visualize/%(version)s_sortable.js
+  contents: 
+    - js/vendor/sortable.js
+
+

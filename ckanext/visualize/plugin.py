@@ -20,15 +20,15 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
-        toolkit.add_resource('fanstatic', 'visualize')
+        toolkit.add_resource('assets', 'visualize')
 
     def update_config_schema(self, schema):
         not_empty = toolkit.get_validator('not_empty')
         schema.update({
-            'visualize_colors': [not_empty, unicode],
-            'bar_chart_icon': [not_empty, unicode],
-            'line_chart_icon': [not_empty, unicode],
-            'point_chart_icon': [not_empty, unicode],
+            'visualize_colors': [not_empty, str],
+            'bar_chart_icon': [not_empty, str],
+            'line_chart_icon': [not_empty, str],
+            'point_chart_icon': [not_empty, str],
         })
 
         return schema
