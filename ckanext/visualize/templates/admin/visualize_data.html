@@ -1,14 +1,17 @@
-{% asset 'visualize/visualize-colors-settings-add' %}
-{% asset 'visualize/visualize-colors-settings-remove' %}
-{% asset 'visualize/visualize-colors-settings-reset' %}
-{% asset 'visualize/visualize-chart-type' %}
-{% asset 'visualize/visualize-chart-icon-reset' %}
-
 {% extends 'admin/base.html' %}
+
+{% block scripts %}
+  {{ super() }}
+  {% asset 'visualize/visualize-colors-settings-add' %}
+  {% asset 'visualize/visualize-colors-settings-remove' %}
+  {% asset 'visualize/visualize-colors-settings-reset' %}
+  {% asset 'visualize/visualize-chart-type' %}
+  {% asset 'visualize/visualize-chart-icon-reset' %}
+{% endblock %}
 
 {% import 'macros/form.html' as form %}
 
-{% set action_url = h.url_for('ckanadmin_visualize_data') %}
+{% set action_url = h.url_for('admin_visualize.visualize_data') %}
 
 {% block primary_content_inner %}
 <form method="post" action="{{ action_url }}" enctype="multipart/form-data" novalidate>

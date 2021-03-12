@@ -3,6 +3,8 @@ import ckan.plugins.toolkit as toolkit
 from ckan.common import config
 
 from ckanext.visualize import helpers
+from ckanext.visualize.views.visualize import visualize
+from ckanext.visualize.views.admin_visualize import admin_visualize
 
 not_empty = plugins.toolkit.get_validator('not_empty')
 ignore_missing = plugins.toolkit.get_validator('ignore_missing')
@@ -12,8 +14,8 @@ ignore_empty = plugins.toolkit.get_validator('ignore_empty')
 class VisualizePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IResourceView, inherit=True)
-    plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
 
@@ -72,28 +74,6 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def view_template(self, context, data_dict):
         return 'visualize_view.html'
 
-    # IRoutes
-    def before_map(self, map):
-        visualize_data_ctrl =\
-            'ckanext.visualize.controllers.visualize:VisualizeDataController'
-        admin_ctrl = \
-            'ckanext.visualize.controllers.admin:AdminController'
-
-        map.connect(
-            '/visualize_data',
-            controller=visualize_data_ctrl,
-            action='visualize_data'
-        )
-
-        map.connect(
-            'ckanadmin_visualize_data',
-            '/ckan-admin/visualize_data',
-            controller=admin_ctrl,
-            action='visualize_data', ckan_icon='bar-chart-o'
-        )
-
-        return map
-
     # ITemplateHelpers
 
     def get_helpers(self):
@@ -101,3 +81,8 @@ class VisualizePlugin(plugins.SingletonPlugin):
             'get_color_palette': helpers.get_color_palette,
             'get_icon_for_data_type': helpers.get_icon_for_data_type,
         }
+
+    # IBlueprint
+
+    def get_blueprint(self):
+        return [visualize, admin_visualize]
