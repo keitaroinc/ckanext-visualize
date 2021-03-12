@@ -1,5 +1,20 @@
 {% ckan_extends %}
 
+{% block scripts %}
+  {{ super() }}
+  {% if resource_view.view_type == 'visualize' %}
+    {% asset 'visualize/chart-bundle' %}
+    {% asset 'visualize/sortable' %}
+    {% asset 'visualize/backend-ckan' %}
+    {% asset 'visualize/visualize-data' %}
+    {% asset 'visualize/visualize-colors-settings-add' %}
+    {% asset 'visualize/visualize-colors-settings-remove' %}
+    {% asset 'visualize/visualize-colors-settings-reset' %}
+    {% asset 'visualize/visualize-chart-type' %}
+    {% asset 'visualize/visualize-chart-icon-reset' %}
+  {%endif %}
+{% endblock %}
+
 {% block form %}
   {% if resource_view.view_type == 'recline_view' and not datastore_available %}
     <p class="text-info">
@@ -16,7 +31,7 @@
       <input type="hidden" name="visualize_x_axis" />
       <input type="hidden" name="visualize_y_axis" />
       <input type="hidden" name="visualize_color_attr" />
-    {%endif %}
+    {% endif %}
     <div class="form-actions">
         <button class="btn btn-default {% if not h.resource_view_display_preview(data) %}hide{%endif%}" name="preview" value="True" type="submit">{{ _('Preview') }}</button>
         <button class="btn btn-primary" name="save" value="Save" type="submit">{% block save_button_text %}{{ _('Add') }}{% endblock %}</button>
