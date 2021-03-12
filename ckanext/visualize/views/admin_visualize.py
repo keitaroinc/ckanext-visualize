@@ -127,6 +127,6 @@ def _upload_chart_icon(chart_type, data):
             return data.get('{0}_chart'.format(chart_type))
 
 
-admin_visualize.add_url_rule(u'/ckan-admin/visualize_data',
+admin_visualize.add_url_rule(u'/visualize_data',
                              view_func=visualize_data,
                              methods=[u'GET', u'POST'])
