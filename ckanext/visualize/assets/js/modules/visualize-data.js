@@ -3,60 +3,62 @@ on a chart based on the resource that has been provided. The resource must be
 uploaded to DataStore. */
 
 ckan.module('visualize-data', function($) {
-  var colorPalette = [];
-  var CHART_TYPES = {
-    BAR: 'bar',
-    LINE: 'line',
-    POINT: 'scatter'
-  };
-  var currentChartType = 'bar';
-  var currentxAxisType = '';
-  var currentyAxisType = '';
-  var currentxAxis = '';
-  var currentyAxis = '';
-  var currentColorAttr = '';
-  var chart;
-  var chartData = {
-    labels: [],
-    datasets: [
-      {
-        label: '',
-        data: [],
-        fill: false
+  if (document.getElementById('chart-canvas')) {
+    var colorPalette = [];
+    var CHART_TYPES = {
+      BAR: 'bar',
+      LINE: 'line',
+      POINT: 'scatter'
+    };
+    var currentChartType = 'bar';
+    var currentxAxisType = '';
+    var currentyAxisType = '';
+    var currentxAxis = '';
+    var currentyAxis = '';
+    var currentColorAttr = '';
+    var chart;
+    var chartData = {
+      labels: [],
+      datasets: [
+        {
+          label: '',
+          data: [],
+          fill: false
+        }
+      ]
+    };
+    var columns = {};
+    var ctx = document.getElementById('chart-canvas').getContext('2d');
+    var chartContainer = $('.chart-container');
+    var noChartContainer = $('.no-chart-container');
+    var unsupportedContainer = $('.chart-unsupported');
+    var isSupported = true;
+    var xAxisList = $('.x-axis-list');
+    var yAxisList = $('.y-axis-list');
+    var chartIcon = $('#chart-icon');
+    var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
+    var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
+    var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
+    var lastxAxisEvent;
+    var lastyAxisEvent;
+    var lastColorAttrEvent;
+    var barChartIcon;
+    var lineChartIcon;
+    var pointChartIcon;
+    function getUniqueValues(arr) {
+      if (isIE()) {
+        var a = [];
+        for (var i = 0, l = arr.length; i < l; i++)
+          if (a.indexOf(arr[i]) === -1 && arr[i] !== '') a.push(arr[i]);
+        return a;
+      } else {
+        var set = new Set(arr);
+        var arr = [];
+        set.forEach(function(item) {
+          arr.push(item);
+        });
+        return arr;
       }
-    ]
-  };
-  var columns = {};
-  var ctx = document.getElementById('chart-canvas').getContext('2d');
-  var chartContainer = $('.chart-container');
-  var noChartContainer = $('.no-chart-container');
-  var unsupportedContainer = $('.chart-unsupported');
-  var isSupported = true;
-  var xAxisList = $('.x-axis-list');
-  var yAxisList = $('.y-axis-list');
-  var chartIcon = $('#chart-icon');
-  var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
-  var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
-  var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
-  var lastxAxisEvent;
-  var lastyAxisEvent;
-  var lastColorAttrEvent;
-  var barChartIcon;
-  var lineChartIcon;
-  var pointChartIcon;
-  function getUniqueValues(arr) {
-    if (isIE()) {
-      var a = [];
-      for (var i = 0, l = arr.length; i < l; i++)
-        if (a.indexOf(arr[i]) === -1 && arr[i] !== '') a.push(arr[i]);
-      return a;
-    } else {
-      var set = new Set(arr);
-      var arr = [];
-      set.forEach(function(item) {
-        arr.push(item);
-      });
-      return arr;
     }
   }
 
