@@ -108,7 +108,6 @@ def visualize_data():
         },
         'errors': {}
     }
-    print('-------------------------------------------------------- ', vars)
 
     return render('admin/visualize_data.html', extra_vars=vars)
 
