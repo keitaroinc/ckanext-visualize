@@ -3,10 +3,10 @@ data_viewer:
   contents:
     - css/data_viewer.css
 
-main_css:
-  output: visualize/%(version)s_main.css
+visualize_main_style:
+  output: visualize/%(version)s_visualize_main.css
   contents: 
-    - css/main.css
+    - css/visualize_main.css
 
 visualize-chart-icon-reset:
   output: visualize/%(version)s_visualize-chart-icon-reset.js
