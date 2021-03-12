@@ -39,7 +39,8 @@ def visualize_data():
 
         for key in natsorted(data_dict.keys()):
             if key.startswith('color_'):
-                color = {'key': data_dict.get(key)}
+                color = {}
+                color[key] = data_dict.get(key)
                 colors.append(color)
 
         bar_image_url = _upload_chart_icon('bar', data_dict)
@@ -107,6 +108,7 @@ def visualize_data():
         },
         'errors': {}
     }
+    print('-------------------------------------------------------- ', vars)
 
     return render('admin/visualize_data.html', extra_vars=vars)
 
