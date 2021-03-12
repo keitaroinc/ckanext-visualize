@@ -39,14 +39,14 @@ visualize-colors-settings-add:
     - js/modules/visualize-colors-settings-add.js
 
 backend-ckan:
-  output: visualize/%(version)s_backend-ckan.js
+  output: visualize/%(version)s_backend.ckan.js
   contents: 
-    - js/vendor/backend-ckan.js
+    - js/vendor/backend.ckan.js
 
 chart-bundle:
   output: visualize/%(version)s_chart.bundle.js
   contents: 
-    - js/vendor/chart-bundle.js
+    - js/vendor/chart.bundle.js
 
 sortable:
   output: visualize/%(version)s_sortable.js

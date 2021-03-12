@@ -28,7 +28,7 @@ class VisualizePlugin(plugins.SingletonPlugin):
             'visualize_colors': [not_empty, str],
             'bar_chart_icon': [not_empty, str],
             'line_chart_icon': [not_empty, str],
-            'point_chart_icon': [not_empty, str],
+            'point_chart_icon': [not_empty, str]
         })
 
         return schema
@@ -39,9 +39,8 @@ class VisualizePlugin(plugins.SingletonPlugin):
         schema = {
             'visualize_x_axis': [ignore_missing],
             'visualize_y_axis': [ignore_missing],
-            'visualize_color_attr': [ignore_missing],
+            'visualize_color_attr': [ignore_missing]
         }
-
         return {
             'name': 'visualize',
             'title': toolkit._('Visualize data'),
@@ -49,7 +48,7 @@ class VisualizePlugin(plugins.SingletonPlugin):
             'filterable': True,
             'iframed': False,
             'schema': schema
-        }
+        } 
 
     def can_view(self, data_dict):
         return data_dict['resource'].get('datastore_active', False)

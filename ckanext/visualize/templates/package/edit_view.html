@@ -1,5 +1,15 @@
 {% ckan_extends %}
 
+{% block scripts %}
+  {{ super() }}
+  {% if resource_view.view_type == 'visualize' %}
+    {% asset 'visualize/chart-bundle' %}
+    {% asset 'visualize/sortable' %}
+    {% asset 'visualize/backend-ckan' %}
+    {% asset 'visualize/visualize-data' %}
+  {%endif %}
+{% endblock %}
+
 {% block form %}
   <form class="dataset-form dataset-resource-form" method="post" data-module="basic-form resource-form">
     {% include 'package/snippets/view_form.html' %}
