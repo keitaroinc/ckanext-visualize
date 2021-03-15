@@ -1,1 +1,1 @@
-natsort==6.2.0
+natsort==7.1.1
