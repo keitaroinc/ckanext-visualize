@@ -1,15 +1,9 @@
 {% ckan_extends %}
 
-
-
 {% block scripts %}
   {{ super() }}
-  {% for resource_view in resource_views %}
-  {% if resource_view.view_type == 'visualize' %}
     {% asset 'visualize/chart-bundle' %}
     {% asset 'visualize/sortable' %}
     {% asset 'visualize/backend-ckan' %}
     {% asset 'visualize/visualize-data' %}
-  {%endif %}
-  {% endfor %}
 {% endblock %}

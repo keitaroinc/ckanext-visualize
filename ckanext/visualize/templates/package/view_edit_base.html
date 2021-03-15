@@ -6,9 +6,9 @@
 {% block breadcrumb_edit_selected %}{% endblock %}
 
 {% block content_action %}
-  {% link_for _('All views'), controller='dataset_resource', action='views', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='arrow-left' %}
+  {% link_for _('All views'), named_route=pkg.type ~ '_resource.views', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='arrow-left' %}
   {% if res %}
-    {% set url = h.url_for(controller='dataset_resource', action='read', id=pkg.name, resource_id=res.id) ~ '?view_id=' ~ resource_view.id %}
+    {% set url = h.url_for(pkg.type ~ '_resource.read', id=pkg.name, resource_id=res.id) ~ '?view_id=' ~ resource_view.id %}
     <a href="{{ url }}" class="btn btn-default"><i class="fa fa-eye"></i> {{ _('View view') }}</a>
   {% endif %}
 {% endblock %}
@@ -29,7 +29,6 @@
   {% else %}
     {{ super() }}
   {% endif %}
-
 
   {% if resource_view.view_type == 'visualize' and h.resource_view_display_preview(resource_view) %}
     <div class="row wrapper no-nav view-preview-container">
