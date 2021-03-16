@@ -107,8 +107,6 @@ ckan.module('visualize-data', function($) {
       data: chartData,
       options: chartOptions
     });
-    console.log(chart);
-
     updateChartIcon();
   }
 
