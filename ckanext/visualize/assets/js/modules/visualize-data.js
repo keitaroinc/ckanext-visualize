@@ -625,6 +625,7 @@ ckan.module('visualize-data', function($) {
         if (columns[column]) {
           if (from === 'x-axis') {
             chartData.labels = [];
+            chartData.datasets[0].data = [];
             currentxAxisType = null;
             currentxAxis = null;
             if (yAxisList.find('li').length === 0) {
