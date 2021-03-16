@@ -611,9 +611,6 @@ ckan.module('visualize-data', function($) {
             initChart();
           }
           chart.update();
-
-          console.log("chartData.datasets")
-          console.log(chartData.datasets)
         }
       }
 
