@@ -107,6 +107,7 @@ ckan.module('visualize-data', function($) {
       data: chartData,
       options: chartOptions
     });
+    console.log(chart);
 
     updateChartIcon();
   }
@@ -467,10 +468,10 @@ ckan.module('visualize-data', function($) {
                 }
                 for (var i = 0; i < columns[currentxAxis].length; i++) {
                   for(var k in dict) {
-                    if (dict[k].key === columns[currentxAxis][i]) {                       
-                      dict[k].value++;
+                    if (dict[k].key === columns[currentxAxis][i]) {
+                      dict[k].value = columns[currentyAxis][i];
                     }
-                  }   
+                  }
                 }
                 for(var k in dict) {
                   chartData.datasets[0].data.push(dict[k].value)
