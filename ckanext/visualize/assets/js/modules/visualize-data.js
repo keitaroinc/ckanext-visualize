@@ -391,7 +391,7 @@ ckan.module('visualize-data', function($) {
                 for (var i = 0; i < columns[currentxAxis].length; i++) {
                   for(var k in dict) {
                     if (dict[k].key === columns[currentxAxis][i]) {                       
-                      dict[k].value++;
+                      dict[k].value = columns[currentyAxis][i];
                     }
                   }   
                 }
@@ -611,6 +611,9 @@ ckan.module('visualize-data', function($) {
             initChart();
           }
           chart.update();
+
+          console.log("chartData.datasets")
+          console.log(chartData.datasets)
         }
       }
 
