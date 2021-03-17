@@ -67,7 +67,7 @@ ckan.module('visualize-data', function($) {
     return /MSIE|Trident/.test(ua);
   }
 
-  function initChart() {
+  function initChart(xAxisType) {
     var chartOptions = {
       scales: {
         yAxes: [
@@ -80,7 +80,7 @@ ckan.module('visualize-data', function($) {
         xAxes: [
           {
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
             }
           }
         ]
@@ -90,6 +90,23 @@ ckan.module('visualize-data', function($) {
         display: true
       }
     };
+
+    // Use different options for timestamps:
+    if (xAxisType) {
+      if (xAxisType == 'timestamp') {
+        chartOptions.scales.xAxes = [
+          {
+            type: "time",
+            ticks: {
+              maxTicksLimit: 8,
+              maxRotation: 0,
+              minRotation: 0
+            }
+          }
+        ]
+      }
+    }
+
     chartData.datasets[0].backgroundColor = colorPalette[0];
     chartData.datasets[0].borderColor = colorPalette[0];
 
@@ -246,7 +263,8 @@ ckan.module('visualize-data', function($) {
       this.drawChart();
     },
     drawChart: function() {
-      initChart();
+      var xAxisType = null
+      initChart(xAxisType);
       this.initDragging(columns);
     },
     initDragging: function(columns) {
@@ -406,7 +424,7 @@ ckan.module('visualize-data', function($) {
             }
 
             chart.destroy();
-            initChart();
+            initChart(currentxAxisType);
 
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
@@ -480,7 +498,7 @@ ckan.module('visualize-data', function($) {
               }
             }
             chart.destroy();
-            initChart();
+            initChart(currentxAxisType);
 
             chartContainer.removeClass('hidden');
             noChartContainer.addClass('hidden');
@@ -608,8 +626,9 @@ ckan.module('visualize-data', function($) {
             colorAttrHiddenInput.val(column);
 
             chart.destroy();
-            initChart();
+            initChart(currentxAxisType);
           }
+
           chart.update();
         }
       }
@@ -655,7 +674,7 @@ ckan.module('visualize-data', function($) {
             lastColorAttrEvent = null;
 
             chart.destroy();
-            initChart();
+            initChart(currentxAxisType);
 
             if (currentxAxis) {
               onColumnAdd(lastxAxisEvent);
