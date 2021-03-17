@@ -93,7 +93,7 @@ ckan.module('visualize-data', function($) {
 
     // Use different options for timestamps:
     if (xAxisType) {
-      if (xAxisType == 'timestamp') {
+      if (xAxisType == 'timestamp' || xAxisType == 'date') {
         chartOptions.scales.xAxes = [
           {
             type: "time",
