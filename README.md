@@ -1,4 +1,4 @@
-[![CI][]][1] [![Coverage][]][2] [![Gitter][]][3] [![Python][]][4] [![CKAN][]][5]
+[![Gitter][]][3] [![Python][]][4] [![CKAN][]][5]
 
 
 # ckanext-visualize
