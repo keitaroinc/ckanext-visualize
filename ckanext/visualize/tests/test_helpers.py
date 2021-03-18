@@ -1,26 +1,30 @@
+import pytest
 from ckan import plugins as p
 from ckan.tests import helpers as core_helpers
 
 from ckanext.visualize.default_color_palette import DEFAULT_COLORS
 from ckanext.visualize import helpers as extension_helpers
 
+#core_helpers.FunctionalTestBase
+@pytest.mark.ckan_config('ckan.plugins', 'image_view')
+@pytest.mark.usefixtures('with_plugins')
+@pytest.mark.usefixtures('clean_db')
+class TestHelpers(object):
 
-class TestHelpers(core_helpers.FunctionalTestBase):
+    #@classmethod
+    #def setup_class(self):
+     #   super(TestHelpers, self).setup_class()
 
-    @classmethod
-    def setup_class(self):
-        super(TestHelpers, self).setup_class()
+      #  if not p.plugin_loaded('visualize'):
+       #     p.load('visualize')
 
-        if not p.plugin_loaded('visualize'):
-            p.load('visualize')
+    #@classmethod
+    #def teardown_class(self):
+     #   super(TestHelpers, self).teardown_class()
 
-    @classmethod
-    def teardown_class(self):
-        super(TestHelpers, self).teardown_class()
+      #  p.unload('visualize')
 
-        p.unload('visualize')
-
-        core_helpers.reset_db()
+       # core_helpers.reset_db()
 
     def test_get_color_palette(self):
         assert extension_helpers.get_color_palette() == DEFAULT_COLORS
