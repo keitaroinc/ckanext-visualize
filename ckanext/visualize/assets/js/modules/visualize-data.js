@@ -104,6 +104,10 @@ ckan.module('visualize-data', function($) {
             }
           }
         ]
+        // If viewing on a phone, place less ticks on the axis:
+        if ($(document).width() < 500) {
+          chartOptions.scales.xAxes[0].ticks.maxTicksLimit = 4
+        }
       }
     }
 
