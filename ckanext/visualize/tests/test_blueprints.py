@@ -29,70 +29,61 @@ class TestVisualizeDataController(object):
         assert 'The provided resource with id `test` was not found.' in \
             response.body
 
-#     def test_visualize_data_endpoint_not_authorized(self, app):
-#         #app = self._get_test_app()
-#         controller =\
-#             'ckanext.visualize.views.visualize:VisualizeDataController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         org = factories.Organization()
-#         dataset = factories.Dataset(private=True, owner_org=org.get('id'))
-#         resource = factories.Resource(
-#             schema='',
-#             validation_options='',
-#             package_id=dataset.get('id'),
-#             datastore_active=True,
-#         )
-#         resource_id = resource.get('id')
-#         data = {
-#             'fields': [
-#                 {'id': 'Age', 'type': 'numeric'},
-#                 {'id': 'Name', 'type': 'text'},
-#             ],
-#             'records': [
-#                 {'Age': 35, 'Name': 'John'},
-#                 {'Age': 28, 'Name': 'Sara'},
-#             ],
-#             'force': True,
-#             'resource_id': resource_id,
-#         }
-#         helpers.call_action('datastore_create', **data)
-#         response = app.get(url + '?resource_id={0}'.format(resource_id))
+    def test_visualize_data_endpoint_not_authorized(self, app):
+        url = url_for(u'/visualize_data')
+        org = factories.Organization()
+        dataset = factories.Dataset(private=True, owner_org=org.get('id'))
+        resource = factories.Resource(
+            schema='',
+            validation_options='',
+            package_id=dataset.get('id'),
+            datastore_active=True,
+        )
+        resource_id = resource.get('id')
+        data = {
+            'fields': [
+                {'id': 'Age', 'type': 'numeric'},
+                {'id': 'Name', 'type': 'text'},
+            ],
+            'records': [
+                {'Age': 35, 'Name': 'John'},
+                {'Age': 28, 'Name': 'Sara'},
+            ],
+            'force': True,
+            'resource_id': resource_id,
+        }
+        helpers.call_action('datastore_create', **data)
+        response = app.get(url + '?resource_id={0}'.format(resource_id))
 
-#         assert 'You don\'t have access to the resource with id `{0}`.'.format(
-#             resource_id) == response.body
+        assert 'You don\'t have access to the resource with id' in response.body
 
-#     def test_visualize_data_endpoint(self, app):
-#         #app = self._get_test_app()
-#         controller =\
-#             'ckanext.visualize.views.visualize:VisualizeDataController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         dataset = factories.Dataset()
-#         resource = factories.Resource(
-#             schema='',
-#             validation_options='',
-#             package_id=dataset.get('id'),
-#             datastore_active=True,
-#         )
-#         resource_id = resource.get('id')
-#         data = {
-#             'fields': [
-#                 {'id': 'Age', 'type': 'numeric'},
-#                 {'id': 'Name', 'type': 'text'},
-#             ],
-#             'records': [
-#                 {'Age': 35, 'Name': 'John'},
-#                 {'Age': 28, 'Name': 'Sara'},
-#             ],
-#             'force': True,
-#             'resource_id': resource_id,
-#         }
-#         helpers.call_action('datastore_create', **data)
-#         response = app.get(url + '?resource_id={0}'.format(resource_id))
+    def test_visualize_data_endpoint(self, app):
+        url = url_for(u'/visualize_data')
+        dataset = factories.Dataset()
+        resource = factories.Resource(
+            schema='',
+            validation_options='',
+            package_id=dataset.get('id'),
+            datastore_active=True,
+        )
+        resource_id = resource.get('id')
+        data = {
+            'fields': [
+                {'id': 'Age', 'type': 'numeric'},
+                {'id': 'Name', 'type': 'text'},
+            ],
+            'records': [
+                {'Age': 35, 'Name': 'John'},
+                {'Age': 28, 'Name': 'Sara'},
+            ],
+            'force': True,
+            'resource_id': resource_id,
+        }
+        helpers.call_action('datastore_create', **data)
+        response = app.get(url + '?resource_id={0}'.format(resource_id))
 
-#         assert '<div class="chart-container hidden">' in \
-#             response.body
+        assert '<div class="chart-container hidden">' in \
+            response.body
 
 # @pytest.mark.ckan_config('ckan.plugins', 'image_view')
 # @pytest.mark.usefixtures('with_plugins')
