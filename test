@@ -1,8 +1,8 @@
-2021-03-19 17:22:58,587 INFO  [ckan.cli] Using configuration file /home/elena/Desktop/local_ckan_1/src/ckanext-visualize/test.ini
-2021-03-19 17:22:58,587 INFO  [ckan.config.environment] Loading static files from public
-2021-03-19 17:22:58,626 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
-2021-03-19 17:22:59,073 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
-2021-03-19 17:22:59,214 CRITI [ckan.lib.uploader] Please specify a ckan.storage_path in your config
+2021-03-19 17:31:27,812 INFO  [ckan.cli] Using configuration file /home/elena/Desktop/local_ckan_1/src/ckanext-visualize/test.ini
+2021-03-19 17:31:27,813 INFO  [ckan.config.environment] Loading static files from public
+2021-03-19 17:31:27,861 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:28,319 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:28,446 CRITI [ckan.lib.uploader] Please specify a ckan.storage_path in your config
                          for your uploads
 ============================= test session starts ==============================
 platform linux -- Python 3.6.9, pytest-4.6.5, py-1.10.0, pluggy-0.13.1
@@ -10,15 +10,15 @@ rootdir: /home/elena/Desktop/local_ckan_1/src/ckanext-visualize
 plugins: pyfakefs-3.2, cov-2.7.1, freezegun-0.4.1, Faker-6.5.0, split-tests-1.0.9, rerunfailures-8.0
 collected 19 items
 
-ckanext/visualize/tests/test_blueprints.py ......FFF.                    [ 52%]
+ckanext/visualize/tests/test_blueprints.py ......FFFF                    [ 52%]
 ckanext/visualize/tests/test_helpers.py ....                             [ 73%]
 ckanext/visualize/tests/test_view.py .....                               [100%]
 
 =================================== FAILURES ===================================
 ____________ TestAdminController.test_visualize_data_endpoint_post _____________
 
-self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7f03bafdd128>
-app = <ckan.tests.helpers.CKANTestApp object at 0x7f03bb030f28>
+self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7faefd0514e0>
+app = <ckan.tests.helpers.CKANTestApp object at 0x7faefd0be080>
 
     def test_visualize_data_endpoint_post(self, app):
         user = factories.Sysadmin()
@@ -29,25 +29,25 @@ app = <ckan.tests.helpers.CKANTestApp object at 0x7f03bb030f28>
             'color_1': '#332288',
             'color_2': '#117733',
         }
-        response = app.post(url=url, extra_environ=env, params=params)
+        response = app.post(url=url, environ_overrides=env, params=params)
     
 >       assert 302 == response.status_code
 E       assert 302 == 403
 E        +  where 403 = <CKANResponse streamed [403 FORBIDDEN]>.status_code
 
-ckanext/visualize/tests/test_blueprints.py:142: AssertionError
+ckanext/visualize/tests/test_blueprints.py:120: AssertionError
 ---------------------------- Captured stdout setup -----------------------------
-2021-03-19 17:23:04,276 INFO  [ckan.config.environment] Loading static files from public
-2021-03-19 17:23:04,311 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
-2021-03-19 17:23:04,452 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:33,369 INFO  [ckan.config.environment] Loading static files from public
+2021-03-19 17:31:33,404 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:33,547 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 ------------------------------ Captured log setup ------------------------------
 INFO     ckan.config.environment:environment.py:94 Loading static files from public
 INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 ----------------------------- Captured stdout call -----------------------------
-2021-03-19 17:23:04,878 INFO  [ckan.logic.action.update] Updated config options: {'bar_chart_icon': '/base/images/Bar-symbol.png', 'line_chart_icon': '/base/images/Line-symbol.png', 'point_chart_icon': '/base/images/Point-symbol.png', 'visualize_colors': '[{"color_1": "#332288"}, {"color_2": "#117733"}]'}
-2021-03-19 17:23:04,879 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.017 seconds
-2021-03-19 17:23:04,917 ERROR [ckan.config.middleware.flask_app] 403 Forbidden: Need to be system administrator to administer
+2021-03-19 17:31:33,969 INFO  [ckan.logic.action.update] Updated config options: {'bar_chart_icon': '/base/images/Bar-symbol.png', 'line_chart_icon': '/base/images/Line-symbol.png', 'point_chart_icon': '/base/images/Point-symbol.png', 'visualize_colors': '[{"color_1": "#332288"}, {"color_2": "#117733"}]'}
+2021-03-19 17:31:33,970 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.017 seconds
+2021-03-19 17:31:34,003 ERROR [ckan.config.middleware.flask_app] 403 Forbidden: Need to be system administrator to administer
 Traceback (most recent call last):
   File "/home/elena/Desktop/local_ckan_1/src/ckanext-visualize/ckanext/visualize/views/admin_visualize.py", line 28, in before_request
     logic.check_access(u'sysadmin', context)
@@ -71,7 +71,7 @@ Traceback (most recent call last):
   File "/home/elena/Desktop/local_ckan_1/lib/python3.6/site-packages/werkzeug/exceptions.py", line 807, in __call__
     raise self.mapping[code](*args, **kwargs)
 werkzeug.exceptions.Forbidden: 403 Forbidden: Need to be system administrator to administer
-2021-03-19 17:23:05,029 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.113 seconds
+2021-03-19 17:31:34,114 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.111 seconds
 ------------------------------ Captured log call -------------------------------
 INFO     ckan.logic.action.update:update.py:1405 Updated config options: {'bar_chart_icon': '/base/images/Bar-symbol.png', 'line_chart_icon': '/base/images/Line-symbol.png', 'point_chart_icon': '/base/images/Point-symbol.png', 'visualize_colors': '[{"color_1": "#332288"}, {"color_2": "#117733"}]'}
 INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.017 seconds
@@ -99,11 +99,11 @@ Traceback (most recent call last):
   File "/home/elena/Desktop/local_ckan_1/lib/python3.6/site-packages/werkzeug/exceptions.py", line 807, in __call__
     raise self.mapping[code](*args, **kwargs)
 werkzeug.exceptions.Forbidden: 403 Forbidden: Need to be system administrator to administer
-INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.113 seconds
+INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.111 seconds
 ________ TestAdminController.test_visualize_data_endpoint_post_icon_url ________
 
-self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7f03bec0fa20>
-app = <ckan.tests.helpers.CKANTestApp object at 0x7f03bb3fa588>
+self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7faf00229f28>
+app = <ckan.tests.helpers.CKANTestApp object at 0x7faefd3aea20>
 
     def test_visualize_data_endpoint_post_icon_url(self, app):
         user = factories.Sysadmin()
@@ -120,19 +120,19 @@ app = <ckan.tests.helpers.CKANTestApp object at 0x7f03bb3fa588>
 E       assert 302 == 403
 E        +  where 403 = <CKANResponse streamed [403 FORBIDDEN]>.status_code
 
-ckanext/visualize/tests/test_blueprints.py:155: AssertionError
+ckanext/visualize/tests/test_blueprints.py:133: AssertionError
 ---------------------------- Captured stdout setup -----------------------------
-2021-03-19 17:23:05,046 INFO  [ckan.config.environment] Loading static files from public
-2021-03-19 17:23:05,081 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
-2021-03-19 17:23:05,222 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:34,130 INFO  [ckan.config.environment] Loading static files from public
+2021-03-19 17:31:34,165 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:34,307 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 ------------------------------ Captured log setup ------------------------------
 INFO     ckan.config.environment:environment.py:94 Loading static files from public
 INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 ----------------------------- Captured stdout call -----------------------------
-2021-03-19 17:23:05,575 INFO  [ckan.logic.action.update] Updated config options: {'bar_chart_icon': '/base/images/Bar-symbol.png', 'line_chart_icon': '/base/images/Line-symbol.png', 'point_chart_icon': '/base/images/Point-symbol.png', 'visualize_colors': '[]'}
-2021-03-19 17:23:05,576 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.012 seconds
-2021-03-19 17:23:05,611 ERROR [ckan.config.middleware.flask_app] 403 Forbidden: Need to be system administrator to administer
+2021-03-19 17:31:34,660 INFO  [ckan.logic.action.update] Updated config options: {'bar_chart_icon': '/base/images/Bar-symbol.png', 'line_chart_icon': '/base/images/Line-symbol.png', 'point_chart_icon': '/base/images/Point-symbol.png', 'visualize_colors': '[]'}
+2021-03-19 17:31:34,661 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.011 seconds
+2021-03-19 17:31:34,694 ERROR [ckan.config.middleware.flask_app] 403 Forbidden: Need to be system administrator to administer
 Traceback (most recent call last):
   File "/home/elena/Desktop/local_ckan_1/src/ckanext-visualize/ckanext/visualize/views/admin_visualize.py", line 28, in before_request
     logic.check_access(u'sysadmin', context)
@@ -156,10 +156,10 @@ Traceback (most recent call last):
   File "/home/elena/Desktop/local_ckan_1/lib/python3.6/site-packages/werkzeug/exceptions.py", line 807, in __call__
     raise self.mapping[code](*args, **kwargs)
 werkzeug.exceptions.Forbidden: 403 Forbidden: Need to be system administrator to administer
-2021-03-19 17:23:05,719 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.109 seconds
+2021-03-19 17:31:34,802 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.109 seconds
 ------------------------------ Captured log call -------------------------------
 INFO     ckan.logic.action.update:update.py:1405 Updated config options: {'bar_chart_icon': '/base/images/Bar-symbol.png', 'line_chart_icon': '/base/images/Line-symbol.png', 'point_chart_icon': '/base/images/Point-symbol.png', 'visualize_colors': '[]'}
-INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.012 seconds
+INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.011 seconds
 ERROR    ckan.config.middleware.flask_app:flask_app.py:527 403 Forbidden: Need to be system administrator to administer
 Traceback (most recent call last):
   File "/home/elena/Desktop/local_ckan_1/src/ckanext-visualize/ckanext/visualize/views/admin_visualize.py", line 28, in before_request
@@ -187,8 +187,8 @@ werkzeug.exceptions.Forbidden: 403 Forbidden: Need to be system administrator to
 INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.109 seconds
 ______ TestAdminController.test_visualize_data_endpoint_post_icon_upload _______
 
-self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7f03bb196c18>
-app = <ckan.tests.helpers.CKANTestApp object at 0x7f03bb178080>
+self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7faefcf86f28>
+app = <ckan.tests.helpers.CKANTestApp object at 0x7faefcf3b0f0>
 
     def test_visualize_data_endpoint_post_icon_upload(self, app):
         user = factories.Sysadmin()
@@ -202,7 +202,7 @@ app = <ckan.tests.helpers.CKANTestApp object at 0x7f03bb178080>
         response = app.post(url=url, extra_environ=env,
 >           params=params, upload_files=[upload_info])
 
-ckanext/visualize/tests/test_blueprints.py:167: 
+ckanext/visualize/tests/test_blueprints.py:145: 
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 ../ckan/ckan/tests/helpers.py:227: in post
     res = self.test_client().post(url, *args, **kwargs)
@@ -212,7 +212,7 @@ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
     res = super(CKANTestClient, self).open(*args, **kwargs)
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
 
-self = <CKANTestClient <ckan.config.middleware.common_middleware.TrackingMiddleware object at 0x7f03bad373c8>>
+self = <CKANTestClient <ckan.config.middleware.common_middleware.TrackingMiddleware object at 0x7faefcdac400>>
 args = ('/ckan-admin/visualize_data',)
 kwargs = {'base_url': 'http://test.ckan.net', 'data': {'save': True}, 'environ_overrides': {'REMOTE_USER': b'test_sysadmin_04'}, 'method': 'POST', ...}
 as_tuple = False, buffered = False, follow_redirects = True, environ = None
@@ -257,13 +257,46 @@ E           TypeError: __init__() got an unexpected keyword argument 'upload_fil
 
 ../../lib/python3.6/site-packages/werkzeug/test.py:964: TypeError
 ---------------------------- Captured stdout setup -----------------------------
-2021-03-19 17:23:05,729 INFO  [ckan.config.environment] Loading static files from public
-2021-03-19 17:23:05,763 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
-2021-03-19 17:23:05,900 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:34,813 INFO  [ckan.config.environment] Loading static files from public
+2021-03-19 17:31:34,848 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:34,988 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 ------------------------------ Captured log setup ------------------------------
 INFO     ckan.config.environment:environment.py:94 Loading static files from public
 INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
 INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+____________ TestAdminController.test_visualize_data_endpoint_reset ____________
+
+self = <ckanext.visualize.tests.test_blueprints.TestAdminController object at 0x7faefcde9f60>
+app = <ckan.tests.helpers.CKANTestApp object at 0x7faefcdaccf8>
+
+    def test_visualize_data_endpoint_reset(self, app):
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        url = url_for(u'admin_visualize.visualize_data')
+        params = {
+            'reset': 'true',
+            'color_1': '#332288',
+            'color_2': '#117733',
+        }
+        response = app.post(url=url, extra_environ=env, params=params)
+    
+>       assert 302 == response.status_code
+E       assert 302 == 200
+E        +  where 200 = <CKANResponse streamed [200 OK]>.status_code
+
+ckanext/visualize/tests/test_blueprints.py:160: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+2021-03-19 17:31:35,381 INFO  [ckan.config.environment] Loading static files from public
+2021-03-19 17:31:35,414 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+2021-03-19 17:31:35,554 INFO  [ckan.config.environment] Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+------------------------------ Captured log setup ------------------------------
+INFO     ckan.config.environment:environment.py:94 Loading static files from public
+INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+INFO     ckan.config.environment:environment.py:273 Loading templates from /home/elena/Desktop/local_ckan_1/src/ckan/ckan/templates
+----------------------------- Captured stdout call -----------------------------
+2021-03-19 17:31:36,187 INFO  [ckan.config.middleware.flask_app]  /ckan-admin/visualize_data render time 0.289 seconds
+------------------------------ Captured log call -------------------------------
+INFO     ckan.config.middleware.flask_app:flask_app.py:403  /ckan-admin/visualize_data render time 0.289 seconds
 =============================== warnings summary ===============================
 ckanext/visualize/tests/test_blueprints.py::TestVisualizeDataController::test_visualize_data_endpoint_no_resource_provided
 ckanext/visualize/tests/test_blueprints.py::TestVisualizeDataController::test_visualize_data_endpoint_no_resource_provided
@@ -1696,4 +1729,4 @@ ckanext/visualize/tests/test_view.py::TestVisualizeView::test_update_config_sche
     return getattr(Session, name)(*args, **kwargs)
 
 -- Docs: https://docs.pytest.org/en/latest/warnings.html
-============= 3 failed, 16 passed, 1391 warnings in 13.51 seconds ==============
+============= 4 failed, 15 passed, 1391 warnings in 13.95 seconds ==============

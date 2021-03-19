@@ -115,7 +115,7 @@ class TestAdminController(object):
             'color_1': '#332288',
             'color_2': '#117733',
         }
-        response = app.post(url=url, extra_environ=env, params=params)
+        response = app.post(url=url, environ_overrides=env, params=params)
 
         assert 302 == response.status_code
 
