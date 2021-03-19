@@ -92,54 +92,24 @@ class TestAdminController(object):
     def test_visualize_data_endpoint_admin(self, app):
         user = factories.Sysadmin()
         env = {'REMOTE_USER': user.get('name').encode('ascii')}
-        url = url_for(u'/visualize_data')
+        url = url_for(u'admin_visualize.visualize_data')
+        response = app.get(url=url, extra_environ=env)
 
-        dataset = factories.Dataset()
-        resource = factories.Resource(
-            schema='',
-            validation_options='',
-            package_id=dataset.get('id'),
-            datastore_active=True,
-        )
-        resource_id = resource.get('id')
-        data = {
-            'fields': [
-                {'id': 'Age', 'type': 'numeric'},
-                {'id': 'Name', 'type': 'text'},
-            ],
-            'records': [
-                {'Age': 35, 'Name': 'John'},
-                {'Age': 28, 'Name': 'Sara'},
-            ],
-            'force': True,
-            'resource_id': resource_id,
-        }
-        helpers.call_action('datastore_create', **data)
-        response = app.get(url=(url + '?resource_id={0}'.format(resource_id)), extra_environ=env)
+        assert 'Visualize' in response.body
 
-        assert '<div class="chart-container hidden">' in response.body
-
-#     @helpers.change_config('visualize_colors', '{"color_1":"#fff"}')
-#     def test_visualize_data_endpoint_predefined_color(self, app):
-#         #app = self._get_test_app()
-#         user = factories.Sysadmin()
-#         env = {'REMOTE_USER': user.get('name').encode('ascii')}
-#         controller =\
-#             'ckanext.visualize.views.admin_vizualize:AdminController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         response = app.get(url=url, extra_environ=env)
-
-#         assert 'Visualize' in response.body
-
-    def test_visualize_data_endpoint_post(self, app):
-        #app = self._get_test_app()
+    @helpers.change_config('visualize_colors', '{"color_1":"#fff"}')
+    def test_visualize_data_endpoint_predefined_color(self, app):
         user = factories.Sysadmin()
         env = {'REMOTE_USER': user.get('name').encode('ascii')}
-        #controller =\
-        #    'ckanext.visualize.views.admin_visualize:AdminController'
-        #action = 'visualize_data'
-        url = url_for(u'/visualize_data')
+        url = url_for(u'admin_visualize.visualize_data')
+        response = app.get(url=url, extra_environ=env)
+
+        assert 'Visualize' in response.body
+
+    def test_visualize_data_endpoint_post(self, app):
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        url = url_for(u'admin_visualize.visualize_data')
         params = {
             'save': True,
             'color_1': '#332288',
@@ -147,56 +117,44 @@ class TestAdminController(object):
         }
         response = app.post(url=url, extra_environ=env, params=params)
 
-        assert '302 Found' in response.body
+        assert 302 == response.status_code
 
-#     def test_visualize_data_endpoint_post_icon_url(self):
-#         #app = self._get_test_app()
-#         user = factories.Sysadmin()
-#         env = {'REMOTE_USER': user.get('name').encode('ascii')}
-#         controller =\
-#             'ckanext.visualize.views.admin_visualize:AdminController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         params = {
-#             'save': True,
-#             'bar_chart_upload': 'http://example.com/image.png'
-#         }
-#         response = app.post(url=url, extra_environ=env,
-#                             params=params)
+    def test_visualize_data_endpoint_post_icon_url(self, app):
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        url = url_for(u'admin_visualize.visualize_data')
+        params = {
+            'save': True,
+            'bar_chart_upload': 'http://example.com/image.png'
+        }
+        response = app.post(url=url, extra_environ=env,
+                            params=params)
 
-#         assert '302 Found' in response.body
+        assert 302 == response.status_code
 
-#     def test_visualize_data_endpoint_post_icon_upload(self, app):
-#         #app = self._get_test_app()
-#         user = factories.Sysadmin()
-#         env = {'REMOTE_USER': user.get('name').encode('ascii')}
-#         controller =\
-#             'ckanext.visualize.views.admin_visualize:AdminController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         params = {
-#             'save': True,
-#         }
-#         upload_content = 'image data'
-#         upload_info = ('bar_chart_upload', 'image.png', upload_content)
-#         response = app.post(url=url, extra_environ=env,
-#                             params=params, upload_files=[upload_info])
+    def test_visualize_data_endpoint_post_icon_upload(self, app):
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        url = url_for(u'admin_visualize.visualize_data')
+        params = {
+            'save': True,
+        }
+        upload_content = 'image data'
+        upload_info = ('bar_chart_upload', 'image.png', upload_content)
+        response = app.post(url=url, extra_environ=env, 
+            params=params, upload_files=[upload_info])
 
-#         assert '302 Found' in response.body
+        assert 302 == response.status_code
 
-#     def test_visualize_data_endpoint_reset(self, app):
-#         #app = self._get_test_app()
-#         user = factories.Sysadmin()
-#         env = {'REMOTE_USER': user.get('name').encode('ascii')}
-#         controller =\
-#             'ckanext.visualize.views.admin_visualize:AdminController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         params = {
-#             'reset': 'true',
-#             'color_1': '#332288',
-#             'color_2': '#117733',
-#         }
-#         response = app.post(url=url, extra_environ=env, params=params)
+    def test_visualize_data_endpoint_reset(self, app):
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        url = url_for(u'admin_visualize.visualize_data')
+        params = {
+            'reset': 'true',
+            'color_1': '#332288',
+            'color_2': '#117733',
+        }
+        response = app.post(url=url, extra_environ=env, params=params)
 
-#         assert '302 Found' in response.body
+        assert 302 == response.status_code
