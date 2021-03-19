@@ -10,22 +10,6 @@ from ckanext.visualize import helpers as extension_helpers
 @pytest.mark.usefixtures('with_plugins')
 @pytest.mark.usefixtures('clean_db')
 class TestHelpers(object):
-
-    #@classmethod
-    #def setup_class(self):
-     #   super(TestHelpers, self).setup_class()
-
-      #  if not p.plugin_loaded('visualize'):
-       #     p.load('visualize')
-
-    #@classmethod
-    #def teardown_class(self):
-     #   super(TestHelpers, self).teardown_class()
-
-      #  p.unload('visualize')
-
-       # core_helpers.reset_db()
-
     def test_get_color_palette(self):
         assert extension_helpers.get_color_palette() == DEFAULT_COLORS
 

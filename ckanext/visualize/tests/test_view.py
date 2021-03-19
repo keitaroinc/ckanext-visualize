@@ -14,28 +14,6 @@ ignore_missing = p.toolkit.get_validator('ignore_missing')
 @pytest.mark.usefixtures('clean_db')
 class TestVisualizeView(object):
 
-    #
-    #    @classmethod
-    #    def setup_class(self):
-    #        super(TestVisualizeView, self).setup_class()
-    #
-    #        if not p.plugin_loaded('visualize'):
-    #            p.load('visualize')
-    #
-    #        if not p.plugin_loaded('datastore'):
-    #            p.load('datastore')
-    #
-    #        self.plugin = VisualizePlugin()
-    #
-    #    @classmethod
-    #    def teardown_class(self):
-    #        super(TestVisualizeView, self).teardown_class()
-    #
-    #        p.unload('visualize')
-    #        p.unload('datastore')
-    #
-    #        helpers.reset_db()
-    #
     def test_info(self):
         self.plugin = VisualizePlugin()
         assert self.plugin.info() == {

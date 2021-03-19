@@ -1,60 +1,33 @@
-# import pytest
-# from routes import url_for
+import pytest
 
-# from ckan import plugins as p
-# from ckan.tests import helpers, factories
-# from flask import url_for
+from ckan import plugins as p
+from ckan.tests import helpers, factories
 
-# from ckanext.visualize.views.visualize import visualize_data
+from ckanext.visualize.views.visualize import visualize_data
 # from ckanext.visualize.tests.helpers import mock_pylons
-# from ckanext.visualize import helpers as h
+#from ckanext.visualize import helpers as h
 # from ckan.plugins.toolkit import url_for
 
-# @pytest.mark.ckan_config('ckan.plugins', 'image_view')
-# @pytest.mark.usefixtures('with_plugins')
-# @pytest.mark.usefixtures('clean_db')
-# class TestVisualizeDataController(object):
+from ckan.lib.helpers import url_for
 
-#     #@classmethod
-#     #def setup_class(self):
-#      #   super(TestVisualizeDataController, self).setup_class()
+#@pytest.mark.ckan_config('ckan.plugins', 'image_view')
+#@pytest.mark.usefixtures('with_plugins')
+#@pytest.mark.usefixtures('clean_db')
+class TestVisualizeDataController(object):
 
-#       #  if not p.plugin_loaded('visualize'):
-#        #     p.load('visualize')
+    def test_visualize_data_endpoint_no_resource_provided(self, app):
+        url = url_for(u'/visualize_data')
+        response = app.get(url=url)
 
-#         #if not p.plugin_loaded('datastore'):
-#          #   p.load('datastore')
+        assert 'Please provide the query parameter' in response.body
 
-#     #@classmethod
-#     #def teardown_class(self):
-#      #   super(TestVisualizeDataController, self).teardown_class()
+    def test_visualize_data_endpoint_resource_not_found(self, app):
+        action = 'visualize_data'
+        url = url_for(u'/visualize_data')
+        response = app.get(url + '?resource_id=test')
 
-#       #  p.unload('visualize')
-#        # p.unload('datastore')
-
-#         #helpers.reset_db()
-
-#     def test_visualize_data_endpoint_no_resource_provided(self, app):
-#         #app = self._get_test_app()
-#         controller =\
-#          'ckanext.visualize.views.visualize:VisualizeDataController'
-#         action = 'visualize_data'
-#         url = url_for(u'VisualizeDataController.visualize_data')
-#         response = app.get(url)
-
-#         assert 'Please provide the query parameter `resource_id`.' in \
-#             response.body
-
-#     def test_visualize_data_endpoint_resource_not_found(self, app):
-#         #app = self._get_test_app()
-#         controller =\
-#             'ckanext.visualize.views.visualize:VisualizeDataController'
-#         action = 'visualize_data'
-#         url = h.url_for(u'blueprints.blueprints')
-#         response = app.get(url + '?resource_id=test')
-
-#         assert 'The provided resource with id `test` was not found.' in \
-#             response.body
+        assert 'The provided resource with id `test` was not found.' in \
+            response.body
 
 #     def test_visualize_data_endpoint_not_authorized(self, app):
 #         #app = self._get_test_app()

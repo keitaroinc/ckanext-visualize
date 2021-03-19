@@ -80,7 +80,7 @@ ckan.module('visualize-data', function($) {
         xAxes: [
           {
             ticks: {
-              beginAtZero: true,
+              beginAtZero: true
             }
           }
         ]
