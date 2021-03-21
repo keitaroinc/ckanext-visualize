@@ -13,7 +13,7 @@ import ckan.logic as logic
 from ckan.plugins.toolkit import (
     NotAuthorized,
     get_action, _, request,
-    abort, render, h, g
+    abort, render, h, g, redirect_to
 )
 
 from ckanext.visualize.default_color_palette import DEFAULT_COLORS
@@ -68,7 +68,7 @@ def visualize_data():
         data = get_action(
             'config_option_update')({}, data_dict)
         h.flash_success(_('Successfully updated.'))
-        return h.redirect_to('admin_visualize.visualize_data')
+        return redirect_to('admin_visualize.visualize_data')
     elif request.method == 'POST' and dict(request.params).get('reset') == 'true':
         visualize_colors = []
         for i, default_color in enumerate(DEFAULT_COLORS):
@@ -84,7 +84,6 @@ def visualize_data():
             'point_chart_icon': '/base/images/Point-symbol.png',
         }
         get_action('config_option_update')({}, data_dict)
-
         h.flash_success(_('Successfully updated.'))
         return h.redirect_to('admin_visualize.visualize_data')
 
@@ -108,9 +107,7 @@ def visualize_data():
         },
         'errors': {}
     }
-
     return render('admin/visualize_data.html', extra_vars=vars)
-
 
 def _upload_chart_icon(chart_type, data):
     if '{0}_chart_upload'.format(chart_type) in data:
