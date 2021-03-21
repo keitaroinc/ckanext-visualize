@@ -85,7 +85,7 @@ def visualize_data():
         }
         get_action('config_option_update')({}, data_dict)
         h.flash_success(_('Successfully updated.'))
-        return h.redirect_to('admin_visualize.visualize_data')
+        return redirect_to('admin_visualize.visualize_data')
 
     # Initially set the colors from the default color palette.
     if not config.get('visualize_colors'):
