@@ -132,19 +132,21 @@ class TestAdminController(object):
 
         assert 302 == response.status_code
 
-    # def test_visualize_data_endpoint_post_icon_upload(self, app):
-    #     user = factories.Sysadmin()
-    #     env = {'REMOTE_USER': user.get('name').encode('ascii')}
-    #     url = url_for(u'admin_visualize.visualize_data')
-    #     params = {
-    #         'save': True,
-    #     }
-    #     upload_content = 'image data'
-    #     upload_info = ('bar_chart_upload', 'image.png', upload_content)
-    #     response = app.post(url=url, extra_environ=env, 
-    #         params=params, upload_files=[upload_info], follow_redirects=False)
+    def test_visualize_data_endpoint_post_icon_upload(self, app):
+        user = factories.Sysadmin()
+        env = {'REMOTE_USER': user.get('name').encode('ascii')}
+        url = url_for(u'admin_visualize.visualize_data')
+        params = {
+            'save': True,
+            'bar_chart': 'Line-symbol.png',
+            'bar_chart_upload': "<FileStorage: 'Line-symbol.png' ('image/png')>"
+        }
+        upload_content = 'image data'
+        upload_info = ('bar_chart_upload', 'image.png', upload_content)
+        response = app.post(url=url, extra_environ=env, 
+            params=params, follow_redirects=False)
 
-    #     assert 302 == response.status_code
+        assert 302 == response.status_code
 
     def test_visualize_data_endpoint_reset(self, app):
         user = factories.Sysadmin()
