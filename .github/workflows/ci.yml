@@ -2,11 +2,11 @@ name: CI
 
 on:
   push:
-    branches: main
+    branches: make_ckan_292_compatible
     tags:
       - 'v*'
   pull_request:
-    branches: main
+    branches: make_ckan_292_compatible
     
 env:
   CKANVERSION: 2.9
@@ -93,22 +93,33 @@ jobs:
           parallel: true
           flag-name: Python ${{ matrix.python-version }} Unit Test
 
- 
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-#language: python
-#python:
-#  - '2.7'
-#addons:
-#  postgresql: '9.5'
-#dist: trusty
-#sudo: required
-#cache: pip
-#install:
-#  - bash bin/travis-build.bash
-#  - pip install coveralls
-#script: sh bin/travis-run.sh
-#after_success:
-#  - coveralls
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install setup requirements
+        run: |
+          python -m pip install --upgrade setuptools wheel twine
+
+      - name: Build and package
+        run: |
+          python setup.py sdist bdist_wheel
+          twine check dist/*
+
+      - name: Publish package
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
   coveralls_finish:
     needs: test
     runs-on: ubuntu-latest
@@ -117,3 +128,4 @@ jobs:
       uses: AndreMiras/coveralls-python-action@develop
       with:
         parallel-finished: true
+        
