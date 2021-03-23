@@ -27,10 +27,10 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def update_config_schema(self, schema):
         not_empty = toolkit.get_validator('not_empty')
         schema.update({
-            'visualize_colors': [not_empty, str],
-            'bar_chart_icon': [not_empty, str],
-            'line_chart_icon': [not_empty, str],
-            'point_chart_icon': [not_empty, str]
+            'visualize_colors': [ignore_missing, str],
+            'bar_chart_icon': [ignore_missing, str],
+            'line_chart_icon': [ignore_missing, str],
+            'point_chart_icon': [ignore_missing, str]
         })
 
         return schema
