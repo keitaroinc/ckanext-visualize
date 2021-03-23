@@ -3,20 +3,28 @@ import json
 import cgi
 from natsort import natsorted
 
+from werkzeug.datastructures import FileStorage as FlaskFileStorage
+
 from flask import Blueprint
 
 from ckan.common import config
 import ckan.lib.uploader as uploader
 import ckan.model as model
 import ckan.logic as logic
-
 from ckan.plugins.toolkit import (
     NotAuthorized,
     get_action, _, request,
     abort, render, h, g, redirect_to
 )
+import ckan.lib.navl.dictization_functions as dict_fns
 
 from ckanext.visualize.default_color_palette import DEFAULT_COLORS
+
+ALLOWED_UPLOAD_TYPES = (cgi.FieldStorage, FlaskFileStorage)
+
+tuplize_dict = logic.tuplize_dict
+clean_dict = logic.clean_dict
+parse_params = logic.parse_params
 
 admin_visualize = Blueprint(u'admin_visualize', __name__, url_prefix=u'/ckan-admin')
 
@@ -31,9 +39,12 @@ def before_request():
 
 
 def visualize_data():
-    data = request.form
-    if request.method == 'POST' and 'save' in data:
-        data_dict = dict(data)
+    data_dict = clean_dict(
+        dict_fns.unflatten(tuplize_dict(parse_params(request.form))))
+    data_dict.update(clean_dict(
+        dict_fns.unflatten(tuplize_dict(parse_params(request.files)))
+    ))
+    if request.method == 'POST' and 'save' in data_dict:
         del data_dict['save']
         colors = []
 
@@ -113,7 +124,7 @@ def _upload_chart_icon(chart_type, data):
     if '{0}_chart_upload'.format(chart_type) in data:
         image_upload = data.get('{0}_chart_upload'.format(chart_type))
 
-        if isinstance(image_upload, cgi.FieldStorage):
+        if isinstance(image_upload, ALLOWED_UPLOAD_TYPES):
             upload = uploader.get_uploader(
                 'chart_icons', data.get('{0}_chart'.format(chart_type)))
             upload.update_data_dict(
