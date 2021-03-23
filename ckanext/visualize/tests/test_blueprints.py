@@ -141,8 +141,6 @@ class TestAdminController(object):
             'bar_chart': 'Line-symbol.png',
             'bar_chart_upload': "<FileStorage: 'Line-symbol.png' ('image/png')>"
         }
-        upload_content = 'image data'
-        upload_info = ('bar_chart_upload', 'image.png', upload_content)
         response = app.post(url=url, extra_environ=env, 
             params=params, follow_redirects=False)
 
