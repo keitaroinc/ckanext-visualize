@@ -1,5 +1,4 @@
-[![CI][]][1] [![Coverage][]][2] [![Gitter][]][3] [![Python][]][4] [![CKAN][]][5]
-
+[![CI][]][1] [![Coverage][]][2] [![Gitter][]][3] [![Pypi][]][4] [![Python][]][5] [![CKAN][]][6]
 
 # ckanext-visualize
 
@@ -134,14 +133,15 @@ The illustration that is used is a modified version based on the open-source ill
 * **Performance**. If a resource contains large data, e.g. more than 10000 rows, the viewer may be slower as it needs more time to prepare the data.
 * **Internet Explorer**. The HTML element `<input type="color">` is not supported in Internet Explorer, therefore the color picker does not work in the administrator configuration page.
 
-
   [CI]: https://github.com/keitaroinc/ckanext-visualize/workflows/CI/badge.svg?branch=main
   [1]: https://github.com/keitaroinc/ckanext-visualize/actions
   [Coverage]: https://coveralls.io/repos/github/keitaroinc/ckanext-visualize/badge.svg?branch=main
   [2]: https://coveralls.io/github/keitaroinc/ckanext-visualize?branch=main
   [Gitter]: https://badges.gitter.im/keitaroinc/ckan.svg
   [3]: https://gitter.im/keitaroinc/ckan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
+  [Pypi]: https://img.shields.io/pypi/v/ckanext-visualize
+  [4]: https://pypi.org/project/ckanext-visualize
   [Python]: https://img.shields.io/badge/python-3.8-blue
-  [4]: https://www.python.org
+  [5]: https://www.python.org
   [CKAN]: https://img.shields.io/badge/ckan-2.9-red
-  [5]: https://www.ckan.org
+  [6]: https://www.ckan.org
