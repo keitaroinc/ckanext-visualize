@@ -129,7 +129,7 @@ def _upload_chart_icon(chart_type, data):
                 'chart_icons', data.get('{0}_chart'.format(chart_type)))
             upload.update_data_dict(
                 data, '{0}_chart'.format(chart_type), '{0}_chart_upload'.format(chart_type),
-                '{0}_chart_clear_upload'.format)
+                '{0}_chart_clear_upload'.format(chart_type))
             upload.upload(uploader.get_max_image_size())
             return upload.filename
         else:
