@@ -19,6 +19,7 @@ setup(
 
     description='''Visualize tabular data in CKAN''',
     long_description=long_description,
+    long_description_content_type="text/markdown",
 
     # The project's main homepage.
     url='https://github.com/keitaroinc/ckanext-visualize',
