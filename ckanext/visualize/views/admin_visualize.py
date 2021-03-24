@@ -76,8 +76,6 @@ def visualize_data():
             'line_chart_icon': line_image_url,
             'point_chart_icon': point_image_url,
         }
-        data = get_action(
-            'config_option_update')({}, data_dict)
         h.flash_success(_('Successfully updated.'))
         return redirect_to('admin_visualize.visualize_data')
     elif request.method == 'POST' and dict(request.params).get('reset') == 'true':
@@ -119,6 +117,7 @@ def visualize_data():
         'errors': {}
     }
     return render('admin/visualize_data.html', extra_vars=vars)
+
 
 def _upload_chart_icon(chart_type, data):
     if '{0}_chart_upload'.format(chart_type) in data:

@@ -4,7 +4,8 @@ from ckan.tests import helpers as core_helpers
 from ckanext.visualize.default_color_palette import DEFAULT_COLORS
 from ckanext.visualize import helpers as extension_helpers
 
-#core_helpers.FunctionalTestBase
+
+# core_helpers.FunctionalTestBase
 @pytest.mark.usefixtures('clean_db')
 class TestHelpers(object):
     def test_get_color_palette(self):

@@ -6,6 +6,7 @@ from ckan.plugins.toolkit import url_for
 
 @pytest.mark.usefixtures('clean_db')
 class TestVisualizeDataController(object):
+
     def test_visualize_data_endpoint_no_resource_provided(self, app):
         url = url_for(u'/visualize_data')
         response = app.get(url=url)
@@ -13,7 +14,6 @@ class TestVisualizeDataController(object):
         assert 'Please provide the query parameter' in response.body
 
     def test_visualize_data_endpoint_resource_not_found(self, app):
-        action = 'visualize_data'
         url = url_for(u'/visualize_data')
         response = app.get(url + '?resource_id=test')
 
@@ -76,8 +76,7 @@ class TestVisualizeDataController(object):
         assert '<div class="chart-container hidden">' in \
             response.body
 
-# @pytest.mark.ckan_config('ckan.plugins', 'image_view')
-# @pytest.mark.usefixtures('with_plugins')
+
 @pytest.mark.usefixtures('clean_db')
 class TestAdminController(object):
 
@@ -133,8 +132,7 @@ class TestAdminController(object):
             'bar_chart': 'Line-symbol.png',
             'bar_chart_upload': "<FileStorage: 'Line-symbol.png' ('image/png')>"
         }
-        response = app.post(url=url, extra_environ=env, 
-            params=params, follow_redirects=False)
+        response = app.post(url=url, extra_environ=env, params=params, follow_redirects=False)
 
         assert 302 == response.status_code
 
