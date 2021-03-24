@@ -1,6 +1,5 @@
 import pytest
 
-from ckan import plugins as p
 from ckan.tests import helpers, factories
 from ckan.plugins.toolkit import url_for
 

@@ -1,7 +1,6 @@
 import pytest
-from ckan import plugins as p
-from ckan.tests import helpers as core_helpers
 
+from ckan.tests import helpers as core_helpers
 from ckanext.visualize.default_color_palette import DEFAULT_COLORS
 from ckanext.visualize import helpers as extension_helpers
 
