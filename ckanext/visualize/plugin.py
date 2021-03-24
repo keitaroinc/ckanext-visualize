@@ -6,7 +6,6 @@ from ckanext.visualize import helpers
 from ckanext.visualize.views.visualize import visualize
 from ckanext.visualize.views.admin_visualize import admin_visualize
 
-not_empty = plugins.toolkit.get_validator('not_empty')
 ignore_missing = plugins.toolkit.get_validator('ignore_missing')
 ignore_empty = plugins.toolkit.get_validator('ignore_empty')
 
@@ -25,7 +24,6 @@ class VisualizePlugin(plugins.SingletonPlugin):
         toolkit.add_resource('assets', 'visualize')
 
     def update_config_schema(self, schema):
-        not_empty = toolkit.get_validator('not_empty')
         schema.update({
             'visualize_colors': [ignore_missing, str],
             'bar_chart_icon': [ignore_missing, str],
@@ -50,7 +48,7 @@ class VisualizePlugin(plugins.SingletonPlugin):
             'filterable': True,
             'iframed': False,
             'schema': schema
-        } 
+        }
 
     def can_view(self, data_dict):
         return data_dict['resource'].get('datastore_active', False)

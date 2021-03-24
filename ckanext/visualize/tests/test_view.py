@@ -8,9 +8,6 @@ from ckanext.visualize.plugin import VisualizePlugin
 
 ignore_missing = p.toolkit.get_validator('ignore_missing')
 
-
-@pytest.mark.ckan_config('ckan.plugins', 'image_view')
-@pytest.mark.usefixtures('with_plugins')
 @pytest.mark.usefixtures('clean_db')
 class TestVisualizeView(object):
 

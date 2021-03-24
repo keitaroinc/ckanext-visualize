@@ -3,15 +3,9 @@ import pytest
 from ckan import plugins as p
 from ckan.tests import helpers, factories
 
-from ckanext.visualize.views.visualize import visualize_data
-# from ckanext.visualize.tests.helpers import mock_pylons
-#from ckanext.visualize import helpers as h
-
 from ckan.plugins.toolkit import url_for
 
-#@pytest.mark.ckan_config('ckan.plugins', 'image_view')
-#@pytest.mark.usefixtures('with_plugins')
-#@pytest.mark.usefixtures('clean_db')
+@pytest.mark.usefixtures('clean_db')
 class TestVisualizeDataController(object):
 
     def test_visualize_data_endpoint_no_resource_provided(self, app):
@@ -86,7 +80,7 @@ class TestVisualizeDataController(object):
 
 # @pytest.mark.ckan_config('ckan.plugins', 'image_view')
 # @pytest.mark.usefixtures('with_plugins')
-# @pytest.mark.usefixtures('clean_db')
+@pytest.mark.usefixtures('clean_db')
 class TestAdminController(object):
 
     def test_visualize_data_endpoint_admin(self, app):
