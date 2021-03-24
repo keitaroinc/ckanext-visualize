@@ -1,4 +1,3 @@
 natsort==7.1.1
-mock==4.0.3
 pytest-ckan
 Factory==1.2
