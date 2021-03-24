@@ -1,4 +1,5 @@
 import pytest
+import ckan.plugins as p
 from ckan.tests import helpers, factories
 from ckan.plugins import toolkit
 from ckanext.visualize.plugin import VisualizePlugin
