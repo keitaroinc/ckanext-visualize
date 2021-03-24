@@ -1,3 +1,1 @@
 natsort==7.1.1
-pytest-ckan
-Factory==1.2
