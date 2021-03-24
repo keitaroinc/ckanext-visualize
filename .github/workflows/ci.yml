@@ -82,6 +82,7 @@ jobs:
           pip install -U mock
           pip install -U factory_boy
           pip install -U pytest-cov
+          pip install -U natsort
       - name: Setup CKAN
         env:
           PGPASSWORD: postgres
