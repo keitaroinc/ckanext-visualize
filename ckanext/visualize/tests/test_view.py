@@ -1,12 +1,10 @@
 import pytest
-
-import ckan.plugins as p
 from ckan.tests import helpers, factories
 from ckan.plugins import toolkit
-
 from ckanext.visualize.plugin import VisualizePlugin
 
 ignore_missing = p.toolkit.get_validator('ignore_missing')
+
 
 @pytest.mark.usefixtures('clean_db')
 class TestVisualizeView(object):

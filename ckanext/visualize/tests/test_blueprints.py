@@ -2,12 +2,11 @@ import pytest
 
 from ckan import plugins as p
 from ckan.tests import helpers, factories
-
 from ckan.plugins.toolkit import url_for
+
 
 @pytest.mark.usefixtures('clean_db')
 class TestVisualizeDataController(object):
-
     def test_visualize_data_endpoint_no_resource_provided(self, app):
         url = url_for(u'/visualize_data')
         response = app.get(url=url)
