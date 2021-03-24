@@ -133,10 +133,10 @@ The illustration that is used is a modified version based on the open-source ill
 * **Performance**. If a resource contains large data, e.g. more than 10000 rows, the viewer may be slower as it needs more time to prepare the data.
 * **Internet Explorer**. The HTML element `<input type="color">` is not supported in Internet Explorer, therefore the color picker does not work in the administrator configuration page.
 
-  [CI]: https://github.com/keitaroinc/ckanext-visualize/workflows/CI/badge.svg?branch=main
+  [CI]: https://github.com/keitaroinc/ckanext-visualize/workflows/CI/badge.svg?branch=make_ckan_292_compatible
   [1]: https://github.com/keitaroinc/ckanext-visualize/actions
-  [Coverage]: https://coveralls.io/repos/github/keitaroinc/ckanext-visualize/badge.svg?branch=main
-  [2]: https://coveralls.io/github/keitaroinc/ckanext-visualize?branch=main
+  [Coverage]: https://coveralls.io/repos/github/keitaroinc/ckanext-visualize/badge.svg?branch=make_ckan_292_compatible
+  [2]: https://coveralls.io/github/keitaroinc/ckanext-visualize?branch=make_ckan_292_compatible
   [Gitter]: https://badges.gitter.im/keitaroinc/ckan.svg
   [3]: https://gitter.im/keitaroinc/ckan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge
   [Pypi]: https://img.shields.io/pypi/v/ckanext-visualize
