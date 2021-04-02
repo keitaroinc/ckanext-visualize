@@ -354,9 +354,3 @@ input[type='color']::-webkit-color-swatch {
 }
 
 @media (max-width: 1200px) {}
-
-/* Hides the Preview button when creating/editing a view, because the view
-is initially shown, no need to click the Preview button. */
-button[name='preview'] {
-  display: none;
-}

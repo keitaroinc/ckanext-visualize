@@ -8,6 +8,11 @@ visualize_main_style:
   contents: 
     - css/visualize_main.css
 
+hide_preview_button:
+  output: visualize/%(version)s_hide_preview_button.css
+  contents:
+    - css/hide_preview_button.css
+
 visualize-chart-icon-reset:
   output: visualize/%(version)s_visualize-chart-icon-reset.js
   contents: 
