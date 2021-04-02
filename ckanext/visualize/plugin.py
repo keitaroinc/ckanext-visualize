@@ -72,6 +72,9 @@ class VisualizePlugin(plugins.SingletonPlugin):
     def view_template(self, context, data_dict):
         return 'visualize_view.html'
 
+    def form_template(self, context, data_dict):
+        return 'visualize_form.html'
+
     # ITemplateHelpers
 
     def get_helpers(self):
