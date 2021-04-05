@@ -89,4 +89,3 @@ class TestVisualizeView(object):
     def test_update_config_schema(self):
         self.plugin = VisualizePlugin()
         assert 'visualize_colors' in self.plugin.update_config_schema({})
-

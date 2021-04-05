@@ -152,4 +152,3 @@ class TestAdminController(object):
         response = app.post(url=url_with_params, extra_environ=env, follow_redirects=False)
 
         assert 302 == response.status_code
-

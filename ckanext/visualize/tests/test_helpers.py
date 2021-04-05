@@ -30,4 +30,3 @@ class TestHelpers(object):
     def test_get_icon_for_data_type_no_type(self):
         assert extension_helpers.get_icon_for_data_type(
             'non_existing_type') == ''
-
