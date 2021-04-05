@@ -86,4 +86,3 @@ def get_icon_for_data_type(data_type):
         return ICONS_DATA_TYPES.get(data_type)
 
     return ''
-

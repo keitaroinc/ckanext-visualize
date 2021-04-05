@@ -95,4 +95,3 @@ class VisualizePlugin(plugins.SingletonPlugin):
 
     def get_blueprint(self):
         return [visualize, admin_visualize]
-
