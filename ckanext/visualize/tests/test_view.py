@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+"""
+
 import pytest
 import ckan.plugins as p
 from ckan.tests import helpers, factories
@@ -81,3 +89,4 @@ class TestVisualizeView(object):
     def test_update_config_schema(self):
         self.plugin = VisualizePlugin()
         assert 'visualize_colors' in self.plugin.update_config_schema({})
+

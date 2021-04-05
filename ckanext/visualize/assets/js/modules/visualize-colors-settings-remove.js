@@ -1,3 +1,11 @@
+/*
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+*/
+
 /* This CKAN module handles removing a color from the admin settings. */
 
 ckan.module('visualize-colors-settings-remove', function ($) {
@@ -32,3 +40,4 @@ ckan.module('visualize-colors-settings-remove', function ($) {
     }
   };
 });
+

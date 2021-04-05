@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+"""
+
 import json
 
 from ckan.plugins import toolkit
@@ -78,3 +86,4 @@ def get_icon_for_data_type(data_type):
         return ICONS_DATA_TYPES.get(data_type)
 
     return ''
+

@@ -1,3 +1,11 @@
+/*
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+*/
+
 /* This CKAN module handles the creation of the Data Viewer. Data is rendered
 on a chart based on the resource that has been provided. The resource must be
 uploaded to DataStore. */
@@ -730,3 +738,4 @@ ckan.module('visualize-data', function($) {
     }
   };
 });
+

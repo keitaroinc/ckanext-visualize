@@ -1,6 +1,15 @@
+<!--
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+-->
+
 {% ckan_extends %}
 
 {% block content_primary_nav %}
   {{ super() }}
   {{ h.build_nav_icon('admin_visualize.visualize_data', _('Visualize'), icon='bar-chart-o') }}
 {% endblock %}
+

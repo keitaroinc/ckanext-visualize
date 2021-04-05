@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+"""
+
 import pytest
 
 from ckan.tests import helpers as core_helpers
@@ -22,3 +30,4 @@ class TestHelpers(object):
     def test_get_icon_for_data_type_no_type(self):
         assert extension_helpers.get_icon_for_data_type(
             'non_existing_type') == ''
+

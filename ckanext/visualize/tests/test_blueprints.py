@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2019 Keitaro AB
+
+Use of this source code is governed by an MIT license
+that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT.
+"""
+
 import pytest
 
 from ckan.tests import helpers, factories
@@ -144,3 +152,4 @@ class TestAdminController(object):
         response = app.post(url=url_with_params, extra_environ=env, follow_redirects=False)
 
         assert 302 == response.status_code
+
