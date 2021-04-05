@@ -1,6 +1,6 @@
 ckanext-visualize 
 Copyright (c) 2019 Keitaro AB
 ****************************************************************
-Third party dependencies included as source files are included 
+Third party dependencies included as source files can be found 
 in the ckanext-visualize/ckanext/visualize/assets/js/vendor 
 directory, along with their copyright headers
