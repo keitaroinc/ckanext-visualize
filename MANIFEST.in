@@ -1,4 +1,4 @@
-include README.rst
+include README.md
 include LICENSE
 include requirements.txt
 recursive-include ckanext/visualize *.html *.json *.js *.less *.css *.mo *.yml *.png
