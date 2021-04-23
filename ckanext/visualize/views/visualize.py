@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 """
 Copyright (c) 2019 Keitaro AB
 
@@ -6,7 +8,6 @@ that can be found in the LICENSE file or at
 https://opensource.org/licenses/MIT.
 """
 
-# encoding: utf-8
 import logging
 
 from flask import Blueprint
