@@ -24,6 +24,7 @@ ckan.module('visualize-data', function($) {
     var currentxAxis = '';
     var currentyAxis = '';
     var currentColorAttr = '';
+    var currentAggregationType = 'count';
     var chart;
     var chartData = {
       labels: [],
@@ -47,6 +48,7 @@ ckan.module('visualize-data', function($) {
     var xAxisHiddenInput = $('input[name="visualize_x_axis"]');
     var yAxisHiddenInput = $('input[name="visualize_y_axis"]');
     var colorAttrHiddenInput = $('input[name="visualize_color_attr"]');
+    var aggregationTypeHiddenInput = $('input[name="visualize_aggregation_type"]');
     var lastxAxisEvent;
     var lastyAxisEvent;
     var lastColorAttrEvent;
@@ -190,9 +192,44 @@ ckan.module('visualize-data', function($) {
     } else return true;
   }
 
+  function buildAggregatedData(xValues, yValues) {
+    var uniqueLabels = getUniqueValues(xValues);
+    var dict = uniqueLabels.map(function(label) {
+      return { key: label, value: 0 };
+    });
+
+    if (currentAggregationType === 'count_unique') {
+      var valueSets = {};
+      uniqueLabels.forEach(function(label) { valueSets[label] = {}; });
+      for (var i = 0; i < xValues.length; i++) {
+        if (valueSets.hasOwnProperty(xValues[i])) {
+          valueSets[xValues[i]][yValues[i]] = true;
+        }
+      }
+      dict.forEach(function(d) {
+        d.value = Object.keys(valueSets[d.key]).length;
+      });
+    } else {
+      for (var i = 0; i < xValues.length; i++) {
+        for (var k = 0; k < dict.length; k++) {
+          if (dict[k].key === xValues[i]) {
+            if (currentAggregationType === 'sum') {
+              dict[k].value += parseFloat(yValues[i]) || 0;
+            } else {
+              dict[k].value += 1;
+            }
+            break;
+          }
+        }
+      }
+    }
+    return dict;
+  }
+
   return {
     initialize: function() {
       var resourceView = this.options.resourceView;
+      currentAggregationType = resourceView.visualize_aggregation_type || 'count';
       var resource = {
         id: this.options.resourceId,
         endpoint: this.sandbox.client.endpoint + '/api'
@@ -409,24 +446,9 @@ ckan.module('visualize-data', function($) {
               });
 
               if (currentyAxis) {
-                // Extract the unique values from the x-axis column
-                var uniqueLabels = getUniqueValues(columns[currentxAxis]);
-                var dict = [];
-                for(var label in uniqueLabels) {
-                  dict.push({
-                    key: uniqueLabels[label],
-                    value: 0
-                  })
-                }
-                for (var i = 0; i < columns[currentxAxis].length; i++) {
-                  for(var k in dict) {
-                    if (dict[k].key === columns[currentxAxis][i]) {                       
-                      dict[k].value = columns[currentyAxis][i];
-                    }
-                  }   
-                }
+                var dict = buildAggregatedData(columns[currentxAxis], columns[currentyAxis]);
                 for(var k in dict) {
-                  chartData.datasets[0].data.push(dict[k].value)
+                  chartData.datasets[0].data.push(dict[k].value);
                 }
               }
 
@@ -485,24 +507,9 @@ ckan.module('visualize-data', function($) {
               }
             } else {
               if (currentxAxis) {
-                // Extract the unique values from the x-axis column
-                var uniqueLabels = getUniqueValues(columns[currentxAxis]);
-                var dict = [];
-                for(var label in uniqueLabels) {
-                  dict.push({
-                    key: uniqueLabels[label],
-                    value: 0
-                  })
-                }
-                for (var i = 0; i < columns[currentxAxis].length; i++) {
-                  for(var k in dict) {
-                    if (dict[k].key === columns[currentxAxis][i]) {
-                      dict[k].value = columns[currentyAxis][i];
-                    }
-                  }
-                }
+                var dict = buildAggregatedData(columns[currentxAxis], columns[currentyAxis]);
                 for(var k in dict) {
-                  chartData.datasets[0].data.push(dict[k].value)
+                  chartData.datasets[0].data.push(dict[k].value);
                 }
               }
               if (currentxAxis && lastColorAttrEvent) {
@@ -705,12 +712,32 @@ ckan.module('visualize-data', function($) {
         }
       }
 
+      $('.aggregation-option').on('click', function() {
+        var newType = $(this).data('aggregation');
+        if (newType === currentAggregationType) return;
+        currentAggregationType = newType;
+        aggregationTypeHiddenInput.val(newType);
+
+        $('.aggregation-option').removeClass('active');
+        $(this).addClass('active');
+
+        if (currentxAxis && currentyAxis && currentChartType !== CHART_TYPES.POINT) {
+          chartData.labels = [];
+          chartData.datasets = [{ label: '', data: [], fill: false }];
+          onColumnAdd(lastxAxisEvent);
+        }
+      });
+
       this.drawChartFromPredefinedView(onColumnAdd);
     },
     drawChartFromPredefinedView: function(onColumnAdd) {
       var xAxisColumn = this.options.resourceView.visualize_x_axis;
       var yAxisColumn = this.options.resourceView.visualize_y_axis;
       var colorAttr = this.options.resourceView.visualize_color_attr;
+      var savedAggType = this.options.resourceView.visualize_aggregation_type || 'count';
+      aggregationTypeHiddenInput.val(savedAggType);
+      $('.aggregation-option').removeClass('active');
+      $('.aggregation-option[data-aggregation="' + savedAggType + '"]').addClass('active');
 
       if (xAxisColumn) {
         var item = $('div[data-column="' + xAxisColumn + '"]');

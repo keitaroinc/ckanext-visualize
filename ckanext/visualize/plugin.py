@@ -47,7 +47,8 @@ class VisualizePlugin(plugins.SingletonPlugin):
         schema = {
             'visualize_x_axis': [ignore_missing],
             'visualize_y_axis': [ignore_missing],
-            'visualize_color_attr': [ignore_missing]
+            'visualize_color_attr': [ignore_missing],
+            'visualize_aggregation_type': [ignore_missing]
         }
         return {
             'name': 'visualize',

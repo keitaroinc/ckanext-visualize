@@ -100,8 +100,14 @@ https://opensource.org/licenses/MIT.
         <div class="col-md-3 pr-0">
           <div id="aggregation" class="axis-list aggregation-list">
             <small class="axis-title">{{ _('Aggregation Type') }}</small>
-            <span class="badge badge-pill">
-              <i class="fa fa-filter fa-fw" aria-hidden="true"></i><span>Count</span>
+            <span class="badge badge-pill aggregation-option {% if not resource_view.visualize_aggregation_type or resource_view.visualize_aggregation_type == 'count' %}active{% endif %}" data-aggregation="count">
+              <i class="fa fa-filter fa-fw" aria-hidden="true"></i><span>{{ _('Count') }}</span>
+            </span>
+            <span class="badge badge-pill aggregation-option {% if resource_view.visualize_aggregation_type == 'sum' %}active{% endif %}" data-aggregation="sum">
+              <i class="fa fa-plus fa-fw" aria-hidden="true"></i><span>{{ _('Sum') }}</span>
+            </span>
+            <span class="badge badge-pill aggregation-option {% if resource_view.visualize_aggregation_type == 'count_unique' %}active{% endif %}" data-aggregation="count_unique">
+              <i class="fa fa-list fa-fw" aria-hidden="true"></i><span>{{ _('Count Unique') }}</span>
             </span>
           </div>
         </div>

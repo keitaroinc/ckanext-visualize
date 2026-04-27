@@ -128,8 +128,22 @@ _:-ms-fullscreen,
 }
 
 .aggregation-list .badge-pill {
-  margin: 1rem;
+  margin: 0.4rem;
   background-color: #757575;
+}
+
+.aggregation-option {
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+}
+
+.aggregation-option.active {
+  opacity: 1;
+}
+
+.aggregation-option:hover {
+  opacity: 0.75;
 }
 
 .aggregation-list,
