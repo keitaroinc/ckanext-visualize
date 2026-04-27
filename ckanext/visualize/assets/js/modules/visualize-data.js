@@ -622,7 +622,13 @@ ckan.module('visualize-data', function($) {
                 chartData.datasets = [];
                 var uniqueLabels = getUniqueValues(columns[currentxAxis]);
                 chartData.labels = uniqueLabels;
-                var currentIndex = 0;
+
+                // Build lookup: colorValue → { xValue → yValue }
+                var dataByColor = {};
+                unique.forEach(function(colorVal) { dataByColor[colorVal] = {}; });
+                for (var i = 0; i < columns[column].length; i++) {
+                  dataByColor[columns[column][i]][columns[currentxAxis][i]] = columns[currentyAxis][i];
+                }
 
                 for (var key in columnColorsMapping) {
                   var dataset = {
@@ -632,11 +638,9 @@ ckan.module('visualize-data', function($) {
                     borderColor: columnColorsMapping[key],
                     fill: false
                   };
-                  for (var i = 0; i < uniqueLabels.length; i++) {
-                    dataset.data.push(columns[currentyAxis][currentIndex]);
-                    currentIndex++;
-                  }
-                  uniqueLabels.forEach(function(label) {});
+                  uniqueLabels.forEach(function(label) {
+                    dataset.data.push(dataByColor[key].hasOwnProperty(label) ? dataByColor[key][label] : null);
+                  });
                   chartData.datasets.push(dataset);
                 }
               }
