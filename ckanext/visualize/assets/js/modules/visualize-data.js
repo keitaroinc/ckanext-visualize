@@ -531,23 +531,14 @@ ckan.module('visualize-data', function($) {
               if (currentChartType === CHART_TYPES.BAR) {
                 chartData.datasets = [];
 
-                // Extract the unique values from the selected column
-                var uniqueLabels = getUniqueValues(columns[column]);
-
-                var valuesMapping = {};
-                uniqueLabels.forEach(function(label, i) {
-                  valuesMapping[label] = [];
-                });
+                var uniqueColorVals = getUniqueValues(columns[column]);
+                var uniqueXLabels = getUniqueValues(columns[currentxAxis]);
+                chartData.labels = uniqueXLabels;
 
                 var currentIndex = 0;
-
-                columns[column].forEach(function(value, i) {
-                  valuesMapping[value].push(1);
-                });
-
                 var colorsIndex = 0;
 
-                uniqueLabels.forEach(function(label, i) {
+                uniqueColorVals.forEach(function(colorVal, i) {
                   var currentColor = colorPalette[i];
 
                   if (!currentColor) {
@@ -559,10 +550,39 @@ ckan.module('visualize-data', function($) {
                       colorsIndex++;
                     }
                   }
+
+                  // Build aggregated value per X-axis group for this color value
+                  var xAggMap = {};
+                  var xUniqueSets = {};
+                  uniqueXLabels.forEach(function(xVal) {
+                    xAggMap[xVal] = 0;
+                    if (currentAggregationType === 'count_unique') xUniqueSets[xVal] = {};
+                  });
+
+                  for (var rowIdx = 0; rowIdx < columns[column].length; rowIdx++) {
+                    if (columns[column][rowIdx] === colorVal) {
+                      var xVal = columns[currentxAxis][rowIdx];
+                      var yVal = columns[currentyAxis][rowIdx];
+                      if (currentAggregationType === 'sum') {
+                        xAggMap[xVal] += parseFloat(yVal) || 0;
+                      } else if (currentAggregationType === 'count_unique') {
+                        xUniqueSets[xVal][yVal] = true;
+                      } else {
+                        xAggMap[xVal] += 1;
+                      }
+                    }
+                  }
+
+                  if (currentAggregationType === 'count_unique') {
+                    uniqueXLabels.forEach(function(xVal) {
+                      xAggMap[xVal] = Object.keys(xUniqueSets[xVal]).length;
+                    });
+                  }
+
                   chartData.datasets.push({
-                    label: label,
+                    label: colorVal,
                     backgroundColor: currentColor,
-                    data: valuesMapping[label]
+                    data: uniqueXLabels.map(function(xVal) { return xAggMap[xVal]; })
                   });
                 });
               } else if (currentChartType === CHART_TYPES.POINT) {
