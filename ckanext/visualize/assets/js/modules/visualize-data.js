@@ -178,7 +178,7 @@ ckan.module('visualize-data', function($) {
   function isSupportedGraphType(xAxisType, yAxisType) {
     if (
       // Unsupported graph types
-      (xAxisType === "text" && yAxisType === "text") ||
+      (xAxisType === "text" && yAxisType === "text" && currentAggregationType === "sum") ||
       (xAxisType === ("timestamp" || "date") &&
         yAxisType === ("timestamp" || "date")) ||
       (xAxisType === "text" &&
