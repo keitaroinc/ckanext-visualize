@@ -155,9 +155,22 @@ this.recline.Backend.Ckan = this.recline.Backend.Ckan || {};
 
     that.search = function(data) {
       var searchUrl = that.endpoint + '/3/action/datastore_search';
+      // CKAN >= 2.10 enforces CSRF protection on cookie-authenticated (i.e.
+      // browser logged-in) POST requests. Attach the token the same way CKAN's
+      // own client.js does, reading it from the meta tags base.html renders on
+      // every page. Harmless for anonymous users.
+      var headers = {};
+      var csrfField = jQuery('meta[name=csrf_field_name]').attr('content');
+      if (csrfField) {
+        var csrfToken = jQuery('meta[name=' + csrfField + ']').attr('content');
+        if (csrfToken) {
+          headers['X-CSRFToken'] = csrfToken;
+        }
+      }
       var jqxhr = jQuery.ajax({
         url: searchUrl,
         type: 'POST',
+        headers: headers,
         data: encodeURIComponent(JSON.stringify(data))
       });
       return jqxhr;
