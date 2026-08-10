@@ -8,13 +8,10 @@ https://opensource.org/licenses/MIT.
 
 {% ckan_extends %}
 
-{% block scripts %}
-  {{ super() }}
-  {% asset 'visualize/chart-bundle' %}
-  {% asset 'visualize/sortable' %}
-  {% asset 'visualize/backend-ckan' %}
-  {% asset 'visualize/visualize-data' %}
-{% endblock %}
+{# The scripts behind the visualize view are loaded by
+   snippets/visualize_view_show.html, the only template that uses them. Loading
+   them here put Chart.js 2.9.2 on every page of the site and took over the
+   `window.Chart` global from any other extension shipping a newer build. #}
 
 {% block styles %}
   {{ super() }}

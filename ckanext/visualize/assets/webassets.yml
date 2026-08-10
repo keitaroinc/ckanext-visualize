@@ -37,6 +37,9 @@ visualize-data:
   output: visualize/%(version)s_visualize-data.js
   contents: 
     - js/modules/visualize-data.js
+  extra:
+    preload:
+      - base/main
 
 visualize-colors-settings-add:
   output: visualize/%(version)s_visualize-colors-settings-add.js
@@ -47,15 +50,24 @@ backend-ckan:
   output: visualize/%(version)s_backend.ckan.js
   contents: 
     - js/vendor/backend.ckan.js
+  extra:
+    preload:
+      - base/main
 
 chart-bundle:
   output: visualize/%(version)s_chart.bundle.js
   contents: 
     - js/vendor/chart.bundle.js
+  extra:
+    preload:
+      - base/main
 
 sortable:
   output: visualize/%(version)s_sortable.js
   contents: 
     - js/vendor/sortable.js
+  extra:
+    preload:
+      - base/main
 
 
