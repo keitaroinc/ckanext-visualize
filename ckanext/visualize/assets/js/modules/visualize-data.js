@@ -643,11 +643,40 @@ ckan.module('visualize-data', function($) {
                 var uniqueLabels = getUniqueValues(columns[currentxAxis]);
                 chartData.labels = uniqueLabels;
 
-                // Build lookup: colorValue → { xValue → yValue }
+                // Build aggregated value per X-axis group for each color value
                 var dataByColor = {};
-                unique.forEach(function(colorVal) { dataByColor[colorVal] = {}; });
+                var uniqueSetsByColor = {};
+                unique.forEach(function(colorVal) {
+                  dataByColor[colorVal] = {};
+                  uniqueSetsByColor[colorVal] = {};
+                });
+
                 for (var i = 0; i < columns[column].length; i++) {
-                  dataByColor[columns[column][i]][columns[currentxAxis][i]] = columns[currentyAxis][i];
+                  var colorVal = columns[column][i];
+                  var xVal = columns[currentxAxis][i];
+                  var yVal = columns[currentyAxis][i];
+
+                  if (currentAggregationType === 'count_unique') {
+                    if (!uniqueSetsByColor[colorVal][xVal]) {
+                      uniqueSetsByColor[colorVal][xVal] = {};
+                    }
+                    uniqueSetsByColor[colorVal][xVal][yVal] = true;
+                  } else if (currentAggregationType === 'sum') {
+                    dataByColor[colorVal][xVal] =
+                      (dataByColor[colorVal][xVal] || 0) + (parseFloat(yVal) || 0);
+                  } else {
+                    dataByColor[colorVal][xVal] =
+                      (dataByColor[colorVal][xVal] || 0) + 1;
+                  }
+                }
+
+                if (currentAggregationType === 'count_unique') {
+                  unique.forEach(function(colorVal) {
+                    for (var xKey in uniqueSetsByColor[colorVal]) {
+                      dataByColor[colorVal][xKey] =
+                        Object.keys(uniqueSetsByColor[colorVal][xKey]).length;
+                    }
+                  });
                 }
 
                 for (var key in columnColorsMapping) {
