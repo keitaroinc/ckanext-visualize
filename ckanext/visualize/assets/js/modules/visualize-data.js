@@ -77,6 +77,23 @@ ckan.module('visualize-data', function($) {
     return /MSIE|Trident/.test(ua);
   }
 
+  /* Aggregated values are summed as floats, so a plain sum can end up as
+  4331.002901653001. Round the value shown on the chart to at most 2 decimals,
+  dropping trailing zeros. Non-numeric values (text/date labels) pass through. */
+  function formatChartValue(value) {
+    if (value === null || value === undefined || value === '') {
+      return value;
+    }
+
+    var num = typeof value === 'number' ? value : parseFloat(value);
+
+    if (isNaN(num) || !isFinite(num)) {
+      return value;
+    }
+
+    return String(parseFloat(num.toFixed(2)));
+  }
+
   function initChart(xAxisType) {
     var chartOptions = {
       scales: {
@@ -98,6 +115,35 @@ ckan.module('visualize-data', function($) {
       legend: {
         position: 'bottom',
         display: true
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            // Scatter charts show the point as (x, y):
+            if (currentChartType === CHART_TYPES.POINT) {
+              return (
+                '(' +
+                formatChartValue(tooltipItem.xLabel) +
+                ', ' +
+                formatChartValue(tooltipItem.yLabel) +
+                ')'
+              );
+            }
+
+            var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+            if (label) {
+              label += ': ';
+            }
+
+            var value =
+              tooltipItem.value === null || tooltipItem.value === undefined
+                ? tooltipItem.yLabel
+                : tooltipItem.value;
+
+            return label + formatChartValue(value);
+          }
+        }
       }
     };
 
